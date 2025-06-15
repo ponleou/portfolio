@@ -30,7 +30,7 @@ export default function GoldenHorizontal({
         return () => observer.disconnect();
     }, []);
     return (
-        <div ref={parent} className={`${className} relative`}>
+        <div ref={parent} className={`${className}`}>
             <div ref={topElement} className="absolute left-0 right-0">
                 {top}
             </div>
