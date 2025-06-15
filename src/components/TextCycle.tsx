@@ -23,6 +23,10 @@ export default function TextCycle({
 
         (async () => {
             while (true) {
+                if (currentText === "") {
+                    await delay(changeTime);
+                }
+
                 const [isFinished, returnText] = callback(currentText, textArray[index]);
                 finished = isFinished;
                 currentText = returnText;
