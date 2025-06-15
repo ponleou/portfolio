@@ -1,4 +1,4 @@
-export default function Typewriter(current: string, text: string): [boolean, string] {
+export default function typewriter(current: string, text: string): [boolean, string] {
     if (current === text) {
         return [true, current];
     }
