@@ -1,2 +1,64 @@
-@import url('https://fonts.googleapis.com/css2?family=Fira+Code&display=swap');
-@import url(output.css);
+@import url("https://fonts.googleapis.com/css2?family=Fira+Code&display=swap");
+@import "tailwindcss";
+
+@theme {
+    --font-mono: "Fira Code", "monospace";
+
+    --color-bg: #000;
+    --color-primary: #fffee2;
+    --color-accent: #ff3e01;
+
+    --text-sm: 0.75rem;
+    --text-base: 1.2rem;
+    --text-h4: 2rem;
+    --text-h3: 3.2rem;
+    --text-h2: 5.2rem;
+    --text-h1: 13.6rem;
+
+    --animate-scale-pulse-1: scale-pulse 1s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    --animate-scale-pulse-2: scale-pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    --animate-scale-pulse-3: scale-pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    --animate-scale-pulse-4: scale-pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    --animate-scale-pulse-5: scale-pulse 5s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+
+    @keyframes scale-pulse {
+        0% {
+            transform: scale(0.9);
+        }
+        50% {
+            transform: scale(1.1);
+        }
+        100% {
+            transform: scale(0.9);
+        }
+    }
+}
+
+html {
+    @apply font-mono;
+    font-size: 62.5%;
+}
+
+@media screen and (max-width: 1200px) {
+    html {
+        font-size: 53.2%;
+    }
+}
+
+@media screen and (max-width: 1024px) {
+    html {
+        font-size: 45.6%;
+    }
+}
+
+@media screen and (max-width: 1024px) {
+    html {
+        font-size: 28.1%;
+    }
+}
+
+@media screen and (max-width: 550px) {
+    html {
+        font-size: 17.5%;
+    }
+}
