@@ -8,9 +8,9 @@ export default function Home() {
     return (
         <div className="h-[5000px] bg-bg relative">
             <CursorFollower
-                ratePerFrame={0.1}
+                ratePerFrame={0.02}
                 warpDegree={60}
-                distanceFadeRatio={2}
+                distanceFadeRatio={4}
                 filter={
                     <div
                         className="
@@ -19,7 +19,7 @@ export default function Home() {
                     ></div>
                 }
             >
-                <div className="opacity-60 flex justify-center items-center">
+                <div className="opacity-60 flex justify-center items-center animate-scale-pulse-3">
                     <div className="h-20 w-20 blur-2xl bg-primary "></div>
                 </div>
             </CursorFollower>
