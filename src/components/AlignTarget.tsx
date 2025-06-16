@@ -1,10 +1,27 @@
-import { useEffect, useRef, useState, type ReactNode } from "react";
+import { useEffect, useRef, type ReactNode } from "react";
 
-export default function VerticalAlignTarget({ element, children }: { element: HTMLDivElement; children: ReactNode }) {
+export default function AlignTarget({
+    toggleAlign = { x: true, y: true },
+    element,
+    children,
+}: {
+    toggleAlign?: { x: boolean; y: boolean };
+    element: HTMLDivElement;
+    children: ReactNode;
+}) {
     const parent = useRef<HTMLDivElement>(null);
 
-    function align() {
+    function alignX() {
         parent.current!.style.left = `${element.getBoundingClientRect().left}px`;
+    }
+
+    function alignY() {
+        parent.current!.style.top = `${element.getBoundingClientRect().top}px`;
+    }
+
+    function align() {
+        if (toggleAlign.x) alignX();
+        if (toggleAlign.y) alignY();
     }
 
     useEffect(() => {
