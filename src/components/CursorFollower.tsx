@@ -76,7 +76,7 @@ export default function CursorFollower({
             const smallestSide = shape.height >= shape.width ? shape.width : shape.height;
 
             moveElement(parent.current!, targetCoords);
-            warpElement(parent.current!, targetCoords, warpDegree, smallestSide);
+            warpElement(parent.current!, targetCoords, warpDegree, smallestSide * distanceFadeRatio);
             distanceFade(targetCoords, smallestSide * distanceFadeRatio);
 
             frame = requestAnimationFrame(animate);

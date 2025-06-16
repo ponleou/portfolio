@@ -14,6 +14,24 @@
     --text-h3: 3.2rem;
     --text-h2: 5.2rem;
     --text-h1: 13.6rem;
+
+    --animate-scale-pulse-1: scale-pulse 1s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    --animate-scale-pulse-2: scale-pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    --animate-scale-pulse-3: scale-pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    --animate-scale-pulse-4: scale-pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    --animate-scale-pulse-5: scale-pulse 5s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+
+    @keyframes scale-pulse {
+        0% {
+            transform: scale(0.9);
+        }
+        50% {
+            transform: scale(1.1);
+        }
+        100% {
+            transform: scale(0.9);
+        }
+    }
 }
 
 html {
