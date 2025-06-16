@@ -35,10 +35,10 @@ export default function Home() {
                     <div className="h-20 w-20 blur-2xl bg-primary "></div>
                 </div>
             </CursorFollower>
-            <div className="absolute top-[17dvh]">
+            <div className="absolute top-[17dvh] opacity-60">
                 {renderAfterMainTitle && (
                     <VerticalAlignTarget element={mainTitle.current!}>
-                        <div className="text-primary -translate-y-1/2">
+                        <div className="text-primary -translate-y-1/2 text-nowrap">
                             <p># A computer science student's portfolio</p>
                             <p># A developer for the open-source community</p>
                             <p># An individual based in Melbourne, Australia</p>
@@ -47,7 +47,7 @@ export default function Home() {
                 )}
             </div>
             <GoldenHorizontal
-                className="top-0 h-dvh w-dvw absolute"
+                className="top-0 h-dvh left-0 right-0 absolute"
                 top={
                     <div className="flex justify-center">
                         <h1 ref={mainTitle} className="text-primary text-h1 font-extrabold leading-[0.85]">
@@ -87,9 +87,9 @@ export default function Home() {
                     </div>
                 }
             />
-            <div className="top-[100dvh] w-[100dvw] relative">
+            <div className="top-[100dvh]  w-full relative">
                 <NavBar
-                    className="flex justify-between absolute p-12 bottom-0 left-0 right-0 z-1"
+                    className="flex justify-between absolute bottom-0 left-0 right-0 z-1 p-12"
                     navClassName="gap-4 hover:gap-0 transition-all ease-out duration-500  relative 
                     before:transition-all before:ease-out before:duration-500  before:bg-primary before:absolute before:inset-0 before:left-full hover:before:left-1/2 before:-z-1"
                 ></NavBar>
