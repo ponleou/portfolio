@@ -5,7 +5,7 @@ import TextCursor from "./components/TextCursor";
 import CursorFollower from "./components/CursorFollower";
 import NavBar from "./components/NavBar";
 import { useEffect, useRef, useState } from "react";
-import VerticalAlignTarget from "./components/VerticalAlignTarget";
+import AlignTarget from "./components/AlignTarget";
 
 export default function Home() {
     const mainTitle = useRef<HTMLDivElement>(null);
@@ -35,17 +35,25 @@ export default function Home() {
                     <div className="h-20 w-20 blur-2xl bg-primary "></div>
                 </div>
             </CursorFollower>
-            <div className="absolute top-[17dvh] opacity-60">
-                {renderAfterMainTitle && (
-                    <VerticalAlignTarget element={mainTitle.current!}>
-                        <div className="text-primary -translate-y-1/2 text-nowrap">
-                            <p># A computer science student's portfolio</p>
-                            <p># A developer for the open-source community</p>
-                            <p># An individual based in Melbourne, Australia</p>
-                        </div>
-                    </VerticalAlignTarget>
-                )}
+
+            {/* background stuff elements */}
+            <div className="opacity-60">
+                <div className="absolute pl-32 pt-12 text-nowrap text-primary">
+                    <p>#!/bin/bash</p>
+                </div>
+                <div className="absolute top-[17dvh]">
+                    {renderAfterMainTitle && (
+                        <AlignTarget element={mainTitle.current!} toggleAlign={{ x: true, y: false }}>
+                            <div className="text-primary -translate-y-1/2 text-nowrap">
+                                <p># A computer science student's portfolio</p>
+                                <p># A developer for the open-source community</p>
+                                <p># An individual based in Melbourne, Australia</p>
+                            </div>
+                        </AlignTarget>
+                    )}
+                </div>
             </div>
+
             <GoldenHorizontal
                 className="top-0 h-dvh left-0 right-0 absolute"
                 top={
@@ -87,7 +95,7 @@ export default function Home() {
                     </div>
                 }
             />
-            <div className="top-[100dvh]  w-full relative">
+            <div className="top-[100dvh] w-full relative">
                 <NavBar
                     className="flex justify-between absolute bottom-0 left-0 right-0 z-1 p-12"
                     navClassName="gap-4 hover:gap-0 transition-all ease-out duration-500  relative 
