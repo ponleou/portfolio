@@ -3,14 +3,26 @@ import TextCycle from "./components/TextCycle";
 import typewriter from "./functions/typewriter";
 import TextCursor from "./components/TextCursor";
 import CursorFollower from "./components/CursorFollower";
+import NavBar from "./components/NavBar";
+import { useEffect, useRef, useState } from "react";
+import VerticalAlignTarget from "./components/VerticalAlignTarget";
 
 export default function Home() {
+    const mainTitle = useRef<HTMLDivElement>(null);
+    const [renderAfterMainTitle, setRenderAfterMainTitle] = useState<boolean>(false);
+
+    useEffect(() => {
+        if (mainTitle.current) {
+            setRenderAfterMainTitle(true);
+        }
+    }, []);
+
     return (
-        <div className="h-[5000px] bg-bg relative">
+        <div className="h-[150dvh] bg-bg relative">
             <CursorFollower
                 ratePerFrame={0.02}
                 warpDegree={60}
-                distanceFadeRatio={4}
+                distanceFadeRatio={5}
                 filter={
                     <div
                         className="
@@ -19,13 +31,30 @@ export default function Home() {
                     ></div>
                 }
             >
-                <div className="opacity-60 flex justify-center items-center animate-scale-pulse-3">
+                <div className="opacity-80 flex justify-center items-center animate-scale-pulse-3">
                     <div className="h-20 w-20 blur-2xl bg-primary "></div>
                 </div>
             </CursorFollower>
+            <div className="absolute top-[17dvh]">
+                {renderAfterMainTitle && (
+                    <VerticalAlignTarget element={mainTitle.current!}>
+                        <div className="text-primary -translate-y-1/2">
+                            <p># A computer science student's portfolio</p>
+                            <p># A developer for the open-source community</p>
+                            <p># An individual based in Melbourne, Australia</p>
+                        </div>
+                    </VerticalAlignTarget>
+                )}
+            </div>
             <GoldenHorizontal
                 className="top-0 h-dvh w-dvw absolute"
-                top={<h1 className="text-primary text-h1 font-extrabold leading-[0.85] text-center">Keo Ponleou</h1>}
+                top={
+                    <div className="flex justify-center">
+                        <h1 ref={mainTitle} className="text-primary text-h1 font-extrabold leading-[0.85]">
+                            Keo Ponleou
+                        </h1>
+                    </div>
+                }
                 bottom={
                     <div className="text-primary flex items-center flex-col gap-1">
                         <p className="text-h3 font-semibold ">SOFTWARE DEVELOPER</p>
@@ -58,6 +87,13 @@ export default function Home() {
                     </div>
                 }
             />
+            <div className="top-[100dvh] w-[100dvw] relative">
+                <NavBar
+                    className="flex justify-between absolute p-12 bottom-0 left-0 right-0 z-1"
+                    navClassName="gap-4 hover:gap-0 transition-all ease-out duration-500  relative 
+                    before:transition-all before:ease-out before:duration-500  before:bg-primary before:absolute before:inset-0 before:left-full hover:before:left-1/2 before:-z-1"
+                ></NavBar>
+            </div>
         </div>
     );
 }
