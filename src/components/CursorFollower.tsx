@@ -7,11 +7,13 @@ export default function CursorFollower({
     warpDegree,
     distanceFadeRatio,
     children,
+    filter,
 }: {
     ratePerFrame?: number;
     warpDegree: number;
     distanceFadeRatio: number;
     children: ReactNode;
+    filter?: ReactNode;
 }) {
     const [visible, setVisisble] = useState<boolean>(false);
     const parent = useRef<HTMLDivElement>(null);
@@ -19,8 +21,8 @@ export default function CursorFollower({
     const mousePos = useRef<Coordinate>({ x: 0, y: 0 });
 
     function updateMousePos(event: MouseEvent) {
-        mousePos.current.x = event.clientX;
-        mousePos.current.y = event.clientY;
+        mousePos.current.x = event.pageX;
+        mousePos.current.y = event.pageY;
     }
 
     const currentPos = useRef<Coordinate>({ x: 0, y: 0 });
@@ -100,13 +102,16 @@ export default function CursorFollower({
     }, []);
 
     return (
-        <div
-            ref={parent}
-            className={`fixed ${
-                !visible ? "opacity-0" : "opacity-100"
-            } transition-all ease-out duration-500 perspective-near`}
-        >
-            {children}
+        <div className="absolute inset-0">
+            <div
+                ref={parent}
+                className={`absolute ${
+                    !visible ? "opacity-0" : "opacity-100"
+                } transition-all ease-out duration-500 perspective-near`}
+            >
+                {children}
+            </div>
+            {filter && filter}
         </div>
     );
 }
