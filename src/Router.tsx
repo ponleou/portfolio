@@ -4,7 +4,7 @@ import Home from "./Home";
 
 function Router() {
     return (
-        <BrowserRouter>
+        <BrowserRouter basename="/portfolio">
             <Routes>
                 <Route path="/" element={<Home />} />
             </Routes>
