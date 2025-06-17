@@ -11,16 +11,56 @@ export default function Home() {
     const mainTitle = useRef<HTMLDivElement>(null);
     const [renderAfterMainTitle, setRenderAfterMainTitle] = useState<boolean>(false);
 
+    const bashText = useRef<HTMLDivElement>(null);
+    const [renderAfterBashText, setRenderAfterBashText] = useState<boolean>(false);
+
+    const descText1 = useRef<HTMLDivElement>(null);
+    const [renderAfterDescText1, setRenderAfterDescText1] = useState<boolean>(false);
+
+    const descText2 = useRef<HTMLDivElement>(null);
+    const [renderAfterDescText2, setRenderAfterDescText2] = useState<boolean>(false);
+
+    const descText3 = useRef<HTMLDivElement>(null);
+    const [renderAfterDescText3, setRenderAfterDescText3] = useState<boolean>(false);
+
+    const roleTitle = useRef<HTMLDivElement>(null);
+    const [renderAfterRoleTitle, setRenderAfterRoleTitle] = useState<boolean>(false);
+
+    const skillText = useRef<HTMLDivElement>(null);
+    const [renderAfterSkillText, setRenderAfterSkillText] = useState<boolean>(false);
+
     useEffect(() => {
         if (mainTitle.current) {
             setRenderAfterMainTitle(true);
         }
+        if (bashText.current) {
+            setRenderAfterBashText(true);
+        }
+        if (roleTitle.current) {
+            setRenderAfterRoleTitle(true);
+        }
+        if (skillText.current) {
+            setRenderAfterSkillText(true);
+        }
     }, []);
+
+    useEffect(() => {
+        if (descText1.current) {
+            setRenderAfterDescText1(true);
+        }
+        if (descText2.current) {
+            setRenderAfterDescText2(true);
+        }
+        if (descText3.current) {
+            setRenderAfterDescText3(true);
+        }
+    }, [renderAfterMainTitle]);
 
     return (
         <div className="h-[150dvh] bg-bg relative">
             <CursorFollower
-                ratePerFrame={0.02}
+                // ratePerFrame is affected by hosting server speed
+                ratePerFrame={0.05}
                 warpDegree={60}
                 distanceFadeRatio={5}
                 filter={
@@ -38,16 +78,53 @@ export default function Home() {
 
             {/* background stuff elements */}
             <div className="opacity-60">
+                <div className="absolute pl-12 text-primary">
+                    {renderAfterBashText && (
+                        <AlignTarget element={bashText.current!} toggleAlign={{ top: true }}>
+                            1
+                        </AlignTarget>
+                    )}
+                    {renderAfterDescText1 && (
+                        <AlignTarget element={descText1.current!} toggleAlign={{ top: true }}>
+                            2
+                        </AlignTarget>
+                    )}
+                    {renderAfterDescText2 && (
+                        <AlignTarget element={descText2.current!} toggleAlign={{ top: true }}>
+                            3
+                        </AlignTarget>
+                    )}
+                    {renderAfterDescText3 && (
+                        <AlignTarget element={descText3.current!} toggleAlign={{ top: true }}>
+                            4
+                        </AlignTarget>
+                    )}
+                    {renderAfterMainTitle && (
+                        <AlignTarget element={mainTitle.current!} toggleAlign={{ top: true }}>
+                            5
+                        </AlignTarget>
+                    )}
+                    {renderAfterRoleTitle && (
+                        <AlignTarget element={roleTitle.current!} toggleAlign={{ top: true }}>
+                            6
+                        </AlignTarget>
+                    )}
+                    {renderAfterSkillText && (
+                        <AlignTarget element={skillText.current!} toggleAlign={{ top: true }}>
+                            7
+                        </AlignTarget>
+                    )}
+                </div>
                 <div className="absolute pl-32 pt-12 text-nowrap text-primary">
-                    <p>#!/bin/bash</p>
+                    <p ref={bashText}>#!/bin/bash</p>
                 </div>
                 <div className="absolute top-[17dvh]">
                     {renderAfterMainTitle && (
-                        <AlignTarget element={mainTitle.current!} toggleAlign={{ x: true, y: false }}>
+                        <AlignTarget element={mainTitle.current!} toggleAlign={{ left: true }}>
                             <div className="text-primary -translate-y-1/2 text-nowrap">
-                                <p># A computer science student's portfolio</p>
-                                <p># A developer for the open-source community</p>
-                                <p># An individual based in Melbourne, Australia</p>
+                                <p ref={descText1}># A computer science student's portfolio</p>
+                                <p ref={descText2}># A developer for the open-source community</p>
+                                <p ref={descText3}># An individual based in Melbourne, Australia</p>
                             </div>
                         </AlignTarget>
                     )}
@@ -58,15 +135,20 @@ export default function Home() {
                 className="top-0 h-dvh left-0 right-0 absolute"
                 top={
                     <div className="flex justify-center">
-                        <h1 ref={mainTitle} className="text-primary text-h1 font-extrabold leading-[0.85]">
+                        <h1
+                            ref={mainTitle}
+                            className="text-primary text-h1-sm lg:text-h1 font-extrabold leading-[0.85]"
+                        >
                             Keo Ponleou
                         </h1>
                     </div>
                 }
                 bottom={
                     <div className="text-primary flex items-center flex-col gap-1">
-                        <p className="text-h3 font-semibold ">SOFTWARE DEVELOPER</p>
-                        <div className="text-base">
+                        <p ref={roleTitle} className="text-h3 font-semibold ">
+                            SOFTWARE DEVELOPER
+                        </p>
+                        <div ref={skillText} className="text-base">
                             <TextCursor>
                                 <TextCycle
                                     textArray={[
