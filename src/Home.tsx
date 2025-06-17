@@ -172,7 +172,7 @@ export default function Home() {
                                         revealCallback={typewriter}
                                         delayPerCallback={30}
                                         startOn={enqueueReveal1}
-                                        finishedCallback={(bool) => setTimeout(() => setEnqueueReveal2(bool), 100)}
+                                        finishedCallback={(bool) => setTimeout(() => setEnqueueReveal2(bool), 400)}
                                     ></RevealText>
                                 </div>
                                 <div ref={descText2}>
@@ -181,7 +181,7 @@ export default function Home() {
                                         revealCallback={typewriter}
                                         delayPerCallback={30}
                                         startOn={enqueueReveal2}
-                                        finishedCallback={(bool) => setTimeout(() => setEnqueueReveal3(bool), 100)}
+                                        finishedCallback={(bool) => setTimeout(() => setEnqueueReveal3(bool), 400)}
                                     ></RevealText>
                                 </div>
                                 <div ref={descText3}>
@@ -190,7 +190,12 @@ export default function Home() {
                                         revealCallback={typewriter}
                                         delayPerCallback={30}
                                         startOn={enqueueReveal3}
-                                        finishedCallback={(bool) => setTimeout(() => setEnqueueReveal4(bool), 100)}
+                                        finishedCallback={(bool) => {
+                                            setTimeout(() => setEnqueueReveal4(bool), 500);
+                                            setTimeout(() => setEnqueueReveal5(bool), 600);
+                                            setTimeout(() => setEnqueueReveal6(bool), 700);
+                                            setTimeout(() => setEnqueueReveal7(bool), 800);
+                                        }}
                                     ></RevealText>
                                 </div>
                             </div>
@@ -208,9 +213,6 @@ export default function Home() {
                             className="transition-all ease-out duration-500"
                             preRevealClass="opacity-0 -translate-y-8"
                             postRevealClass="opacity-100 translate-y-0"
-                            finishedCallback={() => {
-                                setEnqueueReveal5(true);
-                            }}
                         >
                             <h1
                                 ref={mainTitle}
@@ -229,9 +231,6 @@ export default function Home() {
                                 className="transition-all ease-out duration-500"
                                 preRevealClass="opacity-0 -translate-y-8"
                                 postRevealClass="opacity-100 translate-y-0"
-                                finishedCallback={() => {
-                                    setEnqueueReveal6(true);
-                                }}
                             >
                                 SOFTWARE DEVELOPER
                             </RevealOn>
@@ -242,9 +241,6 @@ export default function Home() {
                                 className="transition-all ease-out duration-500"
                                 preRevealClass="opacity-0 -translate-y-8"
                                 postRevealClass="opacity-100 translate-y-0"
-                                finishedCallback={() => {
-                                    setEnqueueReveal7(true);
-                                }}
                             >
                                 <TextCursor>
                                     <TextCycle
