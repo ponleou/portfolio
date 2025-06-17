@@ -162,7 +162,7 @@ export default function Home() {
                         ></RevealText>
                     </div>
                 </div>
-                <div className="absolute top-[17dvh]">
+                <div className="absolute top-[19dvh]">
                     <RenderAfter after={mainTitle.current} rerenderCallback={rerenderPage}>
                         <AlignTarget element={mainTitle.current!} toggleAlign={{ left: true }}>
                             <div className="text-primary -translate-y-1/2 text-nowrap ">
