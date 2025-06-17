@@ -1,10 +1,10 @@
 import GoldenHorizontal from "./components/GoldenHorizontal";
 import TextCycle from "./components/TextCycle";
-import typewriter from "./functions/typewriter";
+import { typewriter } from "./functions/revealStyles";
 import TextCursor from "./components/TextCursor";
 import CursorFollower from "./components/CursorFollower";
 import NavBar from "./components/NavBar";
-import { useRef, useState } from "react";
+import { useRef } from "react";
 import AlignTarget from "./components/AlignTarget";
 import RenderAfter from "./components/RenderAfter";
 import forceRerender from "./functions/forceRerender";
@@ -137,7 +137,7 @@ export default function Home() {
                                     ]}
                                     changeTime={100}
                                     pauseTime={1500}
-                                    callback={typewriter}
+                                    revealCallback={typewriter}
                                 />
                             </TextCursor>
                         </div>
