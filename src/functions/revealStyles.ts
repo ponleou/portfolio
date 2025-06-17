@@ -1,4 +1,6 @@
-export default function typewriter(current: string, text: string): [boolean, string] {
+export type RevealFunction = (current: string, target: string) => [boolean, string];
+
+export const typewriter: RevealFunction = function (current: string, text: string): [boolean, string] {
     if (current === text) {
         return [true, current];
     }
@@ -27,4 +29,4 @@ export default function typewriter(current: string, text: string): [boolean, str
     }
 
     return [returnString === text, returnString];
-}
+};
