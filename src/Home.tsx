@@ -8,6 +8,7 @@ import { useRef } from "react";
 import AlignTarget from "./components/AlignTarget";
 import RenderAfter from "./components/RenderAfter";
 import forceRerender from "./functions/forceRerender";
+import RevealText from "./components/RevealText";
 
 export default function Home() {
     const mainTitle = useRef<HTMLDivElement>(null);
@@ -41,8 +42,8 @@ export default function Home() {
             </CursorFollower>
 
             {/* background stuff elements */}
-            <div className="opacity-60">
-                <div className="absolute pl-12 text-primary text-base">
+            <div className="opacity-60 text-base">
+                <div className="absolute pl-12 text-primary ">
                     <RenderAfter after={bashText.current} rerenderCallback={rerenderPage}>
                         <AlignTarget element={bashText.current!} toggleAlign={{ top: true }}>
                             1
@@ -86,15 +87,35 @@ export default function Home() {
                     </RenderAfter>
                 </div>
                 <div className="absolute pl-32 pt-12 text-nowrap text-primary">
-                    <p ref={bashText}>#!/bin/bash</p>
+                    <div ref={bashText}>
+                        <RevealText text="#!/bin/bash" revealCallback={typewriter} delayPerCallback={30}></RevealText>
+                    </div>
                 </div>
                 <div className="absolute top-[17dvh]">
                     <RenderAfter after={mainTitle.current} rerenderCallback={rerenderPage}>
                         <AlignTarget element={mainTitle.current!} toggleAlign={{ left: true }}>
-                            <div className="text-primary -translate-y-1/2 text-nowrap text-base">
-                                <p ref={descText1}># A computer science student's portfolio</p>
-                                <p ref={descText2}># A developer for the open-source community</p>
-                                <p ref={descText3}># An individual based in Melbourne, Australia</p>
+                            <div className="text-primary -translate-y-1/2 text-nowrap ">
+                                <div ref={descText1}>
+                                    <RevealText
+                                        text="# A computer science student's portfolio"
+                                        revealCallback={typewriter}
+                                        delayPerCallback={30}
+                                    ></RevealText>
+                                </div>
+                                <div ref={descText2}>
+                                    <RevealText
+                                        text="# A developer for the open-source community"
+                                        revealCallback={typewriter}
+                                        delayPerCallback={30}
+                                    ></RevealText>
+                                </div>
+                                <div ref={descText3}>
+                                    <RevealText
+                                        text="# An individual based in Melbourne, Australia"
+                                        revealCallback={typewriter}
+                                        delayPerCallback={30}
+                                    ></RevealText>
+                                </div>
                             </div>
                         </AlignTarget>
                     </RenderAfter>
