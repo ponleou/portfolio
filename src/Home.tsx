@@ -132,7 +132,7 @@ export default function Home() {
                     </div>
                 }
                 bottom={
-                    <div className="text-primary flex items-center flex-col gap-1">
+                    <div className="text-primary flex items-center flex-col gap-4">
                         <p ref={roleTitle} className="text-h3 font-semibold leading-[1em] ">
                             SOFTWARE DEVELOPER
                         </p>
