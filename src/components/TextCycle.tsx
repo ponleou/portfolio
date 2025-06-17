@@ -9,12 +9,14 @@ export default function TextCycle({
     changeTime, // delay between change of each text character
     pauseTime, // delay time when text is completely transitioned
     revealCallback,
+    startOn = true,
 }: {
     initialText?: string;
     textArray: string[];
     changeTime: number;
     pauseTime: number;
     revealCallback: RevealFunction;
+    startOn?: boolean;
 }) {
     let index = useRef<number>(0);
     const [currentText, setCurrentText] = useState<string>(initialText);
@@ -53,6 +55,7 @@ export default function TextCycle({
             text={nextText}
             revealCallback={revealCallback}
             finishedCallback={setCurrentFinished}
+            startOn={startOn}
         ></RevealText>
     );
 }
