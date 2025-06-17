@@ -4,57 +4,21 @@ import typewriter from "./functions/typewriter";
 import TextCursor from "./components/TextCursor";
 import CursorFollower from "./components/CursorFollower";
 import NavBar from "./components/NavBar";
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import AlignTarget from "./components/AlignTarget";
+import RenderAfter from "./components/RenderAfter";
+import forceRerender from "./functions/forceRerender";
 
 export default function Home() {
     const mainTitle = useRef<HTMLDivElement>(null);
-    const [renderAfterMainTitle, setRenderAfterMainTitle] = useState<boolean>(false);
-
     const bashText = useRef<HTMLDivElement>(null);
-    const [renderAfterBashText, setRenderAfterBashText] = useState<boolean>(false);
-
     const descText1 = useRef<HTMLDivElement>(null);
-    const [renderAfterDescText1, setRenderAfterDescText1] = useState<boolean>(false);
-
     const descText2 = useRef<HTMLDivElement>(null);
-    const [renderAfterDescText2, setRenderAfterDescText2] = useState<boolean>(false);
-
     const descText3 = useRef<HTMLDivElement>(null);
-    const [renderAfterDescText3, setRenderAfterDescText3] = useState<boolean>(false);
-
     const roleTitle = useRef<HTMLDivElement>(null);
-    const [renderAfterRoleTitle, setRenderAfterRoleTitle] = useState<boolean>(false);
-
     const skillText = useRef<HTMLDivElement>(null);
-    const [renderAfterSkillText, setRenderAfterSkillText] = useState<boolean>(false);
 
-    useEffect(() => {
-        if (mainTitle.current) {
-            setRenderAfterMainTitle(true);
-        }
-        if (bashText.current) {
-            setRenderAfterBashText(true);
-        }
-        if (roleTitle.current) {
-            setRenderAfterRoleTitle(true);
-        }
-        if (skillText.current) {
-            setRenderAfterSkillText(true);
-        }
-    }, []);
-
-    useEffect(() => {
-        if (descText1.current) {
-            setRenderAfterDescText1(true);
-        }
-        if (descText2.current) {
-            setRenderAfterDescText2(true);
-        }
-        if (descText3.current) {
-            setRenderAfterDescText3(true);
-        }
-    }, [renderAfterMainTitle]);
+    const rerenderPage = forceRerender();
 
     return (
         <div className="h-[150dvh] bg-bg relative">
@@ -78,56 +42,62 @@ export default function Home() {
 
             {/* background stuff elements */}
             <div className="opacity-60">
-                <div className="absolute pl-12 text-primary">
-                    {renderAfterBashText && (
+                <div className="absolute pl-12 text-primary text-base">
+                    <RenderAfter after={bashText.current} rerenderCallback={rerenderPage}>
                         <AlignTarget element={bashText.current!} toggleAlign={{ top: true }}>
                             1
                         </AlignTarget>
-                    )}
-                    {renderAfterDescText1 && (
-                        <AlignTarget element={descText1.current!} toggleAlign={{ top: true }}>
-                            2
-                        </AlignTarget>
-                    )}
-                    {renderAfterDescText2 && (
-                        <AlignTarget element={descText2.current!} toggleAlign={{ top: true }}>
-                            3
-                        </AlignTarget>
-                    )}
-                    {renderAfterDescText3 && (
-                        <AlignTarget element={descText3.current!} toggleAlign={{ top: true }}>
-                            4
-                        </AlignTarget>
-                    )}
-                    {renderAfterMainTitle && (
+                    </RenderAfter>
+
+                    <RenderAfter after={mainTitle.current} rerenderCallback={rerenderPage}>
+                        <RenderAfter after={descText1.current} rerenderCallback={rerenderPage}>
+                            <AlignTarget element={descText1.current!} toggleAlign={{ top: true }}>
+                                2
+                            </AlignTarget>
+                        </RenderAfter>
+                        <RenderAfter after={descText2.current} rerenderCallback={rerenderPage}>
+                            <AlignTarget element={descText2.current!} toggleAlign={{ top: true }}>
+                                3
+                            </AlignTarget>
+                        </RenderAfter>
+                        <RenderAfter after={descText3.current} rerenderCallback={rerenderPage}>
+                            <AlignTarget element={descText3.current!} toggleAlign={{ top: true }}>
+                                4
+                            </AlignTarget>
+                        </RenderAfter>
+                    </RenderAfter>
+
+                    <RenderAfter after={mainTitle.current} rerenderCallback={rerenderPage}>
                         <AlignTarget element={mainTitle.current!} toggleAlign={{ top: true }}>
                             5
                         </AlignTarget>
-                    )}
-                    {renderAfterRoleTitle && (
+                    </RenderAfter>
+
+                    <RenderAfter after={roleTitle.current} rerenderCallback={rerenderPage}>
                         <AlignTarget element={roleTitle.current!} toggleAlign={{ top: true }}>
                             6
                         </AlignTarget>
-                    )}
-                    {renderAfterSkillText && (
+                    </RenderAfter>
+
+                    <RenderAfter after={skillText.current} rerenderCallback={rerenderPage}>
                         <AlignTarget element={skillText.current!} toggleAlign={{ top: true }}>
                             7
                         </AlignTarget>
-                    )}
+                    </RenderAfter>
                 </div>
                 <div className="absolute pl-32 pt-12 text-nowrap text-primary">
                     <p ref={bashText}>#!/bin/bash</p>
                 </div>
                 <div className="absolute top-[17dvh]">
-                    {renderAfterMainTitle && (
+                    <RenderAfter after={mainTitle.current} rerenderCallback={rerenderPage}>
                         <AlignTarget element={mainTitle.current!} toggleAlign={{ left: true }}>
-                            <div className="text-primary -translate-y-1/2 text-nowrap">
+                            <div className="text-primary -translate-y-1/2 text-nowrap text-base">
                                 <p ref={descText1}># A computer science student's portfolio</p>
                                 <p ref={descText2}># A developer for the open-source community</p>
                                 <p ref={descText3}># An individual based in Melbourne, Australia</p>
                             </div>
                         </AlignTarget>
-                    )}
+                    </RenderAfter>
                 </div>
             </div>
 
@@ -135,17 +105,14 @@ export default function Home() {
                 className="top-0 h-dvh left-0 right-0 absolute"
                 top={
                     <div className="flex justify-center">
-                        <h1
-                            ref={mainTitle}
-                            className="text-primary text-h1-sm lg:text-h1 font-extrabold leading-[0.85]"
-                        >
+                        <h1 ref={mainTitle} className="text-primary text-h1-sm lg:text-h1 font-extrabold leading-[1em]">
                             Keo Ponleou
                         </h1>
                     </div>
                 }
                 bottom={
                     <div className="text-primary flex items-center flex-col gap-1">
-                        <p ref={roleTitle} className="text-h3 font-semibold ">
+                        <p ref={roleTitle} className="text-h3 font-semibold leading-[1em] ">
                             SOFTWARE DEVELOPER
                         </p>
                         <div ref={skillText} className="text-base">
