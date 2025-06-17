@@ -1,50 +1,61 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import delay from "../functions/delay";
+import RevealText from "./RevealText";
+import type { RevealFunction } from "../functions/revealStyles";
 
 export default function TextCycle({
     initialText = "",
     textArray,
     changeTime, // delay between change of each text character
     pauseTime, // delay time when text is completely transitioned
-    callback,
+    revealCallback,
+    startOn = true,
 }: {
     initialText?: string;
     textArray: string[];
     changeTime: number;
     pauseTime: number;
-    callback: (current: string, target: string) => [boolean, string];
+    revealCallback: RevealFunction;
+    startOn?: boolean;
 }) {
-    const [textDisplay, setTextDisplay] = useState<string>(initialText);
+    let index = useRef<number>(0);
+    const [currentText, setCurrentText] = useState<string>(initialText);
+    const [nextText, setNextText] = useState<string>(textArray[index.current]);
+    const [finished, setFinished] = useState<boolean>(false);
+
+    const setCurrentFinished = (finished: boolean) => {
+        setFinished(finished);
+    };
+
+    const goNextText = async () => {
+        await delay(pauseTime);
+        setCurrentText(nextText);
+        index.current++;
+
+        if (index.current >= textArray.length) {
+            index.current = 0;
+        }
+
+        setNextText(textArray[index.current]);
+    };
 
     useEffect(() => {
-        let index = 0;
-        let finished = false;
-        let currentText = textDisplay;
-
         (async () => {
-            while (true) {
-                if (currentText === "") {
-                    await delay(changeTime);
-                }
-
-                const [isFinished, returnText] = callback(currentText, textArray[index]);
-                finished = isFinished;
-                currentText = returnText;
-                setTextDisplay(currentText);
-
-                if (finished) {
-                    await delay(pauseTime);
-                    index++;
-
-                    if (index >= textArray.length) {
-                        index = 0;
-                    }
-                } else {
-                    await delay(changeTime);
-                }
+            if (finished) {
+                await goNextText();
+                setFinished(false);
             }
         })();
-    }, []);
+    }, [finished]);
 
-    return <p>{textDisplay}</p>;
+    return (
+        <RevealText
+            initialText={currentText}
+            delayPerCallback={changeTime}
+            text={nextText}
+            revealCallback={revealCallback}
+            finishedCallback={setCurrentFinished}
+            startOn={startOn}
+        ></RevealText>
+    );
 }

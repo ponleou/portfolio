@@ -14,6 +14,7 @@
     --text-h3: 3.2rem;
     --text-h2: 5.2rem;
     --text-h1: 13.6rem;
+    --text-h1-sm: 8.4rem;
 
     --animate-scale-pulse-1: scale-pulse 1s cubic-bezier(0.4, 0, 0.6, 1) infinite;
     --animate-scale-pulse-2: scale-pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
@@ -36,29 +37,23 @@
 
 html {
     @apply font-mono;
-    font-size: 62.5%;
+    font-size: 34.8%;
 }
 
-@media screen and (max-width: 1200px) {
-    html {
-        font-size: 53.2%;
-    }
-}
-
-@media screen and (max-width: 1024px) {
+@media screen and (min-width: 550px) {
     html {
         font-size: 45.6%;
     }
 }
 
-@media screen and (max-width: 1024px) {
+@media screen and (min-width: 1024px) {
     html {
-        font-size: 28.1%;
+        font-size: 53.2%;
     }
 }
 
-@media screen and (max-width: 550px) {
+@media screen and (min-width: 1200px) {
     html {
-        font-size: 17.5%;
+        font-size: 62.5%;
     }
 }

@@ -1,27 +1,37 @@
 import { useEffect, useRef, type ReactNode } from "react";
 
 export default function AlignTarget({
-    toggleAlign = { x: true, y: true },
+    toggleAlign,
     element,
     children,
 }: {
-    toggleAlign?: { x: boolean; y: boolean };
+    toggleAlign: Partial<{ top: boolean; right: boolean; bottom: boolean; left: boolean }>;
     element: HTMLDivElement;
     children: ReactNode;
 }) {
     const parent = useRef<HTMLDivElement>(null);
 
-    function alignX() {
+    function alignLeft() {
         parent.current!.style.left = `${element.getBoundingClientRect().left}px`;
     }
 
-    function alignY() {
+    function alignRight() {
+        parent.current!.style.left = `${element.getBoundingClientRect().right}px`;
+    }
+
+    function alignTop() {
         parent.current!.style.top = `${element.getBoundingClientRect().top}px`;
     }
 
+    function alignBottom() {
+        parent.current!.style.top = `${element.getBoundingClientRect().bottom}px`;
+    }
+
     function align() {
-        if (toggleAlign.x) alignX();
-        if (toggleAlign.y) alignY();
+        if (toggleAlign.left) alignLeft();
+        if (toggleAlign.right) alignRight();
+        if (toggleAlign.top) alignTop();
+        if (toggleAlign.bottom) alignBottom();
     }
 
     useEffect(() => {
