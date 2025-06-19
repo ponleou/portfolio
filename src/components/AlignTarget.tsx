@@ -1,11 +1,14 @@
 import { useEffect, useRef, type ReactNode } from "react";
 
+const positions = ["top", "right", "bottom", "left"] as const;
+type Position = (typeof positions)[number];
+
 export default function AlignTarget({
     toggleAlign,
     element,
     children,
 }: {
-    toggleAlign: Partial<{ top: boolean; right: boolean; bottom: boolean; left: boolean }>;
+    toggleAlign: Position;
     element: HTMLDivElement;
     children: ReactNode;
 }) {
@@ -28,10 +31,10 @@ export default function AlignTarget({
     }
 
     function align() {
-        if (toggleAlign.left) alignLeft();
-        if (toggleAlign.right) alignRight();
-        if (toggleAlign.top) alignTop();
-        if (toggleAlign.bottom) alignBottom();
+        if (toggleAlign === "left") alignLeft();
+        if (toggleAlign === "right") alignRight();
+        if (toggleAlign === "top") alignTop();
+        if (toggleAlign === "bottom") alignBottom();
     }
 
     useEffect(() => {

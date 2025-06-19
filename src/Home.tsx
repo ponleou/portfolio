@@ -1,6 +1,6 @@
 import GoldenHorizontal from "./components/GoldenHorizontal";
 import TextCycle from "./components/TextCycle";
-import { typewriter } from "./functions/revealStyles";
+import { typewriter } from "./functions/revealFunctions";
 import TextCursor from "./components/TextCursor";
 import CursorFollower from "./components/CursorFollower";
 import NavBar from "./components/NavBar";
@@ -62,23 +62,16 @@ export default function Home() {
             <div className="opacity-60 text-base">
                 <div className="absolute pl-12 text-primary ">
                     <RenderAfter after={bashText.current} rerenderCallback={rerenderPage}>
-                        <AlignTarget element={bashText.current!} toggleAlign={{ top: true }}>
-                            <RevealOn
-                                on={enqueueReveal1}
-                                className="transition-all ease-out duration-500"
-                                preRevealClass="opacity-0"
-                                postRevealClass="opacity-100"
-                            >
-                                1
-                            </RevealOn>
+                        <AlignTarget element={bashText.current!} toggleAlign="top">
+                            1
                         </AlignTarget>
                     </RenderAfter>
 
                     <RenderAfter after={mainTitle.current} rerenderCallback={rerenderPage}>
                         <RenderAfter after={descText1.current} rerenderCallback={rerenderPage}>
-                            <AlignTarget element={descText1.current!} toggleAlign={{ top: true }}>
+                            <AlignTarget element={descText1.current!} toggleAlign="top">
                                 <RevealOn
-                                    on={enqueueReveal2}
+                                    on={enqueueReveal1}
                                     className="transition-all ease-out duration-500"
                                     preRevealClass="opacity-0"
                                     postRevealClass="opacity-100"
@@ -88,9 +81,9 @@ export default function Home() {
                             </AlignTarget>
                         </RenderAfter>
                         <RenderAfter after={descText2.current} rerenderCallback={rerenderPage}>
-                            <AlignTarget element={descText2.current!} toggleAlign={{ top: true }}>
+                            <AlignTarget element={descText2.current!} toggleAlign="top">
                                 <RevealOn
-                                    on={enqueueReveal3}
+                                    on={enqueueReveal2}
                                     className="transition-all ease-out duration-500"
                                     preRevealClass="opacity-0"
                                     postRevealClass="opacity-100"
@@ -100,9 +93,9 @@ export default function Home() {
                             </AlignTarget>
                         </RenderAfter>
                         <RenderAfter after={descText3.current} rerenderCallback={rerenderPage}>
-                            <AlignTarget element={descText3.current!} toggleAlign={{ top: true }}>
+                            <AlignTarget element={descText3.current!} toggleAlign="top">
                                 <RevealOn
-                                    on={enqueueReveal4}
+                                    on={enqueueReveal3}
                                     className="transition-all ease-out duration-500"
                                     preRevealClass="opacity-0"
                                     postRevealClass="opacity-100"
@@ -114,9 +107,9 @@ export default function Home() {
                     </RenderAfter>
 
                     <RenderAfter after={mainTitleContainer.current} rerenderCallback={rerenderPage}>
-                        <AlignTarget element={mainTitleContainer.current!} toggleAlign={{ top: true }}>
+                        <AlignTarget element={mainTitleContainer.current!} toggleAlign="top">
                             <RevealOn
-                                on={enqueueReveal5}
+                                on={enqueueReveal4}
                                 className="transition-all ease-out duration-500"
                                 preRevealClass="opacity-0"
                                 postRevealClass="opacity-100"
@@ -127,9 +120,9 @@ export default function Home() {
                     </RenderAfter>
 
                     <RenderAfter after={roleTitle.current} rerenderCallback={rerenderPage}>
-                        <AlignTarget element={roleTitle.current!} toggleAlign={{ top: true }}>
+                        <AlignTarget element={roleTitle.current!} toggleAlign="top">
                             <RevealOn
-                                on={enqueueReveal6}
+                                on={enqueueReveal5}
                                 className="transition-all ease-out duration-500"
                                 preRevealClass="opacity-0"
                                 postRevealClass="opacity-100"
@@ -140,9 +133,9 @@ export default function Home() {
                     </RenderAfter>
 
                     <RenderAfter after={skillText.current} rerenderCallback={rerenderPage}>
-                        <AlignTarget element={skillText.current!} toggleAlign={{ top: true }}>
+                        <AlignTarget element={skillText.current!} toggleAlign="top">
                             <RevealOn
-                                on={enqueueReveal7}
+                                on={enqueueReveal6}
                                 className="transition-all ease-out duration-500"
                                 preRevealClass="opacity-0"
                                 postRevealClass="opacity-100"
@@ -157,14 +150,14 @@ export default function Home() {
                         <RevealText
                             text="#!/bin/bash"
                             revealCallback={typewriter}
-                            delayPerCallback={50}
+                            delayPerCallback={30}
                             finishedCallback={(bool) => setTimeout(() => setEnqueueReveal1(bool), 100)}
                         ></RevealText>
                     </div>
                 </div>
                 <div className="absolute top-[19dvh]">
                     <RenderAfter after={mainTitle.current} rerenderCallback={rerenderPage}>
-                        <AlignTarget element={mainTitle.current!} toggleAlign={{ left: true }}>
+                        <AlignTarget element={mainTitle.current!} toggleAlign="left">
                             <div className="text-primary -translate-y-1/2 text-nowrap ">
                                 <div ref={descText1}>
                                     <RevealText
