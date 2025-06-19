@@ -10,6 +10,7 @@ import RenderAfter from "./components/RenderAfter";
 import forceRerender from "./functions/forceRerender";
 import RevealText from "./components/RevealText";
 import RevealOn from "./components/RevealOn";
+import TranslateToCursor from "./components/TranslateToCursor";
 
 export default function Home() {
     const mainTitle = useRef<HTMLDivElement>(null);
@@ -207,27 +208,31 @@ export default function Home() {
                             preRevealClass="opacity-0 -translate-y-8"
                             postRevealClass="opacity-100 translate-y-0"
                         >
-                            <h1
-                                ref={mainTitle}
-                                className="text-primary text-h1-sm lg:text-h1 font-extrabold leading-[1em]"
-                            >
-                                Keo Ponleou
-                            </h1>
+                            <TranslateToCursor maxTranslate={2} translateMultiplier={0.1}>
+                                <h1
+                                    ref={mainTitle}
+                                    className="text-primary text-h1-sm lg:text-h1 font-extrabold leading-[1em]"
+                                >
+                                    Keo Ponleou
+                                </h1>
+                            </TranslateToCursor>
                         </RevealOn>
                     </div>
                 }
                 bottom={
                     <div className="text-primary flex items-center flex-col gap-4">
-                        <p ref={roleTitle} className="text-h3 font-semibold leading-[1em] ">
+                        <div ref={roleTitle}>
                             <RevealOn
                                 on={enqueueReveal5}
                                 className="transition-all ease-out duration-500"
                                 preRevealClass="opacity-0 -translate-y-8"
                                 postRevealClass="opacity-100 translate-y-0"
                             >
-                                SOFTWARE DEVELOPER
+                                <TranslateToCursor maxTranslate={2} translateMultiplier={0.1}>
+                                    <p className="text-h3 font-semibold leading-[1em]">SOFTWARE DEVELOPER</p>
+                                </TranslateToCursor>
                             </RevealOn>
-                        </p>
+                        </div>
                         <div ref={skillText} className="text-base leading-none">
                             <RevealOn
                                 on={enqueueReveal6}
@@ -235,31 +240,33 @@ export default function Home() {
                                 preRevealClass="opacity-0 -translate-y-8"
                                 postRevealClass="opacity-100 translate-y-0"
                             >
-                                <TextCursor>
-                                    <TextCycle
-                                        textArray={[
-                                            "React.js",
-                                            "Vue.js",
-                                            "HTML/CSS",
-                                            "JavaScript",
-                                            "TypeScript",
-                                            "Node.js",
-                                            "Python",
-                                            "Git",
-                                            "C/C++",
-                                            "PHP",
-                                            "C#",
-                                            "MySQL",
-                                            "Jenkins CI/CD",
-                                            "Docker",
-                                            "Wordpress",
-                                        ]}
-                                        changeTime={100}
-                                        pauseTime={1500}
-                                        revealCallback={typewriter}
-                                        startOn={enqueueReveal6}
-                                    />
-                                </TextCursor>
+                                <TranslateToCursor maxTranslate={2} translateMultiplier={0.1}>
+                                    <TextCursor>
+                                        <TextCycle
+                                            textArray={[
+                                                "React.js",
+                                                "Vue.js",
+                                                "HTML/CSS",
+                                                "JavaScript",
+                                                "TypeScript",
+                                                "Node.js",
+                                                "Python",
+                                                "Git",
+                                                "C/C++",
+                                                "PHP",
+                                                "C#",
+                                                "MySQL",
+                                                "Jenkins CI/CD",
+                                                "Docker",
+                                                "Wordpress",
+                                            ]}
+                                            changeTime={100}
+                                            pauseTime={1500}
+                                            revealCallback={typewriter}
+                                            startOn={enqueueReveal6}
+                                        />
+                                    </TextCursor>
+                                </TranslateToCursor>
                             </RevealOn>
                         </div>
                     </div>
