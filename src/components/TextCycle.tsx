@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import delay from "../functions/delay";
 import RevealText from "./RevealText";
-import type { RevealFunction } from "../functions/revealStyles";
+import type { RevealFunction } from "../functions/revealFunctions";
 
 export default function TextCycle({
     initialText = "",
