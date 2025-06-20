@@ -7,13 +7,14 @@ export default function TranslateToCursor({
     children,
     translateMultiplier,
     maxTranslate,
+    rangeLimit = -1,
 }: {
     children: ReactNode;
     translateMultiplier: number;
     maxTranslate: number;
+    rangeLimit?: number;
 }) {
     const parent = useRef<HTMLDivElement>(null);
-
     const mousePos = useRef<Coordinate>({ x: 0, y: 0 });
 
     function updateMousePos(event: MouseEvent) {
@@ -41,7 +42,16 @@ export default function TranslateToCursor({
         };
     }
 
-    function calculateTranslate(vector: Vector, translateMultiplier: number, maxTranslate: number): Coordinate {
+    function calculateTranslate(
+        vector: Vector,
+        translateMultiplier: number,
+        maxTranslate: number,
+        rangeLimit: number
+    ): Coordinate {
+        if (rangeLimit > 0 && vector.magnitude > rangeLimit) {
+            return { x: 0, y: 0 };
+        }
+
         const multiplier = vector.magnitude * translateMultiplier;
         let x = vector.direction.x * multiplier;
         let y = vector.direction.y * multiplier;
@@ -63,7 +73,7 @@ export default function TranslateToCursor({
         const animate = () => {
             const parentMiddle: Coordinate = { x: parentPos.x + shape.width / 2, y: parentPos.y + shape.height / 2 };
             const vector = calculateVector(parentMiddle, mousePos.current);
-            const { x, y }: Coordinate = calculateTranslate(vector, translateMultiplier, maxTranslate);
+            const { x, y }: Coordinate = calculateTranslate(vector, translateMultiplier, maxTranslate, rangeLimit);
             parent.current!.style.transform = `translate(${x}px, ${y}px)`;
             frame = requestAnimationFrame(animate);
         };
