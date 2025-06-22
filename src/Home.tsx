@@ -40,11 +40,7 @@ export default function Home() {
                 warpDegree={60}
                 distanceFadeRatio={5}
                 filter={
-                    <div
-                        className="
-                bg-[url(data:image/svg+xml;base64,ICAgICAgICAgICAgPHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNTAiIGhlaWdodD0iMTUwIj4KICAgICAgICAgICAgICAgIDxmaWx0ZXIgaWQ9Im5vaXNlIj4KICAgICAgICAgICAgICAgICAgICA8ZmVUdXJidWxlbmNlCiAgICAgICAgICAgICAgICAgICAgICAgIHR5cGU9InR1cmJ1bGVuY2UiCiAgICAgICAgICAgICAgICAgICAgICAgIGJhc2VGcmVxdWVuY3k9IjAuNiIKICAgICAgICAgICAgICAgICAgICAgICAgbnVtT2N0YXZlcz0iMiIKICAgICAgICAgICAgICAgICAgICAgICAgc3RpdGNoVGlsZXM9InN0aXRjaCIKICAgICAgICAgICAgICAgICAgICAgICAgcmVzdWx0PSJub2lzZSIKICAgICAgICAgICAgICAgICAgICAvPgogICAgICAgICAgICAgICAgICAgIDxmZUNvbG9yTWF0cml4CiAgICAgICAgICAgICAgICAgICAgICAgIGluPSJub2lzZSIKICAgICAgICAgICAgICAgICAgICAgICAgdHlwZT0ibWF0cml4IgogICAgICAgICAgICAgICAgICAgICAgICB2YWx1ZXM9IgogICAgICAgICAgICAgICAgICAgICAgICAgIDAuMzMgMC4zMyAwLjMzIDAgMAogICAgICAgICAgICAgICAgICAgICAgICAgIDAuMzMgMC4zMyAwLjMzIDAgMAogICAgICAgICAgICAgICAgICAgICAgICAgIDAuMzMgMC4zMyAwLjMzIDAgMAogICAgICAgICAgICAgICAgICAgICAgICAgIDAgICAgMCAgICAwICAgIDEgMCIKICAgICAgICAgICAgICAgICAgICAvPgogICAgICAgICAgICAgICAgPC9maWx0ZXI+CiAgICAgICAgICAgICAgICA8cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWx0ZXI9InVybCgjbm9pc2UpIiAvPgogICAgICAgICAgICA8L3N2Zz4=)]
-                absolute inset-0 mix-blend-color-dodge"
-                    ></div>
+                    <div className="bg-[url(assets/noise.svg)] absolute inset-0 mix-blend-color-dodge"></div>
                 }
             >
                 <RevealOn
@@ -208,7 +204,7 @@ export default function Home() {
                             preRevealClass="opacity-0 -translate-y-8"
                             postRevealClass="opacity-100 translate-y-0"
                         >
-                            <TranslateToCursor maxTranslate={2} translateMultiplier={0.1}>
+                            <TranslateToCursor maxTranslate={1} translateMultiplier={0.1}>
                                 <h1
                                     ref={mainTitle}
                                     className="text-primary text-h1-sm lg:text-h1 font-extrabold leading-[1em]"
@@ -228,7 +224,7 @@ export default function Home() {
                                 preRevealClass="opacity-0 -translate-y-8"
                                 postRevealClass="opacity-100 translate-y-0"
                             >
-                                <TranslateToCursor maxTranslate={2} translateMultiplier={0.1}>
+                                <TranslateToCursor maxTranslate={1} translateMultiplier={0.1}>
                                     <p className="text-h3 font-semibold leading-[1em]">SOFTWARE DEVELOPER</p>
                                 </TranslateToCursor>
                             </RevealOn>
@@ -240,7 +236,7 @@ export default function Home() {
                                 preRevealClass="opacity-0 -translate-y-8"
                                 postRevealClass="opacity-100 translate-y-0"
                             >
-                                <TranslateToCursor maxTranslate={2} translateMultiplier={0.1}>
+                                <TranslateToCursor maxTranslate={1} translateMultiplier={0.1}>
                                     <TextCursor>
                                         <TextCycle
                                             textArray={[
