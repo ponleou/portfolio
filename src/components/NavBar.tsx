@@ -1,6 +1,5 @@
 import { NavLink } from "react-router";
 import TextSh from "./TextSh";
-import TranslateToCursor from "./TranslateToCursor";
 
 export default function NavBar({ className = "", navClassName = "" }: { className?: string; navClassName?: string }) {
     return (
