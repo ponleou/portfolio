@@ -34,7 +34,7 @@ export default function Home() {
     const [enqueueReveal7, setEnqueueReveal7] = useState<boolean>(false);
 
     return (
-        <div className="h-[150dvh] bg-bg relative">
+        <div className={`${enqueueReveal7 ? "h-[150dvh]" : "h-dvh" } bg-bg relative`}>
             <TranslateOnScroll direction="vertical" rate={0.2} maxScroll={window.innerHeight}>
                 <RevealOn
                     on={enqueueReveal6}
