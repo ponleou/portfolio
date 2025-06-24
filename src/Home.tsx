@@ -33,15 +33,28 @@ export default function Home() {
     const [enqueueReveal7, setEnqueueReveal7] = useState<boolean>(false);
 
     return (
-        <div className="h-[150dvh] bg-bg relative">
+        <div className="h-[250dvh] bg-bg relative">
+            <RevealOn
+                on={enqueueReveal6}
+                className="transition-opacity ease-out duration-1000"
+                preRevealClass="opacity-0"
+                postRevealClass="opacity-100"
+            >
+                <div className="blur-3xl">
+                    <div className="-top-[15dvh] right-[3dvw] absolute animate-scale-pulse-4">
+                        <div className="m-[17rem] w-[1px] opacity-40 aspect-square rounded-full bg-accent shadow-accent shadow-[0_0_200px_17rem]"></div>
+                    </div>
+                    <div className="top-0 right-[6dvw] absolute animate-scale-pulse-5">
+                        <div className="m-[25rem] w-[1px] opacity-40 aspect-square rounded-full bg-primary shadow-primary shadow-[0_0_200px_25rem]"></div>
+                    </div>
+                </div>
+            </RevealOn>
+
             <CursorFollower
-                // ratePerFrame is affected by hosting server speed
                 ratePerFrame={0.05}
                 warpDegree={60}
                 distanceFadeRatio={5}
-                filter={
-                    <div className="bg-[url(assets/noise.svg)] absolute inset-0 mix-blend-color-dodge"></div>
-                }
+                // filter={<div className="bg-[url(assets/noise.svg)] absolute inset-0 mix-blend-color-dodge"></div>}
             >
                 <RevealOn
                     on={enqueueReveal6}
@@ -49,11 +62,15 @@ export default function Home() {
                     preRevealClass="opacity-0"
                     postRevealClass="opacity-100"
                 >
-                    <div className="opacity-80 flex justify-center items-center animate-scale-pulse-3">
-                        <div className="h-20 w-20 blur-2xl bg-primary "></div>
+                    <div className="flex justify-center items-center animate-scale-pulse-3">
+                        {/* <div className="aspect-square w-20 rounded-full blur-2xl bg-primary"></div> */}
+                        <div className="w-[1px] m-10 aspect-square rounded-full bg-primary-20 shadow-primary shadow-[0_0_80px_3rem]"></div>
                     </div>
                 </RevealOn>
             </CursorFollower>
+
+            {/* noise filter */}
+            <div className="bg-[url(assets/noise.svg)] opacity-40 absolute inset-0 mix-blend-color-dodge"></div>
 
             {/* background stuff elements */}
             <div className="opacity-60 text-base">
