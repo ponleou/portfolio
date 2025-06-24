@@ -5,7 +5,7 @@ export default function WidthOnScroll({
     className = "",
     initialPercent,
     finalPercent,
-    maxScroll = document.documentElement.scrollHeight,
+    maxScroll = -1,
 }: {
     children: ReactNode;
     className?: string;
@@ -20,6 +20,9 @@ export default function WidthOnScroll({
     }
 
     useEffect(() => {
+        if (maxScroll < 0) {
+            maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+        }
         if (parent.current) {
             document.addEventListener("scroll", () => {
                 const currentScroll = window.scrollY > maxScroll ? maxScroll : window.scrollY;
@@ -34,9 +37,7 @@ export default function WidthOnScroll({
 
     return (
         <div className={className}>
-            <div ref={parent}>
-                {children}
-            </div>
+            <div ref={parent}>{children}</div>
         </div>
     );
 }
