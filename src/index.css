@@ -4,9 +4,21 @@
 @theme {
     --font-mono: "Fira Code", "monospace";
 
-    --color-bg: #000;
-    --color-primary: #fffee2;
-    --color-accent: #ff3e01;
+    --color-bg: rgb(0, 0, 0);
+    --color-bg-20: rgba(0, 0, 0, 0.2);
+    --color-bg-40: rgba(0, 0, 0, 0.4);
+    --color-bg-60: rgba(0, 0, 0, 0.6);
+    --color-bg-80: rgba(0, 0, 0, 0.8);
+    --color-primary: rgb(255, 254, 226);
+    --color-primary-20: rgba(255, 254, 226, 0.2);
+    --color-primary-40: rgba(255, 254, 226, 0.4);
+    --color-primary-60: rgba(255, 254, 226, 0.6);
+    --color-primary-80: rgba(255, 254, 226, 0.8);
+    --color-accent: rgb(255, 62, 1);
+    --color-accent-20: rgba(255, 62, 1, 0.2);
+    --color-accent-40: rgba(255, 62, 1, 0.4);
+    --color-accent-60: rgba(255, 62, 1, 0.6);
+    --color-accent-80: rgba(255, 62, 1, 0.8);
 
     --text-sm: 0.75rem;
     --text-base: 1.2rem;
