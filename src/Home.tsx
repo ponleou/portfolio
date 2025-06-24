@@ -35,7 +35,7 @@ export default function Home() {
 
     return (
         <div className={`${enqueueReveal7 ? "h-[150dvh]" : "h-dvh" } bg-bg relative`}>
-            <TranslateOnScroll direction="vertical" rate={0.2} maxScroll={window.innerHeight}>
+            <TranslateOnScroll direction="vertical" rate={0.15} maxScroll={window.innerHeight}>
                 <RevealOn
                     on={enqueueReveal6}
                     className="transition-opacity ease-out duration-1000"
