@@ -7,12 +7,12 @@ export default function TranslateOnScroll({
     children,
     direction,
     rate,
-    maxScroll,
+    maxScroll = -1,
 }: {
     children: ReactNode;
     direction: Direction;
     rate: number;
-    maxScroll: number;
+    maxScroll?: number;
 }) {
     const parent = useRef<HTMLDivElement>(null);
 
@@ -27,12 +27,16 @@ export default function TranslateOnScroll({
     useEffect(() => {
         if (parent.current) {
             document.addEventListener("scroll", () => {
-                const currentScroll = window.scrollY > maxScroll ? maxScroll : window.scrollY;
+                const currentScroll = maxScroll > 0 && window.scrollY > maxScroll ? maxScroll : window.scrollY;
                 const translate = currentScroll * rate;
                 translateElement(parent.current!, direction, translate);
             });
         }
     }, []);
 
-    return <div className="transition-transform ease-out duration-150" ref={parent}>{children}</div>;
+    return (
+        <div className="transition-transform ease-out duration-150" ref={parent}>
+            {children}
+        </div>
+    );
 }
