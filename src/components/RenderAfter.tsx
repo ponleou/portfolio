@@ -5,7 +5,7 @@ export default function RenderAfter({
     children,
     rerenderCallback,
 }: {
-    after: HTMLDivElement | null;
+    after: HTMLDivElement | boolean | null;
     children: ReactNode;
     rerenderCallback: () => void;
 }) {
