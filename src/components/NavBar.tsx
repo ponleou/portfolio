@@ -3,7 +3,7 @@ import TextSh from "./TextSh";
 
 export default function NavBar({ className = "", navClassName = "" }: { className?: string; navClassName?: string }) {
     return (
-        <div className={`${className} text-accent text-base font-bold`}>
+        <div className={`${className}`}>
             <NavLink to="/about">
                 <TextSh className={`${navClassName}`}>about</TextSh>
             </NavLink>

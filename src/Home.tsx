@@ -12,6 +12,7 @@ import RevealText from "./components/RevealText";
 import RevealOn from "./components/RevealOn";
 import TranslateToCursor from "./components/TranslateToCursor";
 import TranslateOnScroll from "./components/TranslateOnScroll";
+import WidthOnScroll from "./components/WidthOnScroll";
 
 export default function Home() {
     const mainTitle = useRef<HTMLDivElement>(null);
@@ -313,11 +314,15 @@ export default function Home() {
                     postRevealClass="opacity-100 translate-y-0"
                 >
                     <TranslateToCursor maxTranslate={0.5} translateMultiplier={0.1}>
-                        <NavBar
-                            className="flex justify-between absolute bottom-0 left-0 right-0 z-1 p-12"
-                            navClassName="gap-4 hover:gap-0 transition-all ease-out duration-500  relative 
-                        before:transition-all before:ease-out before:duration-500  before:bg-primary before:absolute before:inset-0 before:left-full hover:before:left-1/2 before:-z-1"
-                        ></NavBar>
+                        <div className="absolute bottom-0 left-0 right-0 z-1 p-12 text-accent text-base font-bold">
+                            <WidthOnScroll initialPercent={100} finalPercent={66} className="flex justify-center">
+                                <NavBar
+                                    className="flex justify-between"
+                                    navClassName="gap-4 hover:gap-0 transition-all ease-out duration-500  relative
+                                before:transition-all before:ease-out before:duration-500  before:bg-primary before:absolute before:inset-0 before:left-full hover:before:left-1/2 before:-z-1"
+                                ></NavBar>
+                            </WidthOnScroll>
+                        </div>
                     </TranslateToCursor>
                 </RevealOn>
             </div>
