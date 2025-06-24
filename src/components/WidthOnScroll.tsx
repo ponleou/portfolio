@@ -34,7 +34,7 @@ export default function WidthOnScroll({
 
     return (
         <div className={className}>
-            <div className="transition-transform ease-out duration-150" ref={parent}>
+            <div ref={parent}>
                 {children}
             </div>
         </div>
