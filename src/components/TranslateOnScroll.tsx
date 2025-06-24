@@ -34,5 +34,5 @@ export default function TranslateOnScroll({
         }
     }, []);
 
-    return <div className="transition-transform ease-out duration-300" ref={parent}>{children}</div>;
+    return <div className="transition-transform ease-out duration-150" ref={parent}>{children}</div>;
 }
