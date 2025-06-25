@@ -20,7 +20,9 @@ export default function AlignTarget({
     }
 
     function alignRight() {
-        aligner.current!.style.left = `${alignTo.getBoundingClientRect().right - parent.getBoundingClientRect().left}px`;
+        aligner.current!.style.left = `${
+            alignTo.getBoundingClientRect().right - parent.getBoundingClientRect().left
+        }px`;
     }
 
     function alignTop() {
@@ -32,11 +34,12 @@ export default function AlignTarget({
     }
 
     function align() {
-        console.log("triggered");
-        if (alignPosition === "left") alignLeft();
-        if (alignPosition === "right") alignRight();
-        if (alignPosition === "top") alignTop();
-        if (alignPosition === "bottom") alignBottom();
+        requestIdleCallback(() => {
+            if (alignPosition === "left") alignLeft();
+            if (alignPosition === "right") alignRight();
+            if (alignPosition === "top") alignTop();
+            if (alignPosition === "bottom") alignBottom();
+        });
     }
 
     useEffect(() => {
