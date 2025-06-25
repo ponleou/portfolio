@@ -45,12 +45,13 @@ export default function AlignTarget({
         if (aligner.current) {
             observer.observe(aligner.current);
             window.addEventListener("resize", align);
-
+            window.addEventListener("scroll", align);
         }
 
         return () => {
             observer.disconnect();
             window.removeEventListener("resize", align);
+            window.removeEventListener("scroll", align);
         };
     }, []);
 
