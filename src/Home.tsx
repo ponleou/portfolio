@@ -16,6 +16,9 @@ import WidthOnScroll from "./components/WidthOnScroll";
 import FontsizeOnScroll from "./components/FontsizeOnScroll";
 
 export default function Home() {
+    const codeLineContainer = useRef<HTMLDivElement>(null);
+    const descTextContainer = useRef<HTMLDivElement>(null);
+
     const mainTitle = useRef<HTMLDivElement>(null);
     const mainTitleContainer = useRef<HTMLDivElement>(null);
     const bashText = useRef<HTMLDivElement>(null);
@@ -90,93 +93,97 @@ export default function Home() {
             <div className="bg-[url(assets/noise.svg)] opacity-40 absolute inset-0 mix-blend-color-dodge"></div>
 
             {/* background stuff elements */}
-            <TranslateOnScroll direction="vertical" rate={-1} maxScroll={window.innerHeight}>
-                <div className="opacity-60 text-base">
-                    <div className="absolute pl-12 text-primary ">
-                        <RenderAfter after={bashText.current} rerenderCallback={rerenderPage}>
-                            <AlignTarget element={bashText.current!} toggleAlign="top">
-                                1
-                            </AlignTarget>
-                        </RenderAfter>
+            <div className="opacity-60 text-base">
+                <TranslateOnScroll direction="vertical" rate={-1} maxScroll={window.innerHeight}>
 
-                        <RenderAfter after={mainTitle.current} rerenderCallback={rerenderPage}>
-                            <RenderAfter after={descText1.current} rerenderCallback={rerenderPage}>
-                                <AlignTarget element={descText1.current!} toggleAlign="top">
-                                    <RevealOn
-                                        on={enqueueReveal1}
-                                        className="transition-all ease-out duration-500"
-                                        preRevealClass="opacity-0"
-                                        postRevealClass="opacity-100"
-                                    >
-                                        2
-                                    </RevealOn>
-                                </AlignTarget>
-                            </RenderAfter>
-                            <RenderAfter after={descText2.current} rerenderCallback={rerenderPage}>
-                                <AlignTarget element={descText2.current!} toggleAlign="top">
-                                    <RevealOn
-                                        on={enqueueReveal2}
-                                        className="transition-all ease-out duration-500"
-                                        preRevealClass="opacity-0"
-                                        postRevealClass="opacity-100"
-                                    >
-                                        3
-                                    </RevealOn>
-                                </AlignTarget>
-                            </RenderAfter>
-                            <RenderAfter after={descText3.current} rerenderCallback={rerenderPage}>
-                                <AlignTarget element={descText3.current!} toggleAlign="top">
-                                    <RevealOn
-                                        on={enqueueReveal3}
-                                        className="transition-all ease-out duration-500"
-                                        preRevealClass="opacity-0"
-                                        postRevealClass="opacity-100"
-                                    >
-                                        4
-                                    </RevealOn>
-                                </AlignTarget>
-                            </RenderAfter>
-                        </RenderAfter>
+                <div ref={codeLineContainer} className="absolute pl-12 text-primary ">
+                    <RenderAfter after={bashText.current} rerenderCallback={rerenderPage}>
+                        <AlignTarget parent={codeLineContainer.current!} alignTo={bashText.current!} alignPosition="top">
+                            1
+                        </AlignTarget>
+                    </RenderAfter>
 
-                        <RenderAfter after={mainTitleContainer.current} rerenderCallback={rerenderPage}>
-                            <AlignTarget element={mainTitleContainer.current!} toggleAlign="top">
+                    <RenderAfter after={mainTitle.current} rerenderCallback={rerenderPage}>
+                        <RenderAfter after={descText1.current} rerenderCallback={rerenderPage}>
+                            <AlignTarget parent={codeLineContainer.current!} alignTo={descText1.current!} alignPosition="top">
                                 <RevealOn
-                                    on={enqueueReveal4}
+                                    on={enqueueReveal1}
                                     className="transition-all ease-out duration-500"
                                     preRevealClass="opacity-0"
                                     postRevealClass="opacity-100"
                                 >
-                                    5
+                                    2
                                 </RevealOn>
                             </AlignTarget>
                         </RenderAfter>
-
-                        <RenderAfter after={roleTitle.current} rerenderCallback={rerenderPage}>
-                            <AlignTarget element={roleTitle.current!} toggleAlign="top">
+                        <RenderAfter after={descText2.current} rerenderCallback={rerenderPage}>
+                            <AlignTarget parent={codeLineContainer.current!} alignTo={descText2.current!} alignPosition="top">
                                 <RevealOn
-                                    on={enqueueReveal5}
+                                    on={enqueueReveal2}
                                     className="transition-all ease-out duration-500"
                                     preRevealClass="opacity-0"
                                     postRevealClass="opacity-100"
                                 >
-                                    6
+                                    3
                                 </RevealOn>
                             </AlignTarget>
                         </RenderAfter>
-
-                        <RenderAfter after={skillText.current} rerenderCallback={rerenderPage}>
-                            <AlignTarget element={skillText.current!} toggleAlign="top">
+                        <RenderAfter after={descText3.current} rerenderCallback={rerenderPage}>
+                            <AlignTarget parent={codeLineContainer.current!} alignTo={descText3.current!} alignPosition="top">
                                 <RevealOn
-                                    on={enqueueReveal6}
+                                    on={enqueueReveal3}
                                     className="transition-all ease-out duration-500"
                                     preRevealClass="opacity-0"
                                     postRevealClass="opacity-100"
                                 >
-                                    7
+                                    4
                                 </RevealOn>
                             </AlignTarget>
                         </RenderAfter>
-                    </div>
+                    </RenderAfter>
+
+                    <RenderAfter after={mainTitleContainer.current} rerenderCallback={rerenderPage}>
+                        <AlignTarget parent={codeLineContainer.current!} alignTo={mainTitleContainer.current!} alignPosition="top">
+                            <RevealOn
+                                on={enqueueReveal4}
+                                className="transition-all ease-out duration-500"
+                                preRevealClass="opacity-0"
+                                postRevealClass="opacity-100"
+                            >
+                                5
+                            </RevealOn>
+                        </AlignTarget>
+                    </RenderAfter>
+
+                    <RenderAfter after={roleTitle.current} rerenderCallback={rerenderPage}>
+                        <AlignTarget parent={codeLineContainer.current!} alignTo={roleTitle.current!} alignPosition="top">
+                            <RevealOn
+                                on={enqueueReveal5}
+                                className="transition-all ease-out duration-500"
+                                preRevealClass="opacity-0"
+                                postRevealClass="opacity-100"
+                            >
+                                6
+                            </RevealOn>
+                        </AlignTarget>
+                    </RenderAfter>
+
+                    <RenderAfter after={skillText.current} rerenderCallback={rerenderPage}>
+                        <AlignTarget parent={codeLineContainer.current!} alignTo={skillText.current!} alignPosition="top">
+                            <RevealOn
+                                on={enqueueReveal6}
+                                className="transition-all ease-out duration-500"
+                                preRevealClass="opacity-0"
+                                postRevealClass="opacity-100"
+                            >
+                                7
+                            </RevealOn>
+                        </AlignTarget>
+                    </RenderAfter>
+                </div>
+                </TranslateOnScroll>
+
+                <TranslateOnScroll direction="vertical" rate={-1} maxScroll={window.innerHeight}>
                     <div className="absolute pl-32 pt-12 text-nowrap text-primary">
                         <div ref={bashText}>
                             <RevealText
@@ -187,9 +194,11 @@ export default function Home() {
                             ></RevealText>
                         </div>
                     </div>
-                    <div className="absolute top-[19dvh]">
+                </TranslateOnScroll>
+                <TranslateOnScroll direction="vertical" rate={-1} maxScroll={window.innerHeight}>
+                    <div ref={descTextContainer} className="absolute top-[19dvh]">
                         <RenderAfter after={mainTitle.current} rerenderCallback={rerenderPage}>
-                            <AlignTarget element={mainTitle.current!} toggleAlign="left">
+                            <AlignTarget parent={descTextContainer.current!} alignTo={mainTitle.current!} alignPosition="left">
                                 <div className="text-primary -translate-y-1/2 text-nowrap ">
                                     <div ref={descText1}>
                                         <RevealText
@@ -227,8 +236,8 @@ export default function Home() {
                             </AlignTarget>
                         </RenderAfter>
                     </div>
-                </div>
-            </TranslateOnScroll>
+                </TranslateOnScroll>
+            </div>
 
             <TranslateOnScroll direction="vertical" rate={-1} maxScroll={window.innerHeight}>
                 <GoldenHorizontal
@@ -317,14 +326,14 @@ export default function Home() {
                     <TranslateToCursor maxTranslate={0.5} translateMultiplier={0.1}>
                         <RenderAfter after={enqueueReveal7} rerenderCallback={rerenderPage}>
                             <FontsizeOnScroll
-                                className="absolute bottom-0 left-0 right-0 z-1 p-12 text-accent font-bold"
+                                className="absolute duration-[0] bottom-0 left-0 right-0 z-1 p-12 text-accent font-bold"
                                 initialRem={1.2}
                                 finalRem={1.6}
                             >
                                 <WidthOnScroll initialPercent={100} finalPercent={90} className="flex justify-center">
                                     <NavBar
                                         className="flex justify-between"
-                                        navClassName="gap-4 hover:gap-0 transition-all ease-out duration-500  relative
+                                        navClassName="gap-4 hover:gap-0 transition-[gap] ease-out duration-500  relative
                                     before:transition-all before:ease-out before:duration-500  before:bg-primary before:absolute before:inset-0 before:left-full hover:before:left-1/2 before:-z-1"
                                     ></NavBar>
                                 </WidthOnScroll>
