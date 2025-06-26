@@ -9,7 +9,7 @@ export default function Lined({
     lineOrientation = orientation,
     lengthRem,
     gapRem,
-    lineOpacity = 1,
+    cssColor,
     enable = { start: true, end: true },
 }: {
     children: ReactNode;
@@ -17,21 +17,21 @@ export default function Lined({
     lineOrientation?: Orientation;
     lengthRem: number;
     gapRem: number;
-    lineOpacity?: number;
+    cssColor: string;
     enable?: Partial<{ start: boolean; end: boolean }>;
 }) {
     return (
         <div className={`flex items-center ${orientation === "vertical" ? "flex-col" : ""}`} style={{ gap: `${gapRem}rem` }}>
             {enable.start && (
                 <div
-                    style={lineOrientation === "vertical" ? { height: `${lengthRem}rem`, opacity: lineOpacity } : { width: `${lengthRem}rem`, opacity: lineOpacity }}
+                    style={lineOrientation === "vertical" ? { height: `${lengthRem}rem`, backgroundColor: cssColor } : { width: `${lengthRem}rem`, backgroundColor: cssColor }}
                     className={`${lineOrientation === "vertical" ? "w-[1px]" : "h-[1px]"} bg-primary`}
                 ></div>
             )}
             {children}
             {enable.end && (
                 <div
-                    style={lineOrientation === "vertical" ? { height: `${lengthRem}rem`, opacity: lineOpacity } : { width: `${lengthRem}rem`, opacity: lineOpacity }}
+                    style={lineOrientation === "vertical" ? { height: `${lengthRem}rem`, backgroundColor: cssColor } : { width: `${lengthRem}rem`, backgroundColor: cssColor }}
                     className={`${lineOrientation === "vertical" ? "w-[1px]" : "h-[1px]"} bg-primary`}
                 ></div>
             )}
