@@ -74,7 +74,6 @@ export default function Home() {
                 ratePerFrame={0.05}
                 warpDegree={60}
                 distanceFadeRatio={5}
-                // filter={<div className="bg-[url(assets/noise.svg)] absolute inset-0 mix-blend-color-dodge"></div>}
             >
                 <RevealOn
                     on={enqueueReveal6}
@@ -83,7 +82,6 @@ export default function Home() {
                     postRevealClass="opacity-100"
                 >
                     <div className="flex justify-center items-center animate-scale-pulse-3">
-                        {/* <div className="aspect-square w-20 rounded-full blur-2xl bg-primary"></div> */}
                         <div className="w-[1px] m-10 aspect-square rounded-full bg-primary-20 shadow-primary shadow-[0_0_80px_3rem]"></div>
                     </div>
                 </RevealOn>
@@ -208,7 +206,7 @@ export default function Home() {
                     </RenderAfter>
                 </div>
 
-                <TranslateOnScroll direction="vertical" rate={-0.01} maxScroll={window.innerHeight}>
+                <TranslateOnScroll direction="vertical" rate={0.5} maxScroll={window.innerHeight}>
                     <div className="absolute pl-32 pt-12 text-nowrap text-primary">
                         <div ref={bashText}>
                             <RevealText
@@ -220,7 +218,7 @@ export default function Home() {
                         </div>
                     </div>
                 </TranslateOnScroll>
-                <TranslateOnScroll direction="vertical" rate={-0.15} maxScroll={window.innerHeight}>
+                <TranslateOnScroll direction="vertical" rate={0.15} maxScroll={window.innerHeight}>
                     <div ref={descTextContainer} className="absolute top-[19dvh]">
                         <RenderAfter after={mainTitle.current} rerenderCallback={rerenderPage}>
                             <AlignTarget
@@ -271,7 +269,7 @@ export default function Home() {
             <GoldenHorizontal
                 className="top-0 h-dvh left-0 right-0 absolute"
                 top={
-                    <TranslateOnScroll direction="vertical" rate={-0.4} maxScroll={window.innerHeight}>
+                    <TranslateOnScroll direction="vertical" rate={-0.1} maxScroll={window.innerHeight}>
                         <div ref={mainTitleContainer} className="flex justify-center">
                             <RevealOn
                                 on={enqueueReveal4}
@@ -292,7 +290,7 @@ export default function Home() {
                     </TranslateOnScroll>
                 }
                 bottom={
-                    <TranslateOnScroll direction="vertical" rate={-0.65} maxScroll={window.innerHeight}>
+                    <TranslateOnScroll direction="vertical" rate={-0.4} maxScroll={window.innerHeight}>
                         <div className="text-primary flex items-center flex-col gap-4">
                             <div ref={roleTitle}>
                                 <RevealOn
