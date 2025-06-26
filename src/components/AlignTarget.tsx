@@ -59,7 +59,7 @@ export default function AlignTarget({
     }, []);
 
     return (
-        <div ref={aligner} className={`absolute`}>
+        <div ref={aligner} className={`absolute transition-all duration-150 ease-out`}>
             {children}
         </div>
     );
