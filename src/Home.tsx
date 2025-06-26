@@ -93,97 +93,124 @@ export default function Home() {
             <div className="bg-[url(assets/noise.svg)] opacity-40 absolute inset-0 mix-blend-color-dodge"></div>
 
             {/* background stuff elements */}
-            <div className="opacity-60 text-base">
+            <div className="opacity-60 text-base-ad">
                 <TranslateOnScroll direction="vertical" rate={-1} maxScroll={window.innerHeight}>
+                    <div ref={codeLineContainer} className="absolute pl-12 text-primary ">
+                        <RenderAfter after={bashText.current} rerenderCallback={rerenderPage}>
+                            <AlignTarget
+                                parent={codeLineContainer.current!}
+                                alignTo={bashText.current!}
+                                alignPosition="top"
+                            >
+                                1
+                            </AlignTarget>
+                        </RenderAfter>
 
-                <div ref={codeLineContainer} className="absolute pl-12 text-primary ">
-                    <RenderAfter after={bashText.current} rerenderCallback={rerenderPage}>
-                        <AlignTarget parent={codeLineContainer.current!} alignTo={bashText.current!} alignPosition="top">
-                            1
-                        </AlignTarget>
-                    </RenderAfter>
+                        <RenderAfter after={mainTitle.current} rerenderCallback={rerenderPage}>
+                            <RenderAfter after={descText1.current} rerenderCallback={rerenderPage}>
+                                <AlignTarget
+                                    parent={codeLineContainer.current!}
+                                    alignTo={descText1.current!}
+                                    alignPosition="top"
+                                >
+                                    <RevealOn
+                                        on={enqueueReveal1}
+                                        className="transition-all ease-out duration-500"
+                                        preRevealClass="opacity-0"
+                                        postRevealClass="opacity-100"
+                                    >
+                                        2
+                                    </RevealOn>
+                                </AlignTarget>
+                            </RenderAfter>
+                            <RenderAfter after={descText2.current} rerenderCallback={rerenderPage}>
+                                <AlignTarget
+                                    parent={codeLineContainer.current!}
+                                    alignTo={descText2.current!}
+                                    alignPosition="top"
+                                >
+                                    <RevealOn
+                                        on={enqueueReveal2}
+                                        className="transition-all ease-out duration-500"
+                                        preRevealClass="opacity-0"
+                                        postRevealClass="opacity-100"
+                                    >
+                                        3
+                                    </RevealOn>
+                                </AlignTarget>
+                            </RenderAfter>
+                            <RenderAfter after={descText3.current} rerenderCallback={rerenderPage}>
+                                <AlignTarget
+                                    parent={codeLineContainer.current!}
+                                    alignTo={descText3.current!}
+                                    alignPosition="top"
+                                >
+                                    <RevealOn
+                                        on={enqueueReveal3}
+                                        className="transition-all ease-out duration-500"
+                                        preRevealClass="opacity-0"
+                                        postRevealClass="opacity-100"
+                                    >
+                                        4
+                                    </RevealOn>
+                                </AlignTarget>
+                            </RenderAfter>
+                        </RenderAfter>
 
-                    <RenderAfter after={mainTitle.current} rerenderCallback={rerenderPage}>
-                        <RenderAfter after={descText1.current} rerenderCallback={rerenderPage}>
-                            <AlignTarget parent={codeLineContainer.current!} alignTo={descText1.current!} alignPosition="top">
+                        <RenderAfter after={mainTitleContainer.current} rerenderCallback={rerenderPage}>
+                            <AlignTarget
+                                parent={codeLineContainer.current!}
+                                alignTo={mainTitleContainer.current!}
+                                alignPosition="top"
+                            >
                                 <RevealOn
-                                    on={enqueueReveal1}
+                                    on={enqueueReveal4}
                                     className="transition-all ease-out duration-500"
                                     preRevealClass="opacity-0"
                                     postRevealClass="opacity-100"
                                 >
-                                    2
+                                    5
                                 </RevealOn>
                             </AlignTarget>
                         </RenderAfter>
-                        <RenderAfter after={descText2.current} rerenderCallback={rerenderPage}>
-                            <AlignTarget parent={codeLineContainer.current!} alignTo={descText2.current!} alignPosition="top">
+
+                        <RenderAfter after={roleTitle.current} rerenderCallback={rerenderPage}>
+                            <AlignTarget
+                                parent={codeLineContainer.current!}
+                                alignTo={roleTitle.current!}
+                                alignPosition="top"
+                            >
                                 <RevealOn
-                                    on={enqueueReveal2}
+                                    on={enqueueReveal5}
                                     className="transition-all ease-out duration-500"
                                     preRevealClass="opacity-0"
                                     postRevealClass="opacity-100"
                                 >
-                                    3
+                                    6
                                 </RevealOn>
                             </AlignTarget>
                         </RenderAfter>
-                        <RenderAfter after={descText3.current} rerenderCallback={rerenderPage}>
-                            <AlignTarget parent={codeLineContainer.current!} alignTo={descText3.current!} alignPosition="top">
+
+                        <RenderAfter after={skillText.current} rerenderCallback={rerenderPage}>
+                            <AlignTarget
+                                parent={codeLineContainer.current!}
+                                alignTo={skillText.current!}
+                                alignPosition="top"
+                            >
                                 <RevealOn
-                                    on={enqueueReveal3}
+                                    on={enqueueReveal6}
                                     className="transition-all ease-out duration-500"
                                     preRevealClass="opacity-0"
                                     postRevealClass="opacity-100"
                                 >
-                                    4
+                                    7
                                 </RevealOn>
                             </AlignTarget>
                         </RenderAfter>
-                    </RenderAfter>
-
-                    <RenderAfter after={mainTitleContainer.current} rerenderCallback={rerenderPage}>
-                        <AlignTarget parent={codeLineContainer.current!} alignTo={mainTitleContainer.current!} alignPosition="top">
-                            <RevealOn
-                                on={enqueueReveal4}
-                                className="transition-all ease-out duration-500"
-                                preRevealClass="opacity-0"
-                                postRevealClass="opacity-100"
-                            >
-                                5
-                            </RevealOn>
-                        </AlignTarget>
-                    </RenderAfter>
-
-                    <RenderAfter after={roleTitle.current} rerenderCallback={rerenderPage}>
-                        <AlignTarget parent={codeLineContainer.current!} alignTo={roleTitle.current!} alignPosition="top">
-                            <RevealOn
-                                on={enqueueReveal5}
-                                className="transition-all ease-out duration-500"
-                                preRevealClass="opacity-0"
-                                postRevealClass="opacity-100"
-                            >
-                                6
-                            </RevealOn>
-                        </AlignTarget>
-                    </RenderAfter>
-
-                    <RenderAfter after={skillText.current} rerenderCallback={rerenderPage}>
-                        <AlignTarget parent={codeLineContainer.current!} alignTo={skillText.current!} alignPosition="top">
-                            <RevealOn
-                                on={enqueueReveal6}
-                                className="transition-all ease-out duration-500"
-                                preRevealClass="opacity-0"
-                                postRevealClass="opacity-100"
-                            >
-                                7
-                            </RevealOn>
-                        </AlignTarget>
-                    </RenderAfter>
-                </div>
+                    </div>
                 </TranslateOnScroll>
 
-                <TranslateOnScroll direction="vertical" rate={-1} maxScroll={window.innerHeight}>
+                <TranslateOnScroll direction="vertical" rate={-0.05} maxScroll={window.innerHeight}>
                     <div className="absolute pl-32 pt-12 text-nowrap text-primary">
                         <div ref={bashText}>
                             <RevealText
@@ -195,10 +222,14 @@ export default function Home() {
                         </div>
                     </div>
                 </TranslateOnScroll>
-                <TranslateOnScroll direction="vertical" rate={-1} maxScroll={window.innerHeight}>
+                <TranslateOnScroll direction="vertical" rate={-0.2} maxScroll={window.innerHeight}>
                     <div ref={descTextContainer} className="absolute top-[19dvh]">
                         <RenderAfter after={mainTitle.current} rerenderCallback={rerenderPage}>
-                            <AlignTarget parent={descTextContainer.current!} alignTo={mainTitle.current!} alignPosition="left">
+                            <AlignTarget
+                                parent={descTextContainer.current!}
+                                alignTo={mainTitle.current!}
+                                alignPosition="left"
+                            >
                                 <div className="text-primary -translate-y-1/2 text-nowrap ">
                                     <div ref={descText1}>
                                         <RevealText
@@ -239,10 +270,10 @@ export default function Home() {
                 </TranslateOnScroll>
             </div>
 
-            <TranslateOnScroll direction="vertical" rate={-1} maxScroll={window.innerHeight}>
-                <GoldenHorizontal
-                    className="top-0 h-dvh left-0 right-0 absolute"
-                    top={
+            <GoldenHorizontal
+                className="top-0 h-dvh left-0 right-0 absolute"
+                top={
+                    <TranslateOnScroll direction="vertical" rate={-0.4} maxScroll={window.innerHeight}>
                         <div ref={mainTitleContainer} className="flex justify-center">
                             <RevealOn
                                 on={enqueueReveal4}
@@ -253,15 +284,17 @@ export default function Home() {
                                 <TranslateToCursor maxTranslate={1} translateMultiplier={0.1}>
                                     <h1
                                         ref={mainTitle}
-                                        className="text-primary text-h1-sm lg:text-h1 font-extrabold leading-[1em]"
+                                        className="text-primary text-h1-ad font-extrabold leading-[1em]"
                                     >
                                         Keo Ponleou
                                     </h1>
                                 </TranslateToCursor>
                             </RevealOn>
                         </div>
-                    }
-                    bottom={
+                    </TranslateOnScroll>
+                }
+                bottom={
+                    <TranslateOnScroll direction="vertical" rate={-0.7} maxScroll={window.innerHeight}>
                         <div className="text-primary flex items-center flex-col gap-4">
                             <div ref={roleTitle}>
                                 <RevealOn
@@ -271,11 +304,11 @@ export default function Home() {
                                     postRevealClass="opacity-100 translate-y-0"
                                 >
                                     <TranslateToCursor maxTranslate={0.5} translateMultiplier={0.1}>
-                                        <p className="text-h3 font-semibold leading-[1em]">SOFTWARE DEVELOPER</p>
+                                        <p className="text-h3-ad font-semibold leading-[1em]">SOFTWARE DEVELOPER</p>
                                     </TranslateToCursor>
                                 </RevealOn>
                             </div>
-                            <div ref={skillText} className="text-base leading-none">
+                            <div ref={skillText} className="text-base-ad leading-none">
                                 <RevealOn
                                     on={enqueueReveal6}
                                     className="transition-all ease-out duration-500"
@@ -312,9 +345,9 @@ export default function Home() {
                                 </RevealOn>
                             </div>
                         </div>
-                    }
-                />
-            </TranslateOnScroll>
+                    </TranslateOnScroll>
+                }
+            />
 
             <div className="top-[100dvh] w-full relative">
                 <RevealOn
