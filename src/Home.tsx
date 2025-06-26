@@ -341,11 +341,11 @@ export default function Home() {
             >
                 <div className="h-dvh flex flex-col">
                     <div className="grow relative">
-                        <div className="text-h4-ad text-primary opacity-60 bottom-12 right-12 absolute">
+                        <div className="text-h4-ad text-primary-60 bottom-12 right-12 absolute">
                             <TranslateOnScroll direction="vertical" rate={-1} maxScroll={window.innerHeight}>
                                 <TranslateToCursor maxTranslate={0.5} translateMultiplier={0.1}>
-                                    <Lined lengthRem={10} orientation="vertical" gapRem={2.5}>
-                                        <a className="transition-colors duration-500 ease-out" href="https://github.com/ponleou" target="_blank">
+                                    <Lined lengthRem={10} orientation="vertical" gapRem={2.5} lineOpacity={0.6}>
+                                        <a className="transition-colors duration-500 ease-out hover:text-primary" href="https://github.com/ponleou" target="_blank">
                                             <Icon icon="mdi:github" width="1em" height="1em" />
                                         </a>
                                         <Lined
@@ -353,12 +353,13 @@ export default function Home() {
                                             orientation="vertical"
                                             lineOrientation="horizontal"
                                             gapRem={2.5}
+                                            lineOpacity={0.6}
                                         >
-                                            <a href="https://www.linkedin.com/in/ponleou/" target="_blank">
+                                            <a className="transition-colors duration-500 ease-out hover:text-primary" href="https://www.linkedin.com/in/ponleou/" target="_blank">
                                                 <Icon icon="mdi:linkedin" width="1em" height="1em" />
                                             </a>
                                         </Lined>
-                                        <a href="mailto:ponleousk@gmail.com" target="_blank">
+                                        <a className="transition-colors duration-500 ease-out hover:text-primary" href="mailto:ponleousk@gmail.com" target="_blank">
                                             <Icon icon="mdi:email" width="1em" height="1em" />
                                         </a>
                                     </Lined>
