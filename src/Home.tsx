@@ -344,7 +344,7 @@ export default function Home() {
                         <div className="text-h4-ad text-primary-60 bottom-12 right-12 absolute">
                             <TranslateOnScroll direction="vertical" rate={-1} maxScroll={window.innerHeight}>
                                 <TranslateToCursor maxTranslate={0.5} translateMultiplier={0.1}>
-                                    <Lined lengthRem={10} orientation="vertical" gapRem={2.5} lineOpacity={0.6}>
+                                    <Lined lengthRem={10} orientation="vertical" gapRem={2.5} cssColor="var(--color-primary-60)">
                                         <a className="transition-colors duration-500 ease-out hover:text-primary" href="https://github.com/ponleou" target="_blank">
                                             <Icon icon="mdi:github" width="1em" height="1em" />
                                         </a>
@@ -353,7 +353,7 @@ export default function Home() {
                                             orientation="vertical"
                                             lineOrientation="horizontal"
                                             gapRem={2.5}
-                                            lineOpacity={0.6}
+                                            cssColor="var(--color-primary-60)"
                                         >
                                             <a className="transition-colors duration-500 ease-out hover:text-primary" href="https://www.linkedin.com/in/ponleou/" target="_blank">
                                                 <Icon icon="mdi:linkedin" width="1em" height="1em" />
@@ -372,7 +372,7 @@ export default function Home() {
                             <RenderAfter after={enqueueReveal7} rerenderCallback={rerenderPage}>
                                 <FontsizeOnScroll
                                     className="duration-[0] bottom-0 left-0 right-0 z-1 p-12 text-accent font-bold"
-                                    initialRem={1.2}
+                                    initialRem={"--text-base-ad"}
                                     finalRem={1.6}
                                 >
                                     <WidthOnScroll
