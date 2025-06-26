@@ -1,6 +1,37 @@
 @import url("https://fonts.googleapis.com/css2?family=Fira+Code&display=swap");
 @import "tailwindcss";
 
+/* Ratio: 1.2 */
+html {
+    @apply font-mono;
+    font-size: 30.2%;
+}
+
+@media screen and (min-width: 480px) {
+    html {
+        font-size: 36.2%;
+    }
+}
+
+@media screen and (min-width: 640px) {
+    html {
+        font-size: 43.4%;
+    }
+}
+
+@media screen and (min-width: 768px) {
+    html {
+        font-size: 52.1%;
+    }
+}
+
+@media screen and (min-width: 1280px) {
+    html {
+        font-size: 62.5%;
+    }
+}
+
+
 @theme {
     --font-mono: "Fira Code", "monospace";
 
@@ -20,13 +51,22 @@
     --color-accent-60: rgba(255, 62, 1, 0.6);
     --color-accent-80: rgba(255, 62, 1, 0.8);
 
-    --text-sm: 0.75rem;
-    --text-base: 1.2rem;
-    --text-h4: 2rem;
-    --text-h3: 3.2rem;
-    --text-h2: 5.2rem;
+    /* Ratio: 1.618 */
     --text-h1: 13.6rem;
     --text-h1-sm: 8.4rem;
+    --text-h2: 5.2rem;
+    --text-h3: 3.2rem;
+    --text-h4: 2rem;
+    --text-base: 1.2rem;
+    --text-sm: 0.75rem;
+
+    /* Ratio: 1.309 */
+    --text-h1-mob: 8.1rem;
+    --text-h2-mob: 4.7rem;
+    --text-h3-mob: 2.8rem;
+    --text-h4-mob: 2.1rem;
+    --text-base-mob: 1.6rem;
+    --text-sm-mob: 1.2rem;
 
     --animate-scale-pulse-1: scale-pulse 1s cubic-bezier(0.4, 0, 0.6, 1) infinite;
     --animate-scale-pulse-2: scale-pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
@@ -47,31 +87,52 @@
     }
 }
 
-html {
-    @apply font-mono;
-    font-size: 28.2%;
-}
+@layer components {
+    /* < 768px uses mob version */
+    /* > 768px uses normal version */
+    .text-sm-ad {
+        font-size: var(--text-sm-mob);
+        @media screen and (min-width: 768px) {
+            font-size: var(--text-sm);
+        }
+    }
 
-@media screen and (min-width: 550px) {
-    html {
-        font-size: 34.8%;
+    .text-base-ad {
+        font-size: var(--text-base-mob);
+        @media screen and (min-width: 768px) {
+            font-size: var(--text-base);
+        }
+    }
+
+    .text-h4-ad {
+        font-size: var(--text-h4-mob);
+        @media screen and (min-width: 768px) {
+            font-size: var(--text-h4);
+        }
+    }
+
+    .text-h3-ad {
+        font-size: var(--text-h3-mob);
+        @media screen and (min-width: 768px) {
+            font-size: var(--text-h3);
+        }
+    }
+
+    .text-h2-ad {
+        font-size: var(--text-h2-mob);
+        @media screen and (min-width: 768px) {
+            font-size: var(--text-h2);
+        }
+    }
+
+    .text-h1-ad {
+        font-size: var(--text-h1-mob);
+        @media screen and (min-width: 768px) {
+            font-size: var(--text-h1-sm);
+        }
+        @media screen and (min-width: 1024px) {
+            font-size: var(--text-h1);
+        }
     }
 }
 
-@media screen and (min-width: 768px) {
-    html {
-        font-size: 45.6%;
-    }
-}
-
-@media screen and (min-width: 1024px) {
-    html {
-        font-size: 53.2%;
-    }
-}
-
-@media screen and (min-width: 1200px) {
-    html {
-        font-size: 62.5%;
-    }
-}

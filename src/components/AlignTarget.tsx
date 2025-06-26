@@ -4,55 +4,62 @@ const positions = ["top", "right", "bottom", "left"] as const;
 type Position = (typeof positions)[number];
 
 export default function AlignTarget({
-    toggleAlign,
-    element,
+    alignPosition,
+    alignTo,
+    parent,
     children,
 }: {
-    toggleAlign: Position;
-    element: HTMLDivElement;
+    alignPosition: Position;
+    alignTo: HTMLDivElement;
+    parent: HTMLDivElement;
     children: ReactNode;
 }) {
-    const parent = useRef<HTMLDivElement>(null);
-
+    const aligner = useRef<HTMLDivElement>(null);
     function alignLeft() {
-        parent.current!.style.left = `${element.getBoundingClientRect().left}px`;
+        aligner.current!.style.left = `${alignTo.getBoundingClientRect().left - parent.getBoundingClientRect().left}px`;
     }
 
     function alignRight() {
-        parent.current!.style.left = `${element.getBoundingClientRect().right}px`;
+        aligner.current!.style.left = `${
+            alignTo.getBoundingClientRect().right - parent.getBoundingClientRect().left
+        }px`;
     }
 
     function alignTop() {
-        parent.current!.style.top = `${element.getBoundingClientRect().top}px`;
+        aligner.current!.style.top = `${alignTo.getBoundingClientRect().top - parent.getBoundingClientRect().top}px`;
     }
 
     function alignBottom() {
-        parent.current!.style.top = `${element.getBoundingClientRect().bottom}px`;
+        aligner.current!.style.top = `${alignTo.getBoundingClientRect().bottom - parent.getBoundingClientRect().top}px`;
     }
 
     function align() {
-        if (toggleAlign === "left") alignLeft();
-        if (toggleAlign === "right") alignRight();
-        if (toggleAlign === "top") alignTop();
-        if (toggleAlign === "bottom") alignBottom();
+        requestIdleCallback(() => {
+            if (alignPosition === "left") alignLeft();
+            if (alignPosition === "right") alignRight();
+            if (alignPosition === "top") alignTop();
+            if (alignPosition === "bottom") alignBottom();
+        });
     }
 
     useEffect(() => {
         const observer = new ResizeObserver(align);
 
-        if (parent.current) {
-            observer.observe(parent.current);
+        if (aligner.current) {
+            observer.observe(aligner.current);
             window.addEventListener("resize", align);
+            window.addEventListener("scroll", align);
         }
 
         return () => {
             observer.disconnect();
             window.removeEventListener("resize", align);
+            window.removeEventListener("scroll", align);
         };
     }, []);
 
     return (
-        <div ref={parent} className={`absolute`}>
+        <div ref={aligner} className={`absolute transition-all duration-150 ease-out`}>
             {children}
         </div>
     );
