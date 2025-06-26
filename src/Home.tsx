@@ -14,6 +14,8 @@ import TranslateToCursor from "./components/TranslateToCursor";
 import TranslateOnScroll from "./components/TranslateOnScroll";
 import WidthOnScroll from "./components/WidthOnScroll";
 import FontsizeOnScroll from "./components/FontsizeOnScroll";
+import { Icon } from "@iconify-icon/react";
+import Lined from "./components/Lined";
 
 export default function Home() {
     const codeLineContainer = useRef<HTMLDivElement>(null);
@@ -69,12 +71,7 @@ export default function Home() {
                     </div>
                 </RevealOn>
             </TranslateOnScroll>
-
-            <CursorFollower
-                ratePerFrame={0.05}
-                warpDegree={60}
-                distanceFadeRatio={5}
-            >
+            <CursorFollower ratePerFrame={0.05} warpDegree={60} distanceFadeRatio={5}>
                 <RevealOn
                     on={enqueueReveal6}
                     className="transition-all ease-out duration-500"
@@ -86,10 +83,8 @@ export default function Home() {
                     </div>
                 </RevealOn>
             </CursorFollower>
-
             {/* noise filter */}
             <div className="bg-[url(assets/noise.svg)] opacity-40 absolute inset-0 mix-blend-color-dodge"></div>
-
             {/* background stuff elements */}
             <div className="opacity-60 text-base-ad">
                 <div ref={codeLineContainer} className="absolute pl-12 text-primary ">
@@ -102,7 +97,6 @@ export default function Home() {
                             1
                         </AlignTarget>
                     </RenderAfter>
-
                     <RenderAfter after={mainTitle.current} rerenderCallback={rerenderPage}>
                         <RenderAfter after={descText1.current} rerenderCallback={rerenderPage}>
                             <AlignTarget
@@ -153,7 +147,6 @@ export default function Home() {
                             </AlignTarget>
                         </RenderAfter>
                     </RenderAfter>
-
                     <RenderAfter after={mainTitleContainer.current} rerenderCallback={rerenderPage}>
                         <AlignTarget
                             parent={codeLineContainer.current!}
@@ -170,7 +163,6 @@ export default function Home() {
                             </RevealOn>
                         </AlignTarget>
                     </RenderAfter>
-
                     <RenderAfter after={roleTitle.current} rerenderCallback={rerenderPage}>
                         <AlignTarget
                             parent={codeLineContainer.current!}
@@ -187,7 +179,6 @@ export default function Home() {
                             </RevealOn>
                         </AlignTarget>
                     </RenderAfter>
-
                     <RenderAfter after={skillText.current} rerenderCallback={rerenderPage}>
                         <AlignTarget
                             parent={codeLineContainer.current!}
@@ -205,7 +196,6 @@ export default function Home() {
                         </AlignTarget>
                     </RenderAfter>
                 </div>
-
                 <TranslateOnScroll direction="vertical" rate={0.5} maxScroll={window.innerHeight}>
                     <div className="absolute pl-32 pt-12 text-nowrap text-primary">
                         <div ref={bashText}>
@@ -265,7 +255,6 @@ export default function Home() {
                     </div>
                 </TranslateOnScroll>
             </div>
-
             <GoldenHorizontal
                 className="top-0 h-dvh left-0 right-0 absolute"
                 top={
@@ -344,33 +333,64 @@ export default function Home() {
                     </TranslateOnScroll>
                 }
             />
-
-            <div className="top-[100dvh] w-full relative">
-                <RevealOn
-                    on={enqueueReveal7}
-                    className="transition-all ease-out duration-500"
-                    preRevealClass="opacity-0 -translate-y-8"
-                    postRevealClass="opacity-100 translate-y-0"
-                >
-                    <TranslateToCursor maxTranslate={0.5} translateMultiplier={0.1}>
-                        <RenderAfter after={enqueueReveal7} rerenderCallback={rerenderPage}>
-                            <FontsizeOnScroll
-                                className="absolute duration-[0] bottom-0 left-0 right-0 z-1 p-12 text-accent font-bold"
-                                initialRem={1.2}
-                                finalRem={1.6}
-                            >
-                                <WidthOnScroll initialPercent={100} finalPercent={90} className="flex justify-center">
-                                    <NavBar
-                                        className="flex justify-between"
-                                        navClassName="gap-4 hover:gap-0 transition-[gap] ease-out duration-500  relative
-                                    before:transition-all before:ease-out before:duration-500  before:bg-primary before:absolute before:inset-0 before:left-full hover:before:left-1/2 before:-z-1"
-                                    ></NavBar>
-                                </WidthOnScroll>
-                            </FontsizeOnScroll>
-                        </RenderAfter>
-                    </TranslateToCursor>
-                </RevealOn>
-            </div>
+            <RevealOn
+                on={enqueueReveal7}
+                className="transition-all ease-out duration-500"
+                preRevealClass="opacity-0 -translate-y-8"
+                postRevealClass="opacity-100 translate-y-0"
+            >
+                <div className="h-dvh flex flex-col">
+                    <div className="grow relative">
+                        <div className="text-h4-ad text-primary opacity-60 bottom-12 right-12 absolute">
+                            <TranslateOnScroll direction="vertical" rate={-1} maxScroll={window.innerHeight}>
+                                <TranslateToCursor maxTranslate={0.5} translateMultiplier={0.1}>
+                                    <Lined lengthRem={10} orientation="vertical" gapRem={2.5}>
+                                        <a className="transition-colors duration-500 ease-out" href="https://github.com/ponleou" target="_blank">
+                                            <Icon icon="mdi:github" width="1em" height="1em" />
+                                        </a>
+                                        <Lined
+                                            lengthRem={1.2}
+                                            orientation="vertical"
+                                            lineOrientation="horizontal"
+                                            gapRem={2.5}
+                                        >
+                                            <a href="https://www.linkedin.com/in/ponleou/" target="_blank">
+                                                <Icon icon="mdi:linkedin" width="1em" height="1em" />
+                                            </a>
+                                        </Lined>
+                                        <a href="mailto:ponleousk@gmail.com" target="_blank">
+                                            <Icon icon="mdi:email" width="1em" height="1em" />
+                                        </a>
+                                    </Lined>
+                                </TranslateToCursor>
+                            </TranslateOnScroll>
+                        </div>
+                    </div>
+                    <div className="w-full relative">
+                        <TranslateToCursor maxTranslate={0.5} translateMultiplier={0.1}>
+                            <RenderAfter after={enqueueReveal7} rerenderCallback={rerenderPage}>
+                                <FontsizeOnScroll
+                                    className="duration-[0] bottom-0 left-0 right-0 z-1 p-12 text-accent font-bold"
+                                    initialRem={1.2}
+                                    finalRem={1.6}
+                                >
+                                    <WidthOnScroll
+                                        initialPercent={100}
+                                        finalPercent={90}
+                                        className="flex justify-center"
+                                    >
+                                        <NavBar
+                                            className="flex justify-between"
+                                            navClassName="gap-4 hover:gap-0 transition-[gap] ease-out duration-500  relative
+                                        before:transition-all before:ease-out before:duration-500  before:bg-primary before:absolute before:inset-0 before:left-full hover:before:left-1/2 before:-z-1"
+                                        ></NavBar>
+                                    </WidthOnScroll>
+                                </FontsizeOnScroll>
+                            </RenderAfter>
+                        </TranslateToCursor>
+                    </div>
+                </div>
+            </RevealOn>
         </div>
     );
 }
