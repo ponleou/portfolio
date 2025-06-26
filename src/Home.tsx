@@ -54,7 +54,7 @@ export default function Home() {
                             maxScroll={window.innerHeight}
                         >
                             <div className="-top-[15dvh] right-[3dvw] absolute animate-scale-pulse-4 rounded-full">
-                                <div className="m-[17rem] w-[1px] opacity-40 aspect-square rounded-full bg-accent shadow-accent-80 shadow-[0_0_200px_17rem]"></div>
+                                <div className="m-[17rem] w-[1px] opacity-40 aspect-square rounded-full bg-accent shadow-accent-80 shadow-[0_0_200px_17dvh]"></div>
                             </div>
                         </TranslateOnScroll>
                         <TranslateOnScroll
