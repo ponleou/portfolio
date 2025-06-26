@@ -54,7 +54,7 @@ export default function Home() {
                             maxScroll={window.innerHeight}
                         >
                             <div className="-top-[15dvh] right-[3dvw] absolute animate-scale-pulse-4 rounded-full">
-                                <div className="m-[17rem] w-[1px] opacity-40 aspect-square rounded-full bg-accent shadow-accent shadow-[0_0_200px_17rem]"></div>
+                                <div className="m-[17rem] w-[1px] opacity-40 aspect-square rounded-full bg-accent shadow-accent-80 shadow-[0_0_200px_17rem]"></div>
                             </div>
                         </TranslateOnScroll>
                         <TranslateOnScroll
@@ -62,8 +62,8 @@ export default function Home() {
                             rate={-window.innerWidth / window.innerHeight}
                             maxScroll={window.innerHeight}
                         >
-                            <div className="top-0 right-[6dvw] absolute animate-scale-pulse-5 rounded-full">
-                                <div className="m-[25rem] w-[1px] opacity-40 aspect-square rounded-full bg-primary shadow-primary shadow-[0_0_200px_25rem]"></div>
+                            <div className="top-0 right-[3dvw] absolute animate-scale-pulse-5 rounded-full">
+                                <div className="m-[25rem] w-[1px] opacity-40 aspect-square rounded-full bg-primary shadow-primary-80 shadow-[0_0_200px_25dvh]"></div>
                             </div>
                         </TranslateOnScroll>
                     </div>
@@ -82,7 +82,7 @@ export default function Home() {
                     postRevealClass="opacity-100"
                 >
                     <div className="flex justify-center items-center animate-scale-pulse-3">
-                        <div className="w-[1px] m-10 aspect-square rounded-full bg-primary-20 shadow-primary shadow-[0_0_80px_3rem]"></div>
+                        <div className="w-[1px] m-10 aspect-square rounded-full bg-primary-20 shadow-primary-80 shadow-[0_0_80px_3rem]"></div>
                     </div>
                 </RevealOn>
             </CursorFollower>
