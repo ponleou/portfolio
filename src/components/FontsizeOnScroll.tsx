@@ -58,8 +58,6 @@ export default function FontsizeOnScroll({
             });
             setElementFontsize(parent.current, initialNumber);
         }
-
-        console.log(maxScroll);
     }, []);
 
     return (
