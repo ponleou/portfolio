@@ -24,16 +24,20 @@ export default function TranslateOnScroll({
             element.style.transform = `translateY(${translate}px)`;
         }
     }
+    
+    const scrollFunction = throttle(() => {
+        const currentScroll = maxScroll > 0 && window.scrollY > maxScroll ? maxScroll : window.scrollY;
+        const translate = currentScroll * rate;
+        translateElement(parent.current!, direction, translate);
+    }, 50);
 
     useEffect(() => {
         if (parent.current) {
-            const scrollFunction = throttle(() => {
-                const currentScroll = maxScroll > 0 && window.scrollY > maxScroll ? maxScroll : window.scrollY;
-                const translate = currentScroll * rate;
-                translateElement(parent.current!, direction, translate);
-            }, 50);
-
             document.addEventListener("scroll", scrollFunction);
+        }
+
+        return () => {
+            removeEventListener("scroll", scrollFunction);
         }
     }, []);
 

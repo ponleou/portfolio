@@ -20,21 +20,25 @@ export default function WidthOnScroll({
         element.style.width = `${percent}%`;
     }
 
+    const scrollFunction = throttle(() => {
+        const currentScroll = window.scrollY > maxScroll ? maxScroll : window.scrollY;
+        const scrollRate = currentScroll / maxScroll;
+        const widthDiff = finalPercent - initialPercent;
+        const percent = widthDiff * scrollRate + initialPercent;
+        setElementWidth(parent.current!, percent);
+    }, 50);
+
     useEffect(() => {
         if (maxScroll < 0) {
             maxScroll = document.documentElement.scrollHeight - window.innerHeight;
         }
         if (parent.current) {
-            const scrollFunction = throttle(() => {
-                const currentScroll = window.scrollY > maxScroll ? maxScroll : window.scrollY;
-                const scrollRate = currentScroll / maxScroll;
-                const widthDiff = finalPercent - initialPercent;
-                const percent = widthDiff * scrollRate + initialPercent;
-                setElementWidth(parent.current!, percent);
-            }, 50);
-
             document.addEventListener("scroll", scrollFunction);
             setElementWidth(parent.current, initialPercent);
+        }
+
+        return () => {
+            document.removeEventListener("scroll", scrollFunction);
         }
     }, []);
 
