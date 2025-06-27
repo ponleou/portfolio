@@ -4,12 +4,14 @@ import throttle from "lodash.throttle";
 export default function WidthOnScroll({
     children,
     className = "",
+    childClassName = "",
     initialPercent,
     finalPercent,
     maxScroll = -1,
 }: {
     children: ReactNode;
     className?: string;
+    childClassName?: string;
     initialPercent: number;
     finalPercent: number;
     maxScroll?: number;
@@ -44,7 +46,7 @@ export default function WidthOnScroll({
 
     return (
         <div className={className}>
-            <div ref={parent}>{children}</div>
+            <div className={childClassName} ref={parent}>{children}</div>
         </div>
     );
 }
