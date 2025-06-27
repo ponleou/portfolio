@@ -44,7 +44,7 @@ export default function AlignTarget({
     }
 
     useEffect(() => {
-        const throttledAlign = throttle(align, 150);
+        const throttledAlign = throttle(align, 50);
         const observer = new ResizeObserver(throttledAlign);
         if (aligner.current) {
             observer.observe(aligner.current);

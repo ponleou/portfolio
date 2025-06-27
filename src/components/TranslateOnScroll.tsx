@@ -1,4 +1,5 @@
 import { useEffect, useRef, type ReactNode } from "react";
+import throttle from "lodash.throttle";
 
 const directions = ["vertical", "horizontal"] as const;
 type Direction = (typeof directions)[number];
@@ -26,11 +27,13 @@ export default function TranslateOnScroll({
 
     useEffect(() => {
         if (parent.current) {
-            document.addEventListener("scroll", () => {
+            const scrollFunction = throttle(() => {
                 const currentScroll = maxScroll > 0 && window.scrollY > maxScroll ? maxScroll : window.scrollY;
                 const translate = currentScroll * rate;
                 translateElement(parent.current!, direction, translate);
-            });
+            }, 50);
+
+            document.addEventListener("scroll", scrollFunction);
         }
     }, []);
 
