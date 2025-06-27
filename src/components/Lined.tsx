@@ -25,14 +25,14 @@ export default function Lined({
             {enable.start && (
                 <div
                     style={lineOrientation === "vertical" ? { height: `${lengthRem}rem`, backgroundColor: cssColor } : { width: `${lengthRem}rem`, backgroundColor: cssColor }}
-                    className={`${lineOrientation === "vertical" ? "w-[1px]" : "h-[1px]"} bg-primary`}
+                    className={`${lineOrientation === "vertical" ? "w-[1px]" : "h-[1px]"}`}
                 ></div>
             )}
             {children}
             {enable.end && (
                 <div
                     style={lineOrientation === "vertical" ? { height: `${lengthRem}rem`, backgroundColor: cssColor } : { width: `${lengthRem}rem`, backgroundColor: cssColor }}
-                    className={`${lineOrientation === "vertical" ? "w-[1px]" : "h-[1px]"} bg-primary`}
+                    className={`${lineOrientation === "vertical" ? "w-[1px]" : "h-[1px]"}`}
                 ></div>
             )}
         </div>
