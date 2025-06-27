@@ -378,11 +378,11 @@ export default function Home() {
                                     <WidthOnScroll
                                         initialPercent={100}
                                         finalPercent={90}
-                                        className="flex justify-center"
+                                        className="flex justify-center transition-all duration-150 ease-out"
                                     >
                                         <NavBar
-                                            className="flex justify-between flex-wrap gap-16"
-                                            navClassName="gap-4 hover:gap-0 transition-[gap] ease-out duration-500  relative
+                                            className="flex justify-between flex-wrap gap-y-8 gap-x-[2.5em]"
+                                            navClassName="inline-flex gap-4 hover:gap-0 transition-[gap] ease-out duration-500 relative
                                         before:transition-all before:ease-out before:duration-500  before:bg-primary before:absolute before:inset-0 before:left-full hover:before:left-1/2 before:-z-1"
                                         ></NavBar>
                                     </WidthOnScroll>

@@ -1,22 +1,22 @@
 import { NavLink } from "react-router";
 import TextSh from "./TextSh";
 
-export default function NavBar({ className = "", navClassName = "" }: { className?: string; navClassName?: string }) {
+export default function NavBar({ className = "", navClassName = "", navLinkClassName = "" }: { className?: string; navClassName?: string; navLinkClassName?: string }) {
     return (
         <div className={`${className}`}>
-            <NavLink to="/about">
+            <NavLink className={`${navLinkClassName}`} to="/about">
                 <TextSh className={`${navClassName}`}>about</TextSh>
             </NavLink>
-            <NavLink to="/experience">
+            <NavLink className={`${navLinkClassName}`} to="/experience">
                 <TextSh className={`${navClassName}`}>experience</TextSh>
             </NavLink>
-            <NavLink to="/projects">
+            <NavLink className={`${navLinkClassName}`} to="/projects">
                 <TextSh className={`${navClassName}`}>projects</TextSh>
             </NavLink>
-            <NavLink to="/skills">
+            <NavLink className={`${navLinkClassName}`} to="/skills">
                 <TextSh className={`${navClassName}`}>skills</TextSh>
             </NavLink>
-            <NavLink to="/contact">
+            <NavLink className={`${navLinkClassName}`} to="/contact">
                 <TextSh className={`${navClassName}`}>contact</TextSh>
             </NavLink>
         </div>
