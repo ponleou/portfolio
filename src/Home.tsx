@@ -16,6 +16,7 @@ import WidthOnScroll from "./components/WidthOnScroll";
 import FontsizeOnScroll from "./components/FontsizeOnScroll";
 import { Icon } from "@iconify-icon/react";
 import Lined from "./components/Lined";
+import RevealOnScroll from "./components/RevealOnScroll";
 
 export default function Home() {
     const codeLineContainer = useRef<HTMLDivElement>(null);
@@ -333,6 +334,38 @@ export default function Home() {
                     </TranslateOnScroll>
                 }
             />
+            <RevealOnScroll
+                scrollTo={window.innerHeight * 0.4}
+                preRevealClass="opacity-0"
+                postRevealClass="opacity-100"
+                className="h-dvh absolute left-0 right-0 bottom-0 transition-opacity ease-out duration-500"
+            >
+                <div className="top-0 left-0 right-0 text-primary text-base-ad p-12 flex justify-center absolute">
+                    <Lined cssColor="var(--color-primary)" lengthRem={10} gapRem={2.5} orientation="horizontal">
+                        WELCOME TO THE TERMINAL
+                    </Lined>
+                </div>
+                <GoldenHorizontal
+                    className="text-primary text-base-ad w-full h-full"
+                    top={<div className="pl-24">Ponleou@Portfolio: ~ $ ls</div>}
+                    bottom={
+                        <div className="pl-24">
+                            <TextCursor>Ponleou@Portfolio: ~ $ bash&nbsp;</TextCursor>{" "}
+                        </div>
+                    }
+                ></GoldenHorizontal>
+                <div className="bottom-0 left-0 right-0 text-primary text-base-ad p-12 flex justify-end absolute">
+                    <Lined
+                        cssColor="var(--color-primary)"
+                        enable={{ start: true }}
+                        lengthRem={10}
+                        gapRem={2.5}
+                        orientation="horizontal"
+                    >
+                        &copy; 2025 KEO PONLEOU SOK. ALL RIGHTS RESERVED.
+                    </Lined>
+                </div>
+            </RevealOnScroll>
             <RevealOn
                 on={enqueueReveal7}
                 className="transition-all ease-out duration-500"
@@ -344,8 +377,17 @@ export default function Home() {
                         <div className="text-h4-ad text-primary-60 p-12 bottom-0 right-0 absolute">
                             <TranslateOnScroll direction="vertical" rate={-1} maxScroll={window.innerHeight}>
                                 <TranslateToCursor maxTranslate={0.5} translateMultiplier={0.1}>
-                                    <Lined lengthRem={10} orientation="vertical" gapRem={2.5} cssColor="var(--color-primary-60)">
-                                        <a className="transition-colors duration-500 ease-out hover:text-primary" href="https://github.com/ponleou" target="_blank">
+                                    <Lined
+                                        lengthRem={10}
+                                        orientation="vertical"
+                                        gapRem={2.5}
+                                        cssColor="var(--color-primary-60)"
+                                    >
+                                        <a
+                                            className="transition-colors duration-500 ease-out hover:text-primary"
+                                            href="https://github.com/ponleou"
+                                            target="_blank"
+                                        >
                                             <Icon icon="mdi:github" width="1em" height="1em" />
                                         </a>
                                         <Lined
@@ -355,11 +397,19 @@ export default function Home() {
                                             gapRem={2.5}
                                             cssColor="var(--color-primary-60)"
                                         >
-                                            <a className="transition-colors duration-500 ease-out hover:text-primary" href="https://www.linkedin.com/in/ponleou/" target="_blank">
+                                            <a
+                                                className="transition-colors duration-500 ease-out hover:text-primary"
+                                                href="https://www.linkedin.com/in/ponleou/"
+                                                target="_blank"
+                                            >
                                                 <Icon icon="mdi:linkedin" width="1em" height="1em" />
                                             </a>
                                         </Lined>
-                                        <a className="transition-colors duration-500 ease-out hover:text-primary" href="mailto:ponleousk@gmail.com" target="_blank">
+                                        <a
+                                            className="transition-colors duration-500 ease-out hover:text-primary"
+                                            href="mailto:ponleousk@gmail.com"
+                                            target="_blank"
+                                        >
                                             <Icon icon="mdi:email" width="1em" height="1em" />
                                         </a>
                                     </Lined>
@@ -377,11 +427,12 @@ export default function Home() {
                                 >
                                     <WidthOnScroll
                                         initialPercent={100}
-                                        finalPercent={90}
-                                        className="flex justify-center transition-all duration-150 ease-out"
+                                        finalPercent={85}
+                                        className="flex justify-center"
+                                        childClassName="transition-all duration-150 ease-out"
                                     >
                                         <NavBar
-                                            className="flex justify-between flex-wrap gap-y-8 gap-x-[2.5em]"
+                                            className="transition-all ease-out duration-500 flex justify-between flex-wrap gap-y-8 gap-x-[2.5em]"
                                             navClassName="inline-flex gap-4 hover:gap-0 transition-[gap] ease-out duration-500 relative
                                         before:transition-all before:ease-out before:duration-500  before:bg-primary before:absolute before:inset-0 before:left-full hover:before:left-1/2 before:-z-1"
                                         ></NavBar>
