@@ -341,7 +341,7 @@ export default function Home() {
             >
                 <div className="h-dvh flex flex-col">
                     <div className="grow relative">
-                        <div className="text-h4-ad text-primary-60 bottom-12 right-12 absolute">
+                        <div className="text-h4-ad text-primary-60 p-12 bottom-0 right-0 absolute">
                             <TranslateOnScroll direction="vertical" rate={-1} maxScroll={window.innerHeight}>
                                 <TranslateToCursor maxTranslate={0.5} translateMultiplier={0.1}>
                                     <Lined lengthRem={10} orientation="vertical" gapRem={2.5} cssColor="var(--color-primary-60)">
