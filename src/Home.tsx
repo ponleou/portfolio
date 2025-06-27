@@ -372,7 +372,7 @@ export default function Home() {
                             <RenderAfter after={enqueueReveal7} rerenderCallback={rerenderPage}>
                                 <FontsizeOnScroll
                                     className="duration-[0] bottom-0 left-0 right-0 z-1 p-12 text-accent font-bold"
-                                    initialRem={"--text-base-ad"}
+                                    initialRem={1.2}
                                     finalRem={1.6}
                                 >
                                     <WidthOnScroll
@@ -381,7 +381,7 @@ export default function Home() {
                                         className="flex justify-center"
                                     >
                                         <NavBar
-                                            className="flex justify-between"
+                                            className="flex justify-between flex-wrap gap-16"
                                             navClassName="gap-4 hover:gap-0 transition-[gap] ease-out duration-500  relative
                                         before:transition-all before:ease-out before:duration-500  before:bg-primary before:absolute before:inset-0 before:left-full hover:before:left-1/2 before:-z-1"
                                         ></NavBar>
