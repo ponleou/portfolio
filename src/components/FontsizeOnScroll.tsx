@@ -1,5 +1,5 @@
-import throttle from "lodash.throttle";
 import { useEffect, useRef, type ReactNode } from "react";
+import { ScrollEvent } from "../functions/subscribeEvents";
 
 export default function FontsizeOnScroll({
     children,
@@ -30,7 +30,7 @@ export default function FontsizeOnScroll({
         return parseFloat(value);
     }
 
-    const scrollFunction = throttle(() => {
+    const scrollFunction = () => {
         let finalNumber: number, initialNumber: number;
 
         if (typeof initialRem === "number") {
@@ -50,19 +50,19 @@ export default function FontsizeOnScroll({
         const widthDiff = finalNumber - initialNumber;
         const Rem = widthDiff * scrollRate + initialNumber;
         setElementFontsize(parent.current!, Rem);
-    }, 50);
+    };
 
     useEffect(() => {
         if (maxScroll < 0) {
             maxScroll = document.documentElement.scrollHeight - window.innerHeight;
         }
         if (parent.current) {
-            document.addEventListener("scroll", scrollFunction);
+            ScrollEvent.subscribe(scrollFunction);
             scrollFunction();
         }
 
         return () => {
-            document.removeEventListener("scroll", scrollFunction);
+            ScrollEvent.unsubscribe(scrollFunction);
         };
     }, []);
 

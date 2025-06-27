@@ -1,5 +1,5 @@
 import { useEffect, useRef, type ReactNode } from "react";
-import throttle from "lodash.throttle";
+import { ResizeEvent, ScrollEvent } from "../functions/subscribeEvents";
 
 const positions = ["top", "right", "bottom", "left"] as const;
 type Position = (typeof positions)[number];
@@ -35,27 +35,23 @@ export default function AlignTarget({
     }
 
     function align() {
-        requestIdleCallback(() => {
-            if (alignPosition === "left") alignLeft();
-            if (alignPosition === "right") alignRight();
-            if (alignPosition === "top") alignTop();
-            if (alignPosition === "bottom") alignBottom();
-        });
+        if (alignPosition === "left") alignLeft();
+        if (alignPosition === "right") alignRight();
+        if (alignPosition === "top") alignTop();
+        if (alignPosition === "bottom") alignBottom();
     }
 
     useEffect(() => {
-        const throttledAlign = throttle(align, 50);
-        const observer = new ResizeObserver(throttledAlign);
+        const observer = new ResizeObserver(align);
         if (aligner.current) {
             observer.observe(aligner.current);
-            window.addEventListener("resize", throttledAlign);
-            window.addEventListener("scroll", throttledAlign);
+            ResizeEvent.subscribe(align);
+            ScrollEvent.subscribe(align);
         }
         return () => {
             observer.disconnect();
-            window.removeEventListener("resize", throttledAlign);
-            window.removeEventListener("scroll", throttledAlign);
-            throttledAlign.cancel();
+            ResizeEvent.unsubscribe(align);
+            ScrollEvent.unsubscribe(align);
         };
     }, []);
 
