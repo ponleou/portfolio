@@ -371,7 +371,7 @@ export default function Home() {
                         <TranslateToCursor maxTranslate={0.5} translateMultiplier={0.1}>
                             <RenderAfter after={enqueueReveal7} rerenderCallback={rerenderPage}>
                                 <FontsizeOnScroll
-                                    className="duration-[0] bottom-0 left-0 right-0 z-1 p-12 text-accent font-bold"
+                                    className="transition-all ease-out duration-150 bottom-0 left-0 right-0 z-1 p-12 text-accent font-bold"
                                     initialRem={1.2}
                                     finalRem={1.6}
                                 >

@@ -1,3 +1,4 @@
+import throttle from "lodash.throttle";
 import { useEffect, useRef, type ReactNode } from "react";
 
 export default function FontsizeOnScroll({
@@ -29,35 +30,40 @@ export default function FontsizeOnScroll({
         return parseFloat(value);
     }
 
+    const scrollFunction = throttle(() => {
+        let finalNumber: number, initialNumber: number;
+
+        if (typeof initialRem === "number") {
+            initialNumber = initialRem;
+        } else {
+            initialNumber = getRemValue(initialRem);
+        }
+
+        if (typeof finalRem === "number") {
+            finalNumber = finalRem;
+        } else {
+            finalNumber = getRemValue(finalRem);
+        }
+        const currentScroll = window.scrollY > maxScroll ? maxScroll : window.scrollY;
+        const scrollRate = currentScroll / maxScroll;
+
+        const widthDiff = finalNumber - initialNumber;
+        const Rem = widthDiff * scrollRate + initialNumber;
+        setElementFontsize(parent.current!, Rem);
+    }, 50);
+
     useEffect(() => {
         if (maxScroll < 0) {
             maxScroll = document.documentElement.scrollHeight - window.innerHeight;
         }
         if (parent.current) {
-            let finalNumber: number, initialNumber: number;
-
-            if (typeof initialRem === "number") {
-                initialNumber = initialRem;
-            } else {
-                initialNumber = getRemValue(initialRem);
-            }
-
-            if (typeof finalRem === "number") {
-                finalNumber = finalRem;
-            } else {
-                finalNumber = getRemValue(finalRem);
-            }
-
-            document.addEventListener("scroll", () => {
-                const currentScroll = window.scrollY > maxScroll ? maxScroll : window.scrollY;
-                const scrollRate = currentScroll / maxScroll;
-
-                const widthDiff = finalNumber - initialNumber;
-                const Rem = widthDiff * scrollRate + initialNumber;
-                setElementFontsize(parent.current!, Rem);
-            });
-            setElementFontsize(parent.current, initialNumber);
+            document.addEventListener("scroll", scrollFunction);
+            scrollFunction();
         }
+
+        return () => {
+            document.removeEventListener("scroll", scrollFunction);
+        };
     }, []);
 
     return (
