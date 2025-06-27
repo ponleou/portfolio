@@ -1,6 +1,6 @@
 import { useEffect, useState, type ReactNode } from "react";
 import RevealOn from "./RevealOn";
-import throttle from "lodash.throttle";
+import { ScrollEvent } from "../functions/subscribeEvents";
 
 export default function RevealOnScroll({
     scrollTo,
@@ -20,22 +20,21 @@ export default function RevealOnScroll({
     const [reveal, setReveal] = useState<boolean>(false);
 
     useEffect(() => {
-        const checkReveal = throttle(() => {
+        const checkReveal = () => {
             if (window.scrollY >= scrollTo) {
                 setReveal(true);
-            }
-            else {
+            } else {
                 setReveal(false);
             }
-        }, 50);
+        };
 
-        document.addEventListener("scroll", checkReveal);
+        ScrollEvent.subscribe(checkReveal);
         checkReveal();
 
         return () => {
-            document.removeEventListener("scroll", checkReveal);
-        }
-    }, [])
+            ScrollEvent.unsubscribe(checkReveal);
+        };
+    }, []);
 
     return (
         <RevealOn

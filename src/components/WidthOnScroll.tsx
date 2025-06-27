@@ -1,5 +1,5 @@
 import { useEffect, useRef, type ReactNode } from "react";
-import throttle from "lodash.throttle";
+import { ScrollEvent } from "../functions/subscribeEvents";
 
 export default function WidthOnScroll({
     children,
@@ -22,31 +22,34 @@ export default function WidthOnScroll({
         element.style.width = `${percent}%`;
     }
 
-    const scrollFunction = throttle(() => {
+    const scrollFunction = () => {
         const currentScroll = window.scrollY > maxScroll ? maxScroll : window.scrollY;
         const scrollRate = currentScroll / maxScroll;
         const widthDiff = finalPercent - initialPercent;
         const percent = widthDiff * scrollRate + initialPercent;
         setElementWidth(parent.current!, percent);
-    }, 50);
+    };
 
     useEffect(() => {
         if (maxScroll < 0) {
             maxScroll = document.documentElement.scrollHeight - window.innerHeight;
         }
         if (parent.current) {
-            document.addEventListener("scroll", scrollFunction);
+            ScrollEvent.subscribe(scrollFunction);
+
             setElementWidth(parent.current, initialPercent);
         }
 
         return () => {
-            document.removeEventListener("scroll", scrollFunction);
-        }
+            ScrollEvent.unsubscribe(scrollFunction);
+        };
     }, []);
 
     return (
         <div className={className}>
-            <div className={childClassName} ref={parent}>{children}</div>
+            <div className={childClassName} ref={parent}>
+                {children}
+            </div>
         </div>
     );
 }

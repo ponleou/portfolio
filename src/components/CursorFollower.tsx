@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState, type ReactNode } from "react";
+import { MouseMoveEvent } from "../functions/subscribeEvents";
 
 type Coordinate = { x: number; y: number };
 
@@ -65,7 +66,7 @@ export default function CursorFollower({
 
     const shape = { height: 0, width: 0 };
     useEffect(() => {
-        document.addEventListener("mousemove", updateMousePos);
+        MouseMoveEvent.subscribe(updateMousePos);
 
         let frame = 0;
         const animate = () => {
@@ -95,7 +96,7 @@ export default function CursorFollower({
         }
 
         return () => {
-            document.removeEventListener("mousemove", updateMousePos);
+            MouseMoveEvent.unsubscribe(updateMousePos);
             cancelAnimationFrame(frame);
             observer.disconnect();
         };

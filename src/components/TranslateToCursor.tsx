@@ -1,4 +1,5 @@
 import { useEffect, useRef, type ReactNode } from "react";
+import { MouseMoveEvent } from "../functions/subscribeEvents";
 
 type Coordinate = { x: number; y: number };
 type Vector = { direction: Coordinate; magnitude: number };
@@ -67,7 +68,7 @@ export default function TranslateToCursor({
     }
 
     useEffect(() => {
-        document.addEventListener("mousemove", updateMousePos);
+        MouseMoveEvent.subscribe(updateMousePos);
 
         let frame = 0;
         const animate = () => {
@@ -95,7 +96,7 @@ export default function TranslateToCursor({
         }
 
         return () => {
-            document.removeEventListener("mousemove", updateMousePos);
+            MouseMoveEvent.unsubscribe(updateMousePos);
             cancelAnimationFrame(frame);
             observer.disconnect();
         };
