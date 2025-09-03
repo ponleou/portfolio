@@ -41,6 +41,9 @@ export default function Home() {
     const [enqueueReveal6, setEnqueueReveal6] = useState<boolean>(false);
     const [enqueueReveal7, setEnqueueReveal7] = useState<boolean>(false);
 
+    const [enqueueRevealNav, setEnqueueRevealNav] = useState<boolean>(false);
+    const [enqueueRevealNav2, setEnqueueRevealNav2] = useState<boolean>(false);
+
     return (
         <div className={`${enqueueReveal7 ? "h-[150dvh]" : "h-dvh"} bg-bg relative`}>
             <TranslateOnScroll direction="vertical" rate={0.15} maxScroll={window.innerHeight}>
@@ -339,31 +342,59 @@ export default function Home() {
                 preRevealClass="opacity-0"
                 postRevealClass="opacity-100"
                 className="h-dvh absolute left-0 right-0 bottom-0 transition-opacity ease-out duration-500"
+                finishedCallback={(reveal) => setEnqueueRevealNav(reveal)}
             >
                 <div className="top-0 left-0 right-0 text-primary text-base-ad p-12 flex justify-center absolute">
-                    <Lined cssColor="var(--color-primary)" lengthRem={10} gapRem={2.5} orientation="horizontal">
-                        WELCOME TO THE TERMINAL
-                    </Lined>
+                    <RevealOn
+                        on={enqueueRevealNav}
+                        className="transition-all ease-out duration-500"
+                        preRevealClass="opacity-0"
+                        postRevealClass="opacity-100"
+                    >
+                        <Lined cssColor="var(--color-primary)" lengthRem={10} gapRem={2.5} orientation="horizontal">
+                            <RevealText
+                                initialText=""
+                                text="WELCOME TO THE TERMINAL"
+                                revealCallback={typewriter}
+                                delayPerCallback={30}
+                                startOn={enqueueRevealNav}
+                                finishedCallback={(reveal) => setEnqueueRevealNav2(reveal)}
+                            ></RevealText>
+                        </Lined>
+                    </RevealOn>
                 </div>
                 <GoldenHorizontal
                     className="text-primary text-base-ad w-full h-full"
                     top={<div className="pl-24">Ponleou@Portfolio: ~ $ ls</div>}
                     bottom={
                         <div className="pl-24">
-                            <TextCursor>Ponleou@Portfolio: ~ $ bash&nbsp;</TextCursor>{" "}
+                            <TextCursor>Ponleou@Portfolio: ~ $ bash&nbsp;</TextCursor>
                         </div>
                     }
                 ></GoldenHorizontal>
                 <div className="bottom-0 left-0 right-0 text-primary text-base-ad p-12 flex justify-end absolute">
-                    <Lined
-                        cssColor="var(--color-primary)"
-                        enable={{ start: true }}
-                        lengthRem={10}
-                        gapRem={2.5}
-                        orientation="horizontal"
+                    <RevealOn
+                        on={enqueueRevealNav2}
+                        className="transition-all ease-out duration-500"
+                        preRevealClass="opacity-0"
+                        postRevealClass="opacity-100"
                     >
-                        &copy; 2025 KEO PONLEOU SOK. ALL RIGHTS RESERVED.
-                    </Lined>
+                        <Lined
+                            cssColor="var(--color-primary)"
+                            enable={{ start: true }}
+                            lengthRem={10}
+                            gapRem={2.5}
+                            orientation="horizontal"
+                        >
+                            <RevealText
+                                initialText=""
+                                text="&copy; 2025 KEO PONLEOU SOK. ALL RIGHTS RESERVED."
+                                revealCallback={typewriter}
+                                delayPerCallback={30}
+                                startOn={enqueueRevealNav2}
+                            ></RevealText>
+                        </Lined>
+                    </RevealOn>
                 </div>
             </RevealOnScroll>
             <RevealOn
@@ -432,7 +463,8 @@ export default function Home() {
                                         childClassName="transition-all duration-150 ease-out"
                                     >
                                         <NavBar
-                                            className="transition-all ease-out duration-500 flex justify-between flex-wrap gap-y-8 gap-x-[2.5em]"
+                                            className="transition-all ease-out duration-500 flex justify-between items-center flex-wrap gap-y-8 gap-x-[2.5em]"
+                                            navLinkClassName=""
                                             navClassName="inline-flex gap-4 hover:gap-0 transition-[gap] ease-out duration-500 relative
                                         before:transition-all before:ease-out before:duration-500  before:bg-primary before:absolute before:inset-0 before:left-full hover:before:left-1/2 before:-z-1"
                                         ></NavBar>

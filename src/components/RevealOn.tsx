@@ -43,7 +43,7 @@ export default function RevealOn({
     }, [on]);
 
     return (
-        <div ref={parent} className={`${on ? `${className} ${postRevealClass}` : `${preRevealClass}`} )`}>
+        <div ref={parent} className={`${on ? `${postRevealClass}` : `${preRevealClass}`} ${className}`}>
             {children}
         </div>
     );
