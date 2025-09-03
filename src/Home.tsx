@@ -33,22 +33,23 @@ export default function Home() {
 
     const rerenderPage = forceRerender();
 
-    const [enqueueReveal1, setEnqueueReveal1] = useState<boolean>(false);
-    const [enqueueReveal2, setEnqueueReveal2] = useState<boolean>(false);
-    const [enqueueReveal3, setEnqueueReveal3] = useState<boolean>(false);
-    const [enqueueReveal4, setEnqueueReveal4] = useState<boolean>(false);
-    const [enqueueReveal5, setEnqueueReveal5] = useState<boolean>(false);
-    const [enqueueReveal6, setEnqueueReveal6] = useState<boolean>(false);
-    const [enqueueReveal7, setEnqueueReveal7] = useState<boolean>(false);
+    const [revealSubtext1, setRevealSubtext1] = useState<boolean>(false);
+    const [revealSubtext2, setRevealSubtext2] = useState<boolean>(false);
+    const [revealSubtext3, setRevealSubtext3] = useState<boolean>(false);
 
-    const [enqueueRevealNav, setEnqueueRevealNav] = useState<boolean>(false);
-    const [enqueueRevealNav2, setEnqueueRevealNav2] = useState<boolean>(false);
+    const [revealMainTitle, setRevealMainTitle] = useState<boolean>(false);
+    const [revealRoleTitle, setRevealRoleTitle] = useState<boolean>(false);
+    const [revealSkillsText, setRevealSkillsText] = useState<boolean>(false);
+    const [revealNavbar, setRevealNavbar] = useState<boolean>(false);
+
+    const [revealNavbarTitle, setRevealNavbarTitle] = useState<boolean>(false);
+    const [revealNavbarFooter, setRevealNavbarFooter] = useState<boolean>(false);
 
     return (
-        <div className={`${enqueueReveal7 ? "h-[150dvh]" : "h-dvh"} bg-bg relative`}>
+        <div className={`${revealNavbar ? "h-[150dvh]" : "h-dvh"} bg-bg relative`}>
             <TranslateOnScroll direction="vertical" rate={0.15} maxScroll={window.innerHeight}>
                 <RevealOn
-                    on={enqueueReveal6}
+                    on={revealSkillsText}
                     className="transition-opacity ease-out duration-1000"
                     preRevealClass="opacity-0"
                     postRevealClass="opacity-100"
@@ -77,7 +78,7 @@ export default function Home() {
             </TranslateOnScroll>
             <CursorFollower ratePerFrame={0.05} warpDegree={60} distanceFadeRatio={5}>
                 <RevealOn
-                    on={enqueueReveal6}
+                    on={revealSkillsText}
                     className="transition-all ease-out duration-500"
                     preRevealClass="opacity-0"
                     postRevealClass="opacity-100"
@@ -109,7 +110,7 @@ export default function Home() {
                                 alignPosition="top"
                             >
                                 <RevealOn
-                                    on={enqueueReveal1}
+                                    on={revealSubtext1}
                                     className="transition-all ease-out duration-500"
                                     preRevealClass="opacity-0"
                                     postRevealClass="opacity-100"
@@ -125,7 +126,7 @@ export default function Home() {
                                 alignPosition="top"
                             >
                                 <RevealOn
-                                    on={enqueueReveal2}
+                                    on={revealSubtext2}
                                     className="transition-all ease-out duration-500"
                                     preRevealClass="opacity-0"
                                     postRevealClass="opacity-100"
@@ -141,7 +142,7 @@ export default function Home() {
                                 alignPosition="top"
                             >
                                 <RevealOn
-                                    on={enqueueReveal3}
+                                    on={revealSubtext3}
                                     className="transition-all ease-out duration-500"
                                     preRevealClass="opacity-0"
                                     postRevealClass="opacity-100"
@@ -158,7 +159,7 @@ export default function Home() {
                             alignPosition="top"
                         >
                             <RevealOn
-                                on={enqueueReveal4}
+                                on={revealMainTitle}
                                 className="transition-all ease-out duration-500"
                                 preRevealClass="opacity-0"
                                 postRevealClass="opacity-100"
@@ -174,7 +175,7 @@ export default function Home() {
                             alignPosition="top"
                         >
                             <RevealOn
-                                on={enqueueReveal5}
+                                on={revealRoleTitle}
                                 className="transition-all ease-out duration-500"
                                 preRevealClass="opacity-0"
                                 postRevealClass="opacity-100"
@@ -190,7 +191,7 @@ export default function Home() {
                             alignPosition="top"
                         >
                             <RevealOn
-                                on={enqueueReveal6}
+                                on={revealSkillsText}
                                 className="transition-all ease-out duration-500"
                                 preRevealClass="opacity-0"
                                 postRevealClass="opacity-100"
@@ -207,7 +208,12 @@ export default function Home() {
                                 text="#!/bin/bash"
                                 revealCallback={typewriter}
                                 delayPerCallback={30}
-                                finishedCallback={(bool) => setTimeout(() => setEnqueueReveal1(bool), 100)}
+                                finishedCallback={(bool) => {
+                                    setTimeout(() => setRevealMainTitle(bool), 500);
+                                    setTimeout(() => setRevealRoleTitle(bool), 600);
+                                    setTimeout(() => setRevealSkillsText(bool), 700);
+                                    setTimeout(() => setRevealNavbar(bool), 800);
+                                }}
                             ></RevealText>
                         </div>
                     </div>
@@ -226,8 +232,8 @@ export default function Home() {
                                             text="# A computer science student's portfolio"
                                             revealCallback={typewriter}
                                             delayPerCallback={30}
-                                            startOn={enqueueReveal1}
-                                            finishedCallback={(bool) => setTimeout(() => setEnqueueReveal2(bool), 400)}
+                                            startOn={revealSubtext1}
+                                            finishedCallback={(bool) => setTimeout(() => setRevealSubtext2(bool), 400)}
                                         ></RevealText>
                                     </div>
                                     <div ref={descText2}>
@@ -235,8 +241,8 @@ export default function Home() {
                                             text="# A developer for the open-source community"
                                             revealCallback={typewriter}
                                             delayPerCallback={30}
-                                            startOn={enqueueReveal2}
-                                            finishedCallback={(bool) => setTimeout(() => setEnqueueReveal3(bool), 400)}
+                                            startOn={revealSubtext2}
+                                            finishedCallback={(bool) => setTimeout(() => setRevealSubtext3(bool), 400)}
                                         ></RevealText>
                                     </div>
                                     <div ref={descText3}>
@@ -244,13 +250,7 @@ export default function Home() {
                                             text="# An individual based in Melbourne, Australia"
                                             revealCallback={typewriter}
                                             delayPerCallback={30}
-                                            startOn={enqueueReveal3}
-                                            finishedCallback={(bool) => {
-                                                setTimeout(() => setEnqueueReveal4(bool), 500);
-                                                setTimeout(() => setEnqueueReveal5(bool), 600);
-                                                setTimeout(() => setEnqueueReveal6(bool), 700);
-                                                setTimeout(() => setEnqueueReveal7(bool), 800);
-                                            }}
+                                            startOn={revealSubtext3}
                                         ></RevealText>
                                     </div>
                                 </div>
@@ -265,7 +265,7 @@ export default function Home() {
                     <TranslateOnScroll direction="vertical" rate={-0.1} maxScroll={window.innerHeight}>
                         <div ref={mainTitleContainer} className="flex justify-center">
                             <RevealOn
-                                on={enqueueReveal4}
+                                on={revealMainTitle}
                                 className="transition-all ease-out duration-500"
                                 preRevealClass="opacity-0 -translate-y-8"
                                 postRevealClass="opacity-100 translate-y-0"
@@ -287,7 +287,7 @@ export default function Home() {
                         <div className="text-primary flex items-center flex-col gap-4">
                             <div ref={roleTitle}>
                                 <RevealOn
-                                    on={enqueueReveal5}
+                                    on={revealRoleTitle}
                                     className="transition-all ease-out duration-500"
                                     preRevealClass="opacity-0 -translate-y-8"
                                     postRevealClass="opacity-100 translate-y-0"
@@ -299,7 +299,7 @@ export default function Home() {
                             </div>
                             <div ref={skillText} className="text-base-ad leading-none">
                                 <RevealOn
-                                    on={enqueueReveal6}
+                                    on={revealSkillsText}
                                     className="transition-all ease-out duration-500"
                                     preRevealClass="opacity-0 -translate-y-8"
                                     postRevealClass="opacity-100 translate-y-0"
@@ -327,7 +327,7 @@ export default function Home() {
                                                 changeTime={100}
                                                 pauseTime={1500}
                                                 revealCallback={typewriter}
-                                                startOn={enqueueReveal6}
+                                                startOn={revealSkillsText}
                                             />
                                         </TextCursor>
                                     </TranslateToCursor>
@@ -342,11 +342,11 @@ export default function Home() {
                 preRevealClass="opacity-0"
                 postRevealClass="opacity-100"
                 className="h-dvh absolute left-0 right-0 bottom-0 transition-opacity ease-out duration-500"
-                finishedCallback={(reveal) => setEnqueueRevealNav(reveal)}
+                finishedCallback={(reveal) => setRevealNavbarTitle(reveal)}
             >
                 <div className="top-0 left-0 right-0 text-primary text-base-ad p-12 flex justify-center absolute">
                     <RevealOn
-                        on={enqueueRevealNav}
+                        on={revealNavbarTitle}
                         className="transition-all ease-out duration-500"
                         preRevealClass="opacity-0"
                         postRevealClass="opacity-100"
@@ -357,8 +357,8 @@ export default function Home() {
                                 text="WELCOME TO THE TERMINAL"
                                 revealCallback={typewriter}
                                 delayPerCallback={30}
-                                startOn={enqueueRevealNav}
-                                finishedCallback={(reveal) => setEnqueueRevealNav2(reveal)}
+                                startOn={revealNavbarTitle}
+                                finishedCallback={(reveal) => setRevealNavbarFooter(reveal)}
                             ></RevealText>
                         </Lined>
                     </RevealOn>
@@ -374,7 +374,7 @@ export default function Home() {
                 ></GoldenHorizontal>
                 <div className="bottom-0 left-0 right-0 text-primary text-base-ad p-12 flex justify-end absolute">
                     <RevealOn
-                        on={enqueueRevealNav2}
+                        on={revealNavbarFooter}
                         className="transition-all ease-out duration-500"
                         preRevealClass="opacity-0"
                         postRevealClass="opacity-100"
@@ -391,17 +391,20 @@ export default function Home() {
                                 text="&copy; 2025 KEO PONLEOU SOK. ALL RIGHTS RESERVED."
                                 revealCallback={typewriter}
                                 delayPerCallback={30}
-                                startOn={enqueueRevealNav2}
+                                startOn={revealNavbarFooter}
                             ></RevealText>
                         </Lined>
                     </RevealOn>
                 </div>
             </RevealOnScroll>
             <RevealOn
-                on={enqueueReveal7}
+                on={revealNavbar}
                 className="transition-all ease-out duration-500"
                 preRevealClass="opacity-0 -translate-y-8"
                 postRevealClass="opacity-100 translate-y-0"
+                finishedCallback={(bool) => {
+                    setTimeout(() => setRevealSubtext1(bool), 100);
+                }}
             >
                 <div className="h-dvh flex flex-col">
                     <div className="grow relative">
@@ -450,7 +453,7 @@ export default function Home() {
                     </div>
                     <div className="w-full relative">
                         <TranslateToCursor maxTranslate={0.5} translateMultiplier={0.1}>
-                            <RenderAfter after={enqueueReveal7} rerenderCallback={rerenderPage}>
+                            <RenderAfter after={revealNavbar} rerenderCallback={rerenderPage}>
                                 <FontsizeOnScroll
                                     className="transition-all ease-out duration-150 bottom-0 left-0 right-0 z-1 p-12 text-accent font-bold"
                                     initialRem={1.2}
