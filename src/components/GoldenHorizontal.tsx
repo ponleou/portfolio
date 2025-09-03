@@ -6,8 +6,8 @@ export default function GoldenHorizontal({
     bottom,
 }: {
     className: string;
-    top: ReactNode;
-    bottom: ReactNode;
+    top?: ReactNode;
+    bottom?: ReactNode;
 }) {
     const parent = useRef<HTMLDivElement>(null);
     const topElement = useRef<HTMLDivElement>(null);
@@ -32,10 +32,10 @@ export default function GoldenHorizontal({
     return (
         <div ref={parent} className={`${className}`}>
             <div ref={topElement} className="absolute left-0 right-0">
-                {top}
+                {top && top}
             </div>
             <div ref={bottomElement} className="absolute left-0 right-0">
-                {bottom}
+                {bottom && bottom}
             </div>
         </div>
     );

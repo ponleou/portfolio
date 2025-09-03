@@ -1,4 +1,5 @@
 import { useEffect, useRef, type ReactNode } from "react";
+import { ScrollEvent } from "../functions/subscribeEvents";
 
 export default function FontsizeOnScroll({
     children,
@@ -9,8 +10,8 @@ export default function FontsizeOnScroll({
 }: {
     children: ReactNode;
     className?: string;
-    initialRem: number;
-    finalRem: number;
+    initialRem: number | string;
+    finalRem: number | string;
     maxScroll?: number;
 }) {
     const parent = useRef<HTMLDivElement>(null);
@@ -19,22 +20,50 @@ export default function FontsizeOnScroll({
         element.style.fontSize = `${fontSize}rem`;
     }
 
+    function getRemValue(variableName: string): number {
+        const value = getComputedStyle(document.documentElement).getPropertyValue(variableName).trim();
+
+        if (!value.endsWith("rem")) {
+            throw new Error(`Variable ${variableName} is not in rem units: ${value}`);
+        }
+
+        return parseFloat(value);
+    }
+
+    const scrollFunction = () => {
+        let finalNumber: number, initialNumber: number;
+
+        if (typeof initialRem === "number") {
+            initialNumber = initialRem;
+        } else {
+            initialNumber = getRemValue(initialRem);
+        }
+
+        if (typeof finalRem === "number") {
+            finalNumber = finalRem;
+        } else {
+            finalNumber = getRemValue(finalRem);
+        }
+        const currentScroll = window.scrollY > maxScroll ? maxScroll : window.scrollY;
+        const scrollRate = currentScroll / maxScroll;
+
+        const widthDiff = finalNumber - initialNumber;
+        const Rem = widthDiff * scrollRate + initialNumber;
+        setElementFontsize(parent.current!, Rem);
+    };
+
     useEffect(() => {
         if (maxScroll < 0) {
             maxScroll = document.documentElement.scrollHeight - window.innerHeight;
         }
         if (parent.current) {
-            document.addEventListener("scroll", () => {
-                const currentScroll = window.scrollY > maxScroll ? maxScroll : window.scrollY;
-                const scrollRate = currentScroll / maxScroll;
-                const widthDiff = finalRem - initialRem;
-                const Rem = widthDiff * scrollRate + initialRem;
-                setElementFontsize(parent.current!, Rem);
-            });
-            setElementFontsize(parent.current, initialRem);
+            ScrollEvent.subscribe(scrollFunction);
+            scrollFunction();
         }
 
-        console.log(maxScroll);
+        return () => {
+            ScrollEvent.unsubscribe(scrollFunction);
+        };
     }, []);
 
     return (

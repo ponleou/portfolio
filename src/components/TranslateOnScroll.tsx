@@ -1,4 +1,5 @@
 import { useEffect, useRef, type ReactNode } from "react";
+import { ScrollEvent } from "../functions/subscribeEvents";
 
 const directions = ["vertical", "horizontal"] as const;
 type Direction = (typeof directions)[number];
@@ -24,14 +25,20 @@ export default function TranslateOnScroll({
         }
     }
 
+    const scrollFunction = () => {
+        const currentScroll = maxScroll > 0 && window.scrollY > maxScroll ? maxScroll : window.scrollY;
+        const translate = currentScroll * rate;
+        translateElement(parent.current!, direction, translate);
+    };
+
     useEffect(() => {
         if (parent.current) {
-            document.addEventListener("scroll", () => {
-                const currentScroll = maxScroll > 0 && window.scrollY > maxScroll ? maxScroll : window.scrollY;
-                const translate = currentScroll * rate;
-                translateElement(parent.current!, direction, translate);
-            });
+            ScrollEvent.subscribe(scrollFunction);
         }
+
+        return () => {
+            ScrollEvent.unsubscribe(scrollFunction);
+        };
     }, []);
 
     return (

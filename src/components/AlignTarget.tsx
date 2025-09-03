@@ -1,4 +1,5 @@
 import { useEffect, useRef, type ReactNode } from "react";
+import { ResizeEvent, ScrollEvent } from "../functions/subscribeEvents";
 
 const positions = ["top", "right", "bottom", "left"] as const;
 type Position = (typeof positions)[number];
@@ -34,27 +35,23 @@ export default function AlignTarget({
     }
 
     function align() {
-        requestIdleCallback(() => {
-            if (alignPosition === "left") alignLeft();
-            if (alignPosition === "right") alignRight();
-            if (alignPosition === "top") alignTop();
-            if (alignPosition === "bottom") alignBottom();
-        });
+        if (alignPosition === "left") alignLeft();
+        if (alignPosition === "right") alignRight();
+        if (alignPosition === "top") alignTop();
+        if (alignPosition === "bottom") alignBottom();
     }
 
     useEffect(() => {
         const observer = new ResizeObserver(align);
-
         if (aligner.current) {
             observer.observe(aligner.current);
-            window.addEventListener("resize", align);
-            window.addEventListener("scroll", align);
+            ResizeEvent.subscribe(align);
+            ScrollEvent.subscribe(align);
         }
-
         return () => {
             observer.disconnect();
-            window.removeEventListener("resize", align);
-            window.removeEventListener("scroll", align);
+            ResizeEvent.unsubscribe(align);
+            ScrollEvent.unsubscribe(align);
         };
     }, []);
 

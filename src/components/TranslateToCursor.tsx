@@ -1,4 +1,5 @@
 import { useEffect, useRef, type ReactNode } from "react";
+import { MouseMoveEvent } from "../functions/subscribeEvents";
 
 type Coordinate = { x: number; y: number };
 type Vector = { direction: Coordinate; magnitude: number };
@@ -67,16 +68,17 @@ export default function TranslateToCursor({
     }
 
     useEffect(() => {
-        document.addEventListener("mousemove", updateMousePos);
+        MouseMoveEvent.subscribe(updateMousePos);
 
         let frame = 0;
         const animate = () => {
             const parentMiddle: Coordinate = { x: parentPos.x + shape.width / 2, y: parentPos.y + shape.height / 2 };
             const vector = calculateVector(parentMiddle, mousePos.current);
             const { x, y }: Coordinate = calculateTranslate(vector, translateMultiplier, maxTranslate, rangeLimit);
-            parent.current!.style.transform = `translate(${x}px, ${y}px)`;
+            parent.current!.style.transform = `translate3d(${x}px, ${y}px, 0)`;
             frame = requestAnimationFrame(animate);
         };
+        frame = requestAnimationFrame(animate);
 
         const observer = new ResizeObserver(([entry]) => {
             const { height, width } = entry.contentRect;
@@ -86,8 +88,6 @@ export default function TranslateToCursor({
             const rect = entry.target.getBoundingClientRect();
             parentPos.x = rect.left;
             parentPos.y = rect.top;
-
-            animate();
         });
 
         if (parent.current) {
@@ -95,7 +95,7 @@ export default function TranslateToCursor({
         }
 
         return () => {
-            document.removeEventListener("mousemove", updateMousePos);
+            MouseMoveEvent.unsubscribe(updateMousePos);
             cancelAnimationFrame(frame);
             observer.disconnect();
         };
