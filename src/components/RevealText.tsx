@@ -7,44 +7,60 @@ export default function RevealText({
     text,
     delayPerCallback,
     revealCallback,
-    finishedCallback,
     startOn = true,
+    allowReset = false,
+    finishedCallback,
+    resetCallback = () => {},
 }: {
     initialText?: string;
     text: string;
     delayPerCallback: number;
     revealCallback: RevealFunction;
-    finishedCallback?: (finished: boolean) => void;
     startOn?: boolean;
+    allowReset?: boolean;
+    finishedCallback?: (finished: boolean) => void;
+    resetCallback?: (finished: boolean) => void;
 }) {
     const [textDisplay, setTextDisplay] = useState<string>(initialText);
 
     useEffect(() => {
-        if (startOn) {
-            let finished = false;
-            let currentText = textDisplay;
+        let cancelled = false;
+        const targetText = startOn ? text : allowReset ? initialText : textDisplay;
 
-            (async () => {
-                while (!finished) {
-                    if (currentText === "") {
-                        await delay(delayPerCallback);
-                    }
+        if (textDisplay === targetText) return;
 
-                    const [isFinished, returnText] = revealCallback(currentText, text);
-                    finished = isFinished;
-                    currentText = returnText;
-                    setTextDisplay(currentText);
+        let finished = false;
+        let currentText = textDisplay;
 
-                    if (!finished) {
-                        await delay(delayPerCallback);
-                    }
+        (async () => {
+            while (!finished && !cancelled) {
+                if (currentText === "") {
+                    await delay(delayPerCallback);
                 }
-                if (finishedCallback) {
+
+                const [isFinished, returnText] = revealCallback(currentText, targetText);
+                finished = isFinished;
+                currentText = returnText;
+                setTextDisplay(currentText);
+
+                if (!finished) {
+                    await delay(delayPerCallback);
+                }
+            }
+
+            if (!cancelled) {
+                if (startOn && finishedCallback) {
                     finishedCallback(true);
+                } else if (!startOn && allowReset && resetCallback) {
+                    resetCallback(false);
                 }
-            })();
-        }
+            }
+        })();
+
+        return () => {
+            cancelled = true;
+        };
     }, [text, initialText, startOn]);
 
-    return <p className={`h-[1lh]`}>{textDisplay}</p>;
+    return <p className={`h-lh`}>{textDisplay}</p>;
 }
