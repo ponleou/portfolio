@@ -1,6 +1,6 @@
-export default function () {
+export default function About() {
     return (
-        <div className="p-24 bg-black">
+        <div className="p-24 h-dvh">
             <div className="flex"></div>
         </div>
     );

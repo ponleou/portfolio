@@ -4,7 +4,7 @@ import { typewriter } from "../functions/revealFunctions";
 import TextCursor from "../components/TextCursor";
 import CursorFollower from "../components/CursorFollower";
 import NavBar from "../components/NavBar";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import AlignTarget from "../components/AlignTarget";
 import RenderAfter from "../components/RenderAfter";
 import RevealText from "../components/RevealText";
@@ -16,9 +16,15 @@ import FontsizeOnScroll from "../components/FontsizeOnScroll";
 import { Icon } from "@iconify-icon/react";
 import Lined from "../components/Lined";
 import RevealOnScroll from "../components/RevealOnScroll";
-import { Outlet } from "react-router";
+import { Outlet, useLocation, useMatch, useNavigate } from "react-router";
+import type { HomeContextType } from "../types/home";
+import { ScrollEvent } from "../functions/subscribeEvents";
+import delay from "../functions/delay";
 
 export default function Home() {
+    /**
+     * Element reference and revealing management
+     */
     const codeLineContainer = useRef<HTMLDivElement>(null);
     const descTextContainer = useRef<HTMLDivElement>(null);
 
@@ -45,6 +51,61 @@ export default function Home() {
 
     const [revealNavbarTitle, setRevealNavbarTitle] = useState<boolean>(false);
     const [revealNavbarFooter, setRevealNavbarFooter] = useState<boolean>(false);
+
+    const outletDiv = useRef<HTMLDivElement>(null);
+
+    const innerHeightRatios = {
+        bashCommandAtBottom: 0.2,
+        skillsTextAtTop: 0.45,
+        outletAtBottom: 0.6,
+        lsCommandAtTop: 0.8,
+    };
+
+    /* =================== */
+
+    const match = useMatch("/*") || null;
+    const relativePath = (match !== null ? match.params["*"] || "" : "").replace(/\/$/, "");
+
+    const location = useLocation();
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        const returnNavHome = () => {
+            if (location.pathname === "/") return;
+
+            if (window.scrollY <= window.innerHeight * (innerHeightRatios.outletAtBottom - 0.1)) {
+                // -0.1 because i want the renavigate to happen a bit later when scrolling up
+                navigate("/");
+                ScrollEvent.unsubscribe(returnNavHome);
+            }
+        };
+
+        let cancelEffect = false;
+
+        const effect = async () => {
+            const hash = location.state?.hash || "";
+            if (hash) {
+                // this delay should NOT be solving ref or sth, this delay is there for styling purposes only
+                // there is an animation that users should see before it scrolls into view
+                await delay(150);
+                if (cancelEffect) return;
+
+                const element = outletDiv.current!.querySelector(`#${hash}`);
+                if (element) element.scrollIntoView({ behavior: "smooth" });
+            }
+            await delay(1000);
+
+            if (cancelEffect) return;
+            ScrollEvent.subscribe(returnNavHome);
+        };
+
+        effect();
+
+        return () => {
+            cancelEffect = true;
+            ScrollEvent.unsubscribe(returnNavHome);
+        };
+    }, [location]);
 
     return (
         <>
@@ -231,7 +292,7 @@ export default function Home() {
                                     <div className="text-primary -translate-y-1/2 text-nowrap ">
                                         <div ref={descText1}>
                                             <RevealText
-                                                text="# A computer science student's portfolio"
+                                                text="# Computer science student"
                                                 revealCallback={typewriter}
                                                 delayPerCallback={30}
                                                 startOn={revealSubtext1}
@@ -242,7 +303,7 @@ export default function Home() {
                                         </div>
                                         <div ref={descText2}>
                                             <RevealText
-                                                text="# A developer for the open-source community"
+                                                text="# Open source developer"
                                                 revealCallback={typewriter}
                                                 delayPerCallback={30}
                                                 startOn={revealSubtext2}
@@ -253,7 +314,7 @@ export default function Home() {
                                         </div>
                                         <div ref={descText3}>
                                             <RevealText
-                                                text="# An individual based in Melbourne, Australia"
+                                                text="# Based in Melbourne, Australia"
                                                 revealCallback={typewriter}
                                                 delayPerCallback={30}
                                                 startOn={revealSubtext3}
@@ -342,67 +403,108 @@ export default function Home() {
                         </TranslateOnScroll>
                     }
                 />
+
+                {/* scroll out of main page to see nav terminal */}
                 <RevealOnScroll
-                    scrollTo={window.innerHeight * 0.4}
+                    scrollTo={window.innerHeight * innerHeightRatios.bashCommandAtBottom}
                     preRevealClass="opacity-0"
                     postRevealClass="opacity-100"
                     className="h-dvh absolute left-0 right-0 bottom-0 transition-opacity ease-out duration-500"
-                    finishedCallback={(reveal) => setRevealNavbarTitle(reveal)}
-                    resetCallback={(reveal) => setRevealNavbarTitle(reveal)}
+                    finishedCallback={(reveal) => setRevealNavbarFooter(reveal)}
+                    resetCallback={(reveal) => setRevealNavbarFooter(reveal)}
                 >
-                    <div className="top-0 left-0 right-0 text-primary text-base-ad p-12 flex justify-center absolute">
-                        <RevealOn
-                            on={revealNavbarTitle}
-                            className="transition-all ease-out duration-500"
+                    <div className="top-0 left-0 right-0 text-primary text-base-ad p-12 flex justify-center fixed z-0">
+                        <RevealOnScroll
+                            scrollTo={window.innerHeight * innerHeightRatios.skillsTextAtTop}
                             preRevealClass="opacity-0"
                             postRevealClass="opacity-100"
+                            className="transition-opacity ease-out duration-500"
+                            finishedCallback={(reveal) => setRevealNavbarTitle(reveal)}
+                            resetCallback={(reveal) => setRevealNavbarTitle(reveal)}
                         >
-                            <Lined cssColor="var(--color-primary)" lengthRem={10} gapRem={2.5} orientation="horizontal">
-                                <RevealText
-                                    initialText=""
-                                    text="WELCOME TO THE TERMINAL"
-                                    revealCallback={typewriter}
-                                    delayPerCallback={30}
-                                    startOn={revealNavbarTitle}
-                                    allowReset={true}
-                                    finishedCallback={(reveal) => setRevealNavbarFooter(reveal)}
-                                    resetCallback={(reveal) => setRevealNavbarFooter(reveal)}
-                                ></RevealText>
-                            </Lined>
-                        </RevealOn>
+                            <RevealOn
+                                on={revealNavbarTitle}
+                                className="transition-all ease-out duration-500"
+                                preRevealClass="opacity-0"
+                                postRevealClass="opacity-100"
+                            >
+                                {/* scroll out of nav terminal to darken text */}
+                                <RevealOnScroll
+                                    scrollTo={window.innerHeight * innerHeightRatios.lsCommandAtTop}
+                                    preRevealClass="opacity-100"
+                                    postRevealClass="opacity-60"
+                                    className="transition-opacity ease-out duration-500"
+                                >
+                                    <Lined
+                                        cssColor="var(--color-primary)"
+                                        lengthRem={10}
+                                        gapRem={2.5}
+                                        orientation="horizontal"
+                                    >
+                                        <RevealText
+                                            initialText=""
+                                            text="WELCOME TO THE TERMINAL"
+                                            revealCallback={typewriter}
+                                            delayPerCallback={30}
+                                            startOn={revealNavbarTitle}
+                                            allowReset={true}
+                                        ></RevealText>
+                                    </Lined>
+                                </RevealOnScroll>
+                            </RevealOn>
+                        </RevealOnScroll>
                     </div>
                     <GoldenHorizontal
                         className="text-primary text-base-ad w-full h-full"
                         top={<div className="pl-24">Ponleou@Portfolio: ~ $ ls</div>}
                         bottom={
                             <div className="pl-24">
-                                <TextCursor>Ponleou@Portfolio: ~ $ bash&nbsp;</TextCursor>
+                                <TextCursor>
+                                    Ponleou@Portfolio: ~ $ bash&nbsp;
+                                    <span className="text-accent">
+                                        <RevealText
+                                            initialText=""
+                                            text={relativePath !== "" ? `./${relativePath}.sh` : ""}
+                                            revealCallback={typewriter}
+                                            delayPerCallback={15}
+                                        />
+                                    </span>
+                                </TextCursor>
                             </div>
                         }
                     ></GoldenHorizontal>
-                    <div className="bottom-0 left-0 right-0 text-primary text-base-ad p-12 flex justify-end absolute">
+                    <div className="bottom-0 left-0 right-0 text-primary text-base-ad p-12 flex justify-end fixed z-0">
                         <RevealOn
                             on={revealNavbarFooter}
                             className="transition-all ease-out duration-500"
                             preRevealClass="opacity-0"
                             postRevealClass="opacity-100"
                         >
-                            <Lined
-                                cssColor="var(--color-primary)"
-                                enable={{ start: true }}
-                                lengthRem={10}
-                                gapRem={2.5}
-                                orientation="horizontal"
+                            {/* scroll out of nav terminal to darken text */}
+
+                            <RevealOnScroll
+                                scrollTo={window.innerHeight * innerHeightRatios.outletAtBottom}
+                                preRevealClass="opacity-100"
+                                postRevealClass="opacity-60"
+                                className="transition-opacity ease-out duration-500"
                             >
-                                <RevealText
-                                    initialText=""
-                                    text="&copy; 2025-2026 KEO PONLEOU SOK. ALL RIGHTS RESERVED."
-                                    revealCallback={typewriter}
-                                    delayPerCallback={30}
-                                    startOn={revealNavbarFooter}
-                                    allowReset={true}
-                                ></RevealText>
-                            </Lined>
+                                <Lined
+                                    cssColor="var(--color-primary)"
+                                    enable={{ start: true }}
+                                    lengthRem={10}
+                                    gapRem={2.5}
+                                    orientation="horizontal"
+                                >
+                                    <RevealText
+                                        initialText=""
+                                        text="&copy; 2025-2026 KEO PONLEOU SOK. ALL RIGHTS RESERVED."
+                                        revealCallback={typewriter}
+                                        delayPerCallback={30}
+                                        startOn={revealNavbarFooter}
+                                        allowReset={true}
+                                    ></RevealText>
+                                </Lined>
+                            </RevealOnScroll>
                         </RevealOn>
                     </div>
                 </RevealOnScroll>
@@ -508,7 +610,11 @@ export default function Home() {
                     </div>
                 </RevealOn>
             </div>
-            <Outlet />
+            <div className="bg-bg">
+                <div ref={outletDiv} className="relative z-1">
+                    <Outlet context={{ relativePath } satisfies HomeContextType} />
+                </div>
+            </div>
         </>
     );
 }
