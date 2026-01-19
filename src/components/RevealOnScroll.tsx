@@ -9,6 +9,7 @@ export default function RevealOnScroll({
     postRevealClass = "visible",
     children,
     finishedCallback,
+    resetCallback = () => {},
 }: {
     scrollTo: number;
     className?: string;
@@ -16,6 +17,7 @@ export default function RevealOnScroll({
     postRevealClass?: string;
     children: ReactNode;
     finishedCallback?: (finished: boolean) => void;
+    resetCallback?: (finished: boolean) => void;
 }) {
     const [reveal, setReveal] = useState<boolean>(false);
 
@@ -25,6 +27,7 @@ export default function RevealOnScroll({
                 setReveal(true);
             } else {
                 setReveal(false);
+                resetCallback(false);
             }
         };
 
