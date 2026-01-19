@@ -28,16 +28,19 @@ export default function RevealOn({
                     return parseFloat(part) * 1000;
                 }
                 return 0;
-            })
+            }),
         );
     }
 
     useEffect(() => {
         if (on) {
             if (parent.current) {
-                setTimeout(() => {
-                    if (finishedCallback) finishedCallback(true);
-                }, parseDuration(getComputedStyle(parent.current).transitionDuration));
+                setTimeout(
+                    () => {
+                        if (finishedCallback) finishedCallback(true);
+                    },
+                    parseDuration(getComputedStyle(parent.current).transitionDuration),
+                );
             }
         }
     }, [on]);

@@ -1,7 +1,15 @@
 import { NavLink } from "react-router";
 import TextSh from "./TextSh";
 
-export default function NavBar({ className = "", navClassName = "", navLinkClassName = "" }: { className?: string; navClassName?: string; navLinkClassName?: string }) {
+export default function NavBar({
+    className = "",
+    navClassName = "",
+    navLinkClassName = "",
+}: {
+    className?: string;
+    navClassName?: string;
+    navLinkClassName?: string;
+}) {
     return (
         <div className={`${className}`}>
             <NavLink className={`${navLinkClassName}`} to="/about">
