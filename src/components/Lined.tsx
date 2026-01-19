@@ -21,18 +21,29 @@ export default function Lined({
     enable?: Partial<{ start: boolean; end: boolean }>;
 }) {
     return (
-        <div className={`flex items-center ${orientation === "vertical" ? "flex-col" : ""}`} style={{ gap: `${gapRem}rem` }}>
+        <div
+            className={`flex items-center ${orientation === "vertical" ? "flex-col" : ""}`}
+            style={{ gap: `${gapRem}rem` }}
+        >
             {enable.start && (
                 <div
-                    style={lineOrientation === "vertical" ? { height: `${lengthRem}rem`, backgroundColor: cssColor } : { width: `${lengthRem}rem`, backgroundColor: cssColor }}
-                    className={`${lineOrientation === "vertical" ? "w-[1px]" : "h-[1px]"}`}
+                    style={
+                        lineOrientation === "vertical"
+                            ? { height: `${lengthRem}rem`, backgroundColor: cssColor }
+                            : { width: `${lengthRem}rem`, backgroundColor: cssColor }
+                    }
+                    className={`${lineOrientation === "vertical" ? "w-px" : "h-px"}`}
                 ></div>
             )}
             {children}
             {enable.end && (
                 <div
-                    style={lineOrientation === "vertical" ? { height: `${lengthRem}rem`, backgroundColor: cssColor } : { width: `${lengthRem}rem`, backgroundColor: cssColor }}
-                    className={`${lineOrientation === "vertical" ? "w-[1px]" : "h-[1px]"}`}
+                    style={
+                        lineOrientation === "vertical"
+                            ? { height: `${lengthRem}rem`, backgroundColor: cssColor }
+                            : { width: `${lengthRem}rem`, backgroundColor: cssColor }
+                    }
+                    className={`${lineOrientation === "vertical" ? "w-px" : "h-px"}`}
                 ></div>
             )}
         </div>

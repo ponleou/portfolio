@@ -47,7 +47,7 @@ export default function TranslateToCursor({
         vector: Vector,
         translateMultiplier: number,
         maxTranslate: number,
-        rangeLimit: number
+        rangeLimit: number,
     ): Coordinate {
         if (rangeLimit > 0 && vector.magnitude > rangeLimit) {
             return { x: 0, y: 0 };
