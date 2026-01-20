@@ -358,7 +358,7 @@ export default function Home() {
                                         preRevealClass="opacity-0 -translate-y-8"
                                         postRevealClass="opacity-100 translate-y-0"
                                     >
-                                        <TranslateToCursor maxTranslate={0.5} translateMultiplier={0.1}>
+                                        <TranslateToCursor maxTranslate={1} translateMultiplier={0.1}>
                                             <p className="text-h3-ad font-semibold leading-[1em]">
                                                 {profile.role.toUpperCase()}
                                             </p>
@@ -372,7 +372,7 @@ export default function Home() {
                                         preRevealClass="opacity-0 -translate-y-8"
                                         postRevealClass="opacity-100 translate-y-0"
                                     >
-                                        <TranslateToCursor maxTranslate={0.5} translateMultiplier={0.1}>
+                                        <TranslateToCursor maxTranslate={1} translateMultiplier={0.1}>
                                             <TextCursor>
                                                 <TextCycle
                                                     textArray={profile.languages}
@@ -507,7 +507,7 @@ export default function Home() {
                         <div className="grow relative">
                             <div className="text-h4-ad text-primary-60 p-12 bottom-0 right-0 absolute">
                                 <TranslateOnScroll direction="vertical" rate={-1} maxScroll={window.innerHeight}>
-                                    <TranslateToCursor maxTranslate={0.5} translateMultiplier={0.1}>
+                                    <TranslateToCursor maxTranslate={1} translateMultiplier={0.1}>
                                         <Lined
                                             lengthRem={8}
                                             orientation="vertical"
@@ -569,7 +569,7 @@ export default function Home() {
                             </div>
                         </div>
                         <div className="w-full relative">
-                            <TranslateToCursor maxTranslate={0.5} translateMultiplier={0.1}>
+                            <TranslateToCursor maxTranslate={1} translateMultiplier={0.1}>
                                 <RenderAfter after={revealNavbar} rerenderCallback={rerenderPage}>
                                     <FontsizeOnScroll
                                         className="transition-all ease-out duration-150 bottom-0 left-0 right-0 z-1 p-12 text-accent font-bold"
