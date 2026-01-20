@@ -62,5 +62,5 @@ export default function RevealText({
         };
     }, [text, initialText, startOn]);
 
-    return <p className={`h-lh`}>{textDisplay}</p>;
+    return <p className={`h-lh whitespace-pre`}>{textDisplay}</p>;
 }
