@@ -4,7 +4,7 @@ export default function TextCursor({ children }: { children: ReactNode }) {
     return (
         <div className="flex items-center gap-1">
             {children}
-            <div className="h-[1lh] w-[0.4em] bg-accent"></div>
+            <div className="h-lh w-[0.4em] bg-accent"></div>
         </div>
     );
 }

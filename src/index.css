@@ -1,7 +1,24 @@
-@import url("https://fonts.googleapis.com/css2?family=Fira+Code&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Fira+Code:wght@300..700&display=swap");
 @import "tailwindcss";
 
+@font-face {
+    font-family: "Fira Code Static";
+    src: url("./fonts/Fira_Code_400.woff2") format("woff2");
+    font-weight: 400;
+    font-display: swap;
+}
+
 @theme inline static {
+    /* TEMPLATE FOR ADAPTIVE. DONT USE */
+    --template-text-h1-ad: 0;
+    --template-text-h2-ad: 0;
+    --template-text-h3-ad: 0;
+    --template-text-h4-ad: 0;
+    --template-text-base-ad: 0;
+    --template-text-sm-ad: 0;
+    --template-leading-ascii-sm-ad: 0;
+    /* ============================== */
+
     --font-mono: "Fira Code", "monospace";
 
     --color-bg: rgb(0, 0, 0);
@@ -44,21 +61,13 @@
     --text-base-mob: 1.6rem;
     --text-sm-mob: 1.2rem;
 
-    /* TEMPLATE FOR ADAPTIVE. DONT USE */
-    --texttemplate-h1-ad: 8.1rem;
-    --texttemplate-h2-ad: 4.7rem;
-    --texttemplate-h3-ad: 2.8rem;
-    --texttemplate-h4-ad: 2.1rem;
-    --texttemplate-base-ad: 1.6rem;
-    --texttemplate-sm-ad: 1.2rem;
-
     /* adaptive */
-    --text-h1-ad: var(--texttemplate-h1-ad);
-    --text-h2-ad: var(--texttemplate-h2-ad);
-    --text-h3-ad: var(--texttemplate-h3-ad);
-    --text-h4-ad: var(--texttemplate-h4-ad);
-    --text-base-ad: var(--texttemplate-base-ad);
-    --text-sm-ad: var(--texttemplate-sm-ad);
+    --text-h1-ad: var(--template-text-h1-ad);
+    --text-h2-ad: var(--template-text-h2-ad);
+    --text-h3-ad: var(--template-text-h3-ad);
+    --text-h4-ad: var(--template-text-h4-ad);
+    --text-base-ad: var(--template-text-base-ad);
+    --text-sm-ad: var(--template-text-sm-ad);
 
     --animate-scale-pulse-1: scale-pulse 1s cubic-bezier(0.4, 0, 0.6, 1) infinite;
     --animate-scale-pulse-2: scale-pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
@@ -86,41 +95,69 @@
     html {
         @apply font-mono;
         font-size: 30.2%;
+        --template-text-h1-ad: var(--text-h1-sm-mob);
+        --template-text-h2-ad: var(--text-h2-mob);
+        --template-text-h3-ad: var(--text-h3-mob);
+        --template-text-h4-ad: var(--text-h4-mob);
+        --template-text-base-ad: var(--text-base-mob);
+        --template-text-sm-ad: var(--text-sm-mob);
+
+        --template-leading-ascii-sm-ad: 1.156em;
     }
 
     @media screen and (min-width: 480px) {
         html {
             font-size: 36.2%;
+
+            --template-leading-ascii-sm-ad: 1.158em;
         }
     }
 
     @media screen and (min-width: 640px) {
         html {
             font-size: 43.4%;
+
+            --template-leading-ascii-sm-ad: 1.181em;
         }
     }
 
     @media screen and (min-width: 768px) {
         html {
             font-size: 52.1%;
-            --texttemplate-h1-ad: var(--text-h1-sm);
-            --texttemplate-h2-ad: var(--text-h2);
-            --texttemplate-h3-ad: var(--text-h3);
-            --texttemplate-h4-ad: var(--text-h4);
-            --texttemplate-base-ad: var(--text-base);
-            --texttemplate-sm-ad: var(--text-sm);
+            --template-text-h1-ad: var(--text-h1-sm);
+            --template-text-h2-ad: var(--text-h2);
+            --template-text-h3-ad: var(--text-h3);
+            --template-text-h4-ad: var(--text-h4);
+            --template-text-base-ad: var(--text-base);
+            --template-text-sm-ad: var(--text-sm);
+
+            --template-leading-ascii-sm-ad: 1.072em;
         }
     }
 
     @media screen and (min-width: 1024px) {
         html {
-            --texttemplate-h1-ad: var(--text-h1);
+            --template-text-h1-ad: var(--text-h1);
         }
     }
 
     @media screen and (min-width: 1280px) {
         html {
             font-size: 62.5%;
+
+            --template-leading-ascii-sm-ad: 1.073em;
         }
     }
+}
+
+@utility text-ascii-sm {
+    font-family: "Fira Code Static";
+    font-size: var(--template-text-sm-ad);
+    line-height: var(--template-leading-ascii-sm-ad);
+    white-space: pre;
+    font-variant-ligatures: none;
+}
+
+.no-ligatures {
+    font-variant-ligatures: none;
 }
