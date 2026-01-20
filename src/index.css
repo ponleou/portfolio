@@ -95,7 +95,7 @@
     html {
         @apply font-mono;
         font-size: 30.2%;
-        --template-text-h1-ad: var(--text-h1-sm-mob);
+        --template-text-h1-ad: var(--text-h1-mob);
         --template-text-h2-ad: var(--text-h2-mob);
         --template-text-h3-ad: var(--text-h3-mob);
         --template-text-h4-ad: var(--text-h4-mob);
