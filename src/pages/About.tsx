@@ -1,5 +1,5 @@
 import profile from "../constant/profile";
-import pfp from "/img/about_me_pfp.png";
+// import pfp from "/img/about_me_pfp.png";
 
 export default function About() {
     return (
