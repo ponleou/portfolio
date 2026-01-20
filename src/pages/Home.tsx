@@ -20,6 +20,8 @@ import { Outlet, useLocation, useMatch, useNavigate } from "react-router";
 import type { HomeContextType } from "../types/home";
 import { ScrollEvent } from "../functions/subscribeEvents";
 import delay from "../functions/delay";
+import profile from "../constant/profile";
+import contact from "../constant/contact";
 
 export default function Home() {
     /**
@@ -338,11 +340,8 @@ export default function Home() {
                                     postRevealClass="opacity-100 translate-y-0"
                                 >
                                     <TranslateToCursor maxTranslate={1} translateMultiplier={0.1}>
-                                        <h1
-                                            ref={mainTitle}
-                                            className="text-primary text-h1-ad font-extrabold leading-[1em]"
-                                        >
-                                            Keo Ponleou
+                                        <h1 ref={mainTitle} className="text-primary text-h1-ad font-bold leading-[1em]">
+                                            {profile.first_name}
                                         </h1>
                                     </TranslateToCursor>
                                 </RevealOn>
@@ -360,7 +359,9 @@ export default function Home() {
                                         postRevealClass="opacity-100 translate-y-0"
                                     >
                                         <TranslateToCursor maxTranslate={0.5} translateMultiplier={0.1}>
-                                            <p className="text-h3-ad font-semibold leading-[1em]">SOFTWARE DEVELOPER</p>
+                                            <p className="text-h3-ad font-semibold leading-[1em]">
+                                                {profile.role.toUpperCase()}
+                                            </p>
                                         </TranslateToCursor>
                                     </RevealOn>
                                 </div>
@@ -374,22 +375,7 @@ export default function Home() {
                                         <TranslateToCursor maxTranslate={0.5} translateMultiplier={0.1}>
                                             <TextCursor>
                                                 <TextCycle
-                                                    textArray={[
-                                                        "React.js",
-                                                        "Vue.js",
-                                                        "HTML/CSS",
-                                                        "JavaScript",
-                                                        "TypeScript",
-                                                        "Node.js",
-                                                        "Python",
-                                                        "Ruby",
-                                                        "C/C++",
-                                                        "PHP",
-                                                        "C#",
-                                                        "Ruby on Rails",
-                                                        "Docker",
-                                                        "Wordpress",
-                                                    ]}
+                                                    textArray={profile.languages}
                                                     changeTime={100}
                                                     pauseTime={1500}
                                                     revealCallback={typewriter}
@@ -432,7 +418,7 @@ export default function Home() {
                                 <RevealOnScroll
                                     scrollTo={window.innerHeight * innerHeightRatios.lsCommandAtTop}
                                     preRevealClass="opacity-100"
-                                    postRevealClass="opacity-60"
+                                    postRevealClass="opacity-40"
                                     className="transition-opacity ease-out duration-500"
                                 >
                                     <Lined
@@ -485,7 +471,7 @@ export default function Home() {
                             <RevealOnScroll
                                 scrollTo={window.innerHeight * innerHeightRatios.outletAtBottom}
                                 preRevealClass="opacity-100"
-                                postRevealClass="opacity-60"
+                                postRevealClass="opacity-40"
                                 className="transition-opacity ease-out duration-500"
                             >
                                 <Lined
@@ -530,7 +516,7 @@ export default function Home() {
                                         >
                                             <a
                                                 className="transition-colors duration-500 ease-out hover:text-primary"
-                                                href="https://codeberg.org/ponleou"
+                                                href={contact.codeberg}
                                                 target="_blank"
                                                 title="codeberg!"
                                             >
@@ -545,7 +531,7 @@ export default function Home() {
                                             >
                                                 <a
                                                     className="transition-colors duration-500 ease-out hover:text-primary"
-                                                    href="https://github.com/ponleou"
+                                                    href={contact.github}
                                                     target="_blank"
                                                     title="eww github, check out codeberg instead"
                                                 >
@@ -562,7 +548,7 @@ export default function Home() {
                                             >
                                                 <a
                                                     className="transition-colors duration-500 ease-out hover:text-primary"
-                                                    href="https://www.linkedin.com/in/ponleou/"
+                                                    href={contact.linkedin}
                                                     target="_blank"
                                                     title="LinkedIn"
                                                 >
@@ -571,9 +557,9 @@ export default function Home() {
                                             </Lined>
                                             <a
                                                 className="transition-colors duration-500 ease-out hover:text-primary"
-                                                href="mailto:dev.ponleousk@gmail.com"
+                                                href={`mailto:${contact.email}`}
                                                 target="_blank"
-                                                title="dev.ponleousk@gmail.com"
+                                                title={contact.email}
                                             >
                                                 <Icon icon="mdi:email" width="1em" height="1em" />
                                             </a>
