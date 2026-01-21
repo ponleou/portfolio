@@ -7,6 +7,7 @@ export default function RevealOn({
     postRevealClass = "visible",
     children,
     finishedCallback,
+    resetCallback = () => {},
 }: {
     on: boolean;
     className?: string;
@@ -14,6 +15,7 @@ export default function RevealOn({
     postRevealClass?: string;
     children: ReactNode;
     finishedCallback?: (finished: boolean) => void;
+    resetCallback?: (finished: boolean) => void;
 }) {
     const parent = useRef<HTMLDivElement>(null);
 
@@ -33,15 +35,21 @@ export default function RevealOn({
     }
 
     useEffect(() => {
+        if (!parent.current) return;
         if (on) {
-            if (parent.current) {
-                setTimeout(
-                    () => {
-                        if (finishedCallback) finishedCallback(true);
-                    },
-                    parseDuration(getComputedStyle(parent.current).transitionDuration),
-                );
-            }
+            setTimeout(
+                () => {
+                    if (finishedCallback) finishedCallback(true);
+                },
+                parseDuration(getComputedStyle(parent.current).transitionDuration),
+            );
+        } else {
+            setTimeout(
+                () => {
+                    if (resetCallback) resetCallback(false);
+                },
+                parseDuration(getComputedStyle(parent.current).transitionDuration),
+            );
         }
     }, [on]);
 
