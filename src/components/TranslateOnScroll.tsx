@@ -1,7 +1,7 @@
 import { useEffect, useRef, type ReactNode } from "react";
 import { ScrollEvent } from "../functions/subscribeEvents";
 
-const directions = ["vertical", "horizontal"] as const;
+const directions = ["vertical", "horizontal", "vertical-reverse", "horizontal-reverse"] as const;
 type Direction = (typeof directions)[number];
 
 export default function TranslateOnScroll({
@@ -9,24 +9,43 @@ export default function TranslateOnScroll({
     direction,
     rate,
     maxScroll = -1,
+    start = -1,
 }: {
     children: ReactNode;
     direction: Direction;
     rate: number;
     maxScroll?: number;
+    start?: number;
 }) {
     const parent = useRef<HTMLDivElement>(null);
 
     function translateElement(element: HTMLDivElement, direction: Direction, translate: number) {
-        if (direction === "horizontal") {
-            element.style.transform = `translateX(${translate}px)`;
-        } else if (direction === "vertical") {
-            element.style.transform = `translateY(${translate}px)`;
+        if (direction === "horizontal") element.style.transform = `translateX(${translate}px)`;
+        else if (direction === "horizontal-reverse") element.style.transform = `translateX(${-translate}px)`;
+        else if (direction === "vertical") element.style.transform = `translateY(${translate}px)`;
+        else if (direction === "vertical-reverse") element.style.transform = `translateY(${-translate}px)`;
+    }
+
+    function getScrollLength(direction: Direction): number {
+        if (direction === "horizontal" || direction === "vertical") {
+            if (start < 0) start = 0;
+            let length = Math.max(window.scrollY - start, 0);
+
+            if (maxScroll <= 0) return length;
+            else return Math.min(length, maxScroll);
+        } else if (direction === "horizontal-reverse" || direction === "vertical-reverse") {
+            if (start < 0) start = document.documentElement.scrollHeight;
+            let length = Math.max(start - (window.scrollY + window.innerHeight), 0);
+
+            if (maxScroll <= 0) return length;
+            else return Math.min(length, maxScroll);
         }
+
+        return 0;
     }
 
     const scrollFunction = () => {
-        const currentScroll = maxScroll > 0 && window.scrollY > maxScroll ? maxScroll : window.scrollY;
+        const currentScroll = getScrollLength(direction);
         const translate = currentScroll * rate;
         translateElement(parent.current!, direction, translate);
     };
