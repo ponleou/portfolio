@@ -93,6 +93,9 @@
     /* < 768px uses mob version */
     /* > 768px uses normal version */
     html {
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+
         @apply font-mono;
         font-size: 30.2%;
         --template-text-h1-ad: var(--text-h1-mob);
@@ -103,6 +106,9 @@
         --template-text-sm-ad: var(--text-sm-mob);
 
         --template-leading-ascii-sm-ad: 1.156em;
+    }
+    html::-webkit-scrollbar {
+        display: none;
     }
 
     @media screen and (min-width: 480px) {
