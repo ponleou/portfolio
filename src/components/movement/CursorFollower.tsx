@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState, type ReactNode } from "react";
-import { MouseMoveEvent, ScrollEvent } from "../functions/subscribeEvents";
+import { MouseMoveEvent, ScrollEvent } from "../../functions/subscribeEvents";
 
 type Coordinate = { x: number; y: number };
 
