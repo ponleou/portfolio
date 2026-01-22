@@ -1,5 +1,5 @@
 import { useEffect, useRef, type ReactNode } from "react";
-import { ScrollEvent } from "../functions/subscribeEvents";
+import { ScrollEvent } from "../../functions/subscribeEvents";
 
 const directions = ["vertical", "horizontal", "vertical-reverse", "horizontal-reverse"] as const;
 type Direction = (typeof directions)[number];

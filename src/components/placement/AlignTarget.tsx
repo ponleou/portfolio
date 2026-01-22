@@ -1,5 +1,5 @@
 import { useEffect, useRef, type ReactNode } from "react";
-import { ResizeEvent, ScrollEvent } from "../functions/subscribeEvents";
+import { ResizeEvent, ScrollEvent } from "../../functions/subscribeEvents";
 
 const positions = ["top", "right", "bottom", "left"] as const;
 type Position = (typeof positions)[number];

@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { ResizeEvent, ScrollEvent } from "../functions/subscribeEvents";
+import { ResizeEvent, ScrollEvent } from "../../functions/subscribeEvents";
 
 export default function ScrollProgress({ targetElementId }: { targetElementId: string }) {
     const parent = useRef<HTMLDivElement>(null);

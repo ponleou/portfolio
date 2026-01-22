@@ -1,28 +1,28 @@
-import GoldenHorizontal from "../components/GoldenHorizontal";
+import GoldenHorizontal from "../components/placement/GoldenHorizontal";
 import TextCycle from "../components/TextCycle";
 import { typewriter } from "../functions/revealFunctions";
 import TextCursor from "../components/TextCursor";
-import CursorFollower from "../components/CursorFollower";
+import CursorFollower from "../components/movement/CursorFollower";
 import NavBar from "../components/NavBar";
 import { useEffect, useRef, useState } from "react";
-import AlignTarget from "../components/AlignTarget";
-import RenderAfter from "../components/RenderAfter";
-import RevealText from "../components/RevealText";
-import RevealOn from "../components/RevealOn";
-import TranslateToCursor from "../components/TranslateToCursor";
-import TranslateOnScroll from "../components/TranslateOnScroll";
-import WidthOnScroll from "../components/WidthOnScroll";
-import FontsizeOnScroll from "../components/FontsizeOnScroll";
+import AlignTarget from "../components/placement/AlignTarget";
+import RenderAfter from "../components/movement/RenderAfter";
+import RevealText from "../components/movement/RevealText";
+import RevealOn from "../components/movement/RevealOn";
+import TranslateToCursor from "../components/movement/TranslateToCursor";
+import TranslateOnScroll from "../components/movement/TranslateOnScroll";
+import WidthOnScroll from "../components/movement/WidthOnScroll";
+import FontsizeOnScroll from "../components/movement/FontsizeOnScroll";
 import { Icon } from "@iconify-icon/react";
 import Lined from "../components/Lined";
-import RevealOnScroll from "../components/RevealOnScroll";
+import RevealOnScroll from "../components/movement/RevealOnScroll";
 import { Outlet, useLocation, useMatch, useNavigate } from "react-router";
 import type { HomeContextType } from "../types/home";
 import { ScrollEvent } from "../functions/subscribeEvents";
 import delay from "../functions/delay";
 import profile from "../constant/profile";
 import contact from "../constant/contact";
-import ScrollProgress from "../components/ScrollProgress";
+import ScrollProgress from "../components/movement/ScrollProgress";
 
 export default function Home() {
     /**
@@ -94,12 +94,13 @@ export default function Home() {
         const effect = async () => {
             const hash = location.state?.hash || "";
             if (hash) {
+                setRenderOutletProgress(false);
                 // this delay should NOT be solving ref or sth, this delay is there for styling purposes only
                 // there is an animation that users should see before it scrolls into view
                 await delay(150);
                 if (cancelEffect) return;
-                setShowOutletProgress(false);
                 setShowOutletProgress(true);
+                setRenderOutletProgress(true);
 
                 const element = outletDiv.current!.querySelector(`#${hash}`);
                 if (element) element.scrollIntoView({ behavior: "smooth" });
@@ -481,7 +482,7 @@ export default function Home() {
                                 }
                             ></GoldenHorizontal>
                             <div className="absolute bottom-0 right-0 left-0">
-                                <div className="text-primary text-h3-ad opacity-60 font-light no-ligatures">
+                                <div className="text-primary text-h4-ad opacity-60 font-light no-ligatures">
                                     <RenderAfter after={renderOutletProgress} allowUnrender={true}>
                                         <RevealOn
                                             on={showOutletProgress}

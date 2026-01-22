@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import delay from "../functions/delay";
-import type { RevealFunction } from "../functions/revealFunctions";
+import delay from "../../functions/delay";
+import type { RevealFunction } from "../../functions/revealFunctions";
 
 export default function RevealText({
     initialText = "",
