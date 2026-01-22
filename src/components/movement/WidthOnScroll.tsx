@@ -1,5 +1,5 @@
 import { useEffect, useRef, type ReactNode } from "react";
-import { ScrollEvent } from "../functions/subscribeEvents";
+import { ScrollEvent } from "../../functions/subscribeEvents";
 
 export default function WidthOnScroll({
     children,
