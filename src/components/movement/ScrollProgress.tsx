@@ -46,9 +46,9 @@ export default function ScrollProgress({ targetElementId }: { targetElementId: s
          */
         const targetEl = document.getElementById(targetElementId)!;
         const updateProgress = () => {
-            let viewportBottom = window.scrollY + window.innerHeight;
-            let elTop = window.scrollY + targetEl.getBoundingClientRect().top;
-            let progress = ((viewportBottom - elTop) / targetEl.offsetHeight) * 100;
+            const viewportBottom = window.scrollY + window.innerHeight;
+            const elTop = window.scrollY + targetEl.getBoundingClientRect().top;
+            const progress = ((viewportBottom - elTop) / targetEl.offsetHeight) * 100;
             setProgress(progress >= 0 && targetEl.offsetHeight ? progress : 0);
         };
         ScrollEvent.subscribe(updateProgress);

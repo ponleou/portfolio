@@ -1,8 +1,7 @@
 import { useEffect, useRef, type ReactNode } from "react";
 import { ScrollEvent } from "../../functions/subscribeEvents";
 
-const directions = ["vertical", "horizontal", "vertical-reverse", "horizontal-reverse"] as const;
-type Direction = (typeof directions)[number];
+type Direction = "vertical" | "horizontal" | "vertical-reverse" | "horizontal-reverse";
 
 export default function TranslateOnScroll({
     children,
@@ -29,13 +28,13 @@ export default function TranslateOnScroll({
     function getScrollLength(direction: Direction): number {
         if (direction === "horizontal" || direction === "vertical") {
             if (start < 0) start = 0;
-            let length = Math.max(window.scrollY - start, 0);
+            const length = Math.max(window.scrollY - start, 0);
 
             if (maxScroll <= 0) return length;
             else return Math.min(length, maxScroll);
         } else if (direction === "horizontal-reverse" || direction === "vertical-reverse") {
             if (start < 0) start = document.documentElement.scrollHeight;
-            let length = Math.max(start - (window.scrollY + window.innerHeight), 0);
+            const length = Math.max(start - (window.scrollY + window.innerHeight), 0);
 
             if (maxScroll <= 0) return length;
             else return Math.min(length, maxScroll);

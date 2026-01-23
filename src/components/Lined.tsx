@@ -1,7 +1,6 @@
 import type { ReactNode } from "react";
 
-const orientations = ["vertical", "horizontal"] as const;
-type Orientation = (typeof orientations)[number];
+type Orientation = "vertical" | "horizontal";
 
 export default function Lined({
     children,
