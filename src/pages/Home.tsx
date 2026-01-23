@@ -67,6 +67,7 @@ export default function Home() {
      */
     const match = useMatch("/*") || null;
     const relativePath = (match !== null ? match.params["*"] || "" : "").replace(/\/$/, "");
+    const [revealOutlet, setRevealOutlet] = useState(false);
 
     const location = useLocation();
     const navigate = useNavigate();
@@ -86,6 +87,8 @@ export default function Home() {
                 // -0.1 because i want the renavigate to happen a bit later when scrolling up
                 navigate("//");
                 setShowOutletProgress(false);
+                setRevealOutlet(false);
+
                 ScrollEvent.unsubscribe(returnNavHome);
             }
         };
@@ -95,11 +98,13 @@ export default function Home() {
         const effect = async () => {
             const hash = location.state?.hash || "";
             if (hash) {
+                setRevealOutlet(false);
                 setRenderOutletProgress(false);
                 // this delay should NOT be solving ref or sth, this delay is there for styling purposes only
                 // there is an animation that users should see before it scrolls into view
                 await delay(150);
                 if (cancelEffect) return;
+                setRevealOutlet(true);
                 setShowOutletProgress(true);
                 setRenderOutletProgress(true);
 
@@ -657,7 +662,7 @@ export default function Home() {
                 </div>
                 <div ref={outletDiv} className="relative z-1">
                     {/* <div className="bg-[url(assets/noise.svg)] opacity-40 absolute inset-0 mix-blend-color-dodge"></div> */}
-                    <Outlet context={{ relativePath } satisfies HomeContextType} />
+                    <Outlet context={{ relativePath, reveal: revealOutlet } satisfies HomeContextType} />
                 </div>
             </div>
         </>
