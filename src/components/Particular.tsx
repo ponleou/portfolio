@@ -1,4 +1,5 @@
 import { useEffect, useRef } from "react";
+import delay from "../functions/delay";
 
 type component = { x: number; y: number };
 type range<T> = { min: T; max: T };
@@ -115,6 +116,9 @@ export default function Particular({
     useEffect(() => {
         if (!canvas.current) return;
 
+        const FPS = 60;
+        const interval = 1000 / FPS;
+
         let frameId = -1;
         let particleCount = 0;
 
@@ -141,7 +145,14 @@ export default function Particular({
             frameId = requestAnimationFrame(animationLoop);
         };
 
-        const animationLoop = () => {
+        let lastTime = performance.now();
+        const animationLoop = async () => {
+            const currentTime = performance.now();
+            const deltaTime = currentTime - lastTime;
+
+            if (deltaTime < interval) await delay(interval - deltaTime);
+
+            lastTime = performance.now();
             if (circles.length <= particleCount)
                 circles.push(new CircleFrames(canvas.current!.width, canvas.current!.height));
 
