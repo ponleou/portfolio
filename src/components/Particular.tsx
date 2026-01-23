@@ -19,9 +19,6 @@ export default function Particular({
     accentColorVar: string;
     particleDensity: number;
 }) {
-    const primaryColor = getComputedStyle(document.documentElement).getPropertyValue(primaryColorVar);
-    const accentColor = getComputedStyle(document.documentElement).getPropertyValue(accentColorVar);
-
     const canvas = useRef<HTMLCanvasElement>(null);
 
     const rng = (min: number, max: number) => Math.random() * (max - min) + min;
@@ -30,6 +27,9 @@ export default function Particular({
         private pos: component;
         private speed: component;
         private radius: number;
+
+        private primaryColor: string;
+        private accentColor: string;
         private color: string;
 
         private lifespan: number;
@@ -52,7 +52,7 @@ export default function Particular({
             };
 
             // 1/3 is accent color, following 60:30:10
-            this.color = rng(0, 1) >= 0.3 ? primaryColor : accentColor;
+            this.color = rng(0, 1) >= 0.3 ? this.primaryColor : this.accentColor;
 
             this.radius = rng(radius.min, radius.max);
             this.lifespan = rng(lifespan.min, lifespan.max);
@@ -64,7 +64,7 @@ export default function Particular({
             return Math.random() <= this.spawnChance;
         }
 
-        constructor(canvasWidth: number, canvasHeight: number) {
+        constructor(canvasWidth: number, canvasHeight: number, primaryColor: string, accentColor: string) {
             this.canvasWidth = canvasWidth;
             this.canvasHeight = canvasHeight;
 
@@ -72,6 +72,9 @@ export default function Particular({
             this.speed = { x: 0, y: 0 };
             this.radius = 0;
             this.color = "";
+
+            this.primaryColor = primaryColor;
+            this.accentColor = accentColor;
 
             this.lifespan = 0;
             this.currentLife = this.lifespan;
@@ -87,12 +90,18 @@ export default function Particular({
                 alpha = 1 - (this.currentLife - (this.lifespan - this.fadeRate)) / this.fadeRate;
             }
 
+            ctx.save();
+
+            ctx.filter = `blur(3px)`;
+            ctx.globalAlpha = alpha;
+
             ctx.beginPath();
             ctx.arc(this.pos.x, this.pos.y, this.radius, 0, Math.PI * 2);
-            ctx.filter = `blur(3px)`;
-            ctx.fillStyle = this.color.replace("rgb", "rgba").replace(")", `,${alpha} )`);
+            ctx.fillStyle = this.color;
             ctx.fill();
             ctx.closePath();
+
+            ctx.restore();
         }
 
         private drawNextFrame(ctx: CanvasRenderingContext2D) {
@@ -115,6 +124,9 @@ export default function Particular({
 
     useEffect(() => {
         if (!canvas.current) return;
+
+        const primaryColor = getComputedStyle(document.documentElement).getPropertyValue(primaryColorVar);
+        const accentColor = getComputedStyle(document.documentElement).getPropertyValue(accentColorVar);
 
         const FPS = 60;
         const interval = 1000 / FPS;
@@ -140,7 +152,9 @@ export default function Particular({
             context.clearRect(0, 0, canvas.current!.width, canvas.current!.height);
 
             if (circles.length <= particleCount)
-                circles.push(new CircleFrames(canvas.current!.width, canvas.current!.height));
+                circles.push(
+                    new CircleFrames(canvas.current!.width, canvas.current!.height, primaryColor, accentColor),
+                );
 
             frameId = requestAnimationFrame(animationLoop);
         };
@@ -154,7 +168,9 @@ export default function Particular({
 
             lastTime = performance.now();
             if (circles.length <= particleCount)
-                circles.push(new CircleFrames(canvas.current!.width, canvas.current!.height));
+                circles.push(
+                    new CircleFrames(canvas.current!.width, canvas.current!.height, primaryColor, accentColor),
+                );
 
             context.clearRect(0, 0, canvas.current!.width, canvas.current!.height);
             circles.forEach((c) => c.animateFrame(context));
