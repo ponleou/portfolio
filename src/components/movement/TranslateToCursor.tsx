@@ -1,6 +1,5 @@
 import { useEffect, useRef, type ReactNode } from "react";
 import { MouseMoveEvent } from "../../functions/subscribeEvents";
-import delay from "../../functions/delay";
 
 type Coordinate = { x: number; y: number };
 type Vector = { direction: Coordinate; magnitude: number };
@@ -75,14 +74,14 @@ export default function TranslateToCursor({
         const interval = 1000 / FPS;
 
         let frame = 0;
-        let lastTime = performance.now();
-        const animate = async () => {
-            const currentTime = performance.now();
-            const deltaTime = currentTime - lastTime;
+        let lastTime = 0;
+        const animate = (time: DOMHighResTimeStamp) => {
+            if (time - lastTime < interval) {
+                frame = requestAnimationFrame(animate);
+                return;
+            }
 
-            if (deltaTime < interval) await delay(interval - deltaTime);
-
-            lastTime = performance.now();
+            lastTime = time;
 
             const parentMiddle: Coordinate = { x: parentPos.x + shape.width / 2, y: parentPos.y + shape.height / 2 };
             const vector = calculateVector(parentMiddle, mousePos.current);

@@ -1,5 +1,4 @@
 import { useEffect, useRef } from "react";
-import delay from "../functions/delay";
 
 type component = { x: number; y: number };
 type range<T> = { min: T; max: T };
@@ -92,12 +91,19 @@ export default function Particular({
 
             ctx.save();
 
-            ctx.filter = `blur(3px)`;
-            ctx.globalAlpha = alpha;
+            // ctx.filter = `blur(3px)`;
+            ctx.shadowColor = this.color;
+            ctx.shadowBlur = 6;
+            ctx.globalAlpha = Math.max(0, Math.min(1, alpha));
 
             ctx.beginPath();
             ctx.arc(this.pos.x, this.pos.y, this.radius, 0, Math.PI * 2);
             ctx.fillStyle = this.color;
+            ctx.fill();
+            ctx.fill();
+            ctx.fill();
+            ctx.fill();
+            ctx.fill();
             ctx.fill();
             ctx.closePath();
 
@@ -159,14 +165,14 @@ export default function Particular({
             frameId = requestAnimationFrame(animationLoop);
         };
 
-        let lastTime = performance.now();
-        const animationLoop = async () => {
-            const currentTime = performance.now();
-            const deltaTime = currentTime - lastTime;
+        let lastTime = 0;
+        const animationLoop = (time: DOMHighResTimeStamp) => {
+            if (time - lastTime < interval) {
+                frameId = requestAnimationFrame(animationLoop);
+                return;
+            }
+            lastTime = time;
 
-            if (deltaTime < interval) await delay(interval - deltaTime);
-
-            lastTime = performance.now();
             if (circles.length <= particleCount)
                 circles.push(
                     new CircleFrames(canvas.current!.width, canvas.current!.height, primaryColor, accentColor),
@@ -188,5 +194,5 @@ export default function Particular({
         };
     }, []);
 
-    return <canvas ref={canvas} className="w-full h-full"></canvas>;
+    return <canvas ref={canvas} className="w-full h-full opacity-40"></canvas>;
 }
