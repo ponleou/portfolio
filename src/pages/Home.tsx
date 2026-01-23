@@ -182,7 +182,7 @@ export default function Home() {
                         lifespan={{ min: 100, max: 1000 }}
                         primaryColorVar="--color-primary"
                         accentColorVar="--color-accent"
-                        particleDensity={0.000025}
+                        particleDensity={0.000015}
                     ></Particular>
                 </div>
 

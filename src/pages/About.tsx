@@ -129,7 +129,7 @@ export default function About() {
                                 {new Date() < profile.grad_date && " (expected)"}
                             </p>
                             <p>
-                                <span className="font-bold text-accent">Locale</span>: {profile.location_state},{" "}
+                                <span className="font-bold text-accent">Location</span>: {profile.location_state},{" "}
                                 {profile.location_country}
                             </p>
                             <br />
