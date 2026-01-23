@@ -1,0 +1,23 @@
+name: Mirror PR to CodeBerg
+
+on:
+    pull_request:
+        types: [closed]
+        branches:
+            - main
+
+jobs:
+    push-to-codeberg:
+        if: github.event.pull_request.merged == true
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v4
+              with:
+                  fetch-depth: 0
+
+            - name: Push to CodeBerg
+              run: |
+                  git remote add codeberg https://${{ secrets.CODEBERG_USERNAME }}:${{ secrets.CODEBERG_PAT }}@codeberg.org/ponleou/portfolio.git
+                  git push codeberg main
