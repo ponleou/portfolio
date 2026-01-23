@@ -97,6 +97,12 @@
     font-weight: normal;
 }
 
+@utility top-fade-* {
+    overflow: hidden;
+    mask-image: linear-gradient(to top, black calc(100% - --value([*])), transparent 100%);
+    -webkit-mask-image: linear-gradient(to top, black calc(100% - --value([*])), transparent 100%);
+}
+
 @layer components {
     /* Ratio: 1.2 */
     /* < 768px uses mob version */
