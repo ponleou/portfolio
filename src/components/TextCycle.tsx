@@ -18,7 +18,7 @@ export default function TextCycle({
     revealCallback: RevealFunction;
     startOn?: boolean;
 }) {
-    let index = useRef<number>(0);
+    const index = useRef<number>(0);
     const [currentText, setCurrentText] = useState<string>(initialText);
     const [nextText, setNextText] = useState<string>(textArray[index.current]);
     const [finished, setFinished] = useState<boolean>(false);

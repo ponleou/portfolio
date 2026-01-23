@@ -1,6 +1,6 @@
-import { useState } from "react";
+// import { useState } from "react";
 
-export default function forceRerender() {
-    const [_, set] = useState<number>(0);
-    return () => set((x) => x + 1);
-}
+// export default function forceRerender() {
+//     const [_, set] = useState<number>(0);
+//     return () => set((x) => x + 1);
+// }
