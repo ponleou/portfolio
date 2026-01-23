@@ -23,6 +23,7 @@ import delay from "../functions/delay";
 import profile from "../constant/profile";
 import contact from "../constant/contact";
 import ScrollProgress from "../components/movement/ScrollProgress";
+import Particular from "../components/Particular";
 
 export default function Home() {
     /**
@@ -168,6 +169,17 @@ export default function Home() {
                         </div>
                     </RevealOn>
                 </TranslateOnScroll>
+
+                <div className="inset-0 top-[125dvh] absolute top-fade-[25dvh]">
+                    <Particular
+                        componentSpeed={{ min: { x: -0.2, y: -0.2 }, max: { x: 0.2, y: 0.2 } }}
+                        radius={{ min: 1, max: 4 }}
+                        lifespan={{ min: 100, max: 1000 }}
+                        primaryColorVar="--color-primary"
+                        accentColorVar="--color-accent"
+                        particleDensity={0.000025}
+                    ></Particular>
+                </div>
 
                 {/* noise filter */}
                 <div className="bg-[url(assets/noise.svg)] opacity-40 absolute inset-0 mix-blend-color-dodge"></div>
