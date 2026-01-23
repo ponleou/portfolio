@@ -159,7 +159,7 @@ export default function Particular({
 
             observer.disconnect();
         };
-    }, [CircleFrames, particleDensity]);
+    }, []);
 
     return <canvas ref={canvas} className="w-full h-full"></canvas>;
 }
