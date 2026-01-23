@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import { MouseMoveEvent, ScrollEvent } from "../../functions/subscribeEvents";
-import delay from "../../functions/delay";
 
 type Coordinate = { x: number; y: number };
 
@@ -83,14 +82,14 @@ export default function CursorFollower({
 
         let frame = 0;
 
-        let lastTime = performance.now();
-        const animate = async () => {
-            const currentTime = performance.now();
-            const deltaTime = currentTime - lastTime;
+        let lastTime = 0;
+        const animate = (time: DOMHighResTimeStamp) => {
+            if (time - lastTime < interval) {
+                frame = requestAnimationFrame(animate);
+                return;
+            }
 
-            if (deltaTime < interval) await delay(interval - deltaTime);
-
-            lastTime = performance.now();
+            lastTime = time;
 
             const targetCoords: Coordinate = {
                 x: mousePos.current.x - shape.width / 2,
@@ -110,7 +109,7 @@ export default function CursorFollower({
             shape.height = height;
             shape.width = width;
 
-            animate();
+            frame = requestAnimationFrame(animate);
         });
 
         if (parent.current) {

@@ -178,11 +178,11 @@ export default function Home() {
                 <div className="inset-0 top-[125dvh] absolute top-fade-[25dvh]">
                     <Particular
                         componentSpeed={{ min: { x: -0.2, y: -0.2 }, max: { x: 0.2, y: 0.2 } }}
-                        radius={{ min: 1, max: 4 }}
+                        radius={{ min: 1, max: 3 }}
                         lifespan={{ min: 100, max: 1000 }}
                         primaryColorVar="--color-primary"
                         accentColorVar="--color-accent"
-                        particleDensity={0.000025}
+                        particleDensity={0.000015}
                     ></Particular>
                 </div>
 
