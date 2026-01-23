@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import delay from "../functions/delay";
-import RevealText from "./RevealText";
+import RevealText from "./movement/RevealText";
 import type { RevealFunction } from "../functions/revealFunctions";
 
 export default function TextCycle({
@@ -18,7 +18,7 @@ export default function TextCycle({
     revealCallback: RevealFunction;
     startOn?: boolean;
 }) {
-    let index = useRef<number>(0);
+    const index = useRef<number>(0);
     const [currentText, setCurrentText] = useState<string>(initialText);
     const [nextText, setNextText] = useState<string>(textArray[index.current]);
     const [finished, setFinished] = useState<boolean>(false);

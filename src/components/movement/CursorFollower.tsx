@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState, type ReactNode } from "react";
-import { MouseMoveEvent } from "../functions/subscribeEvents";
+import { MouseMoveEvent, ScrollEvent } from "../../functions/subscribeEvents";
 
 type Coordinate = { x: number; y: number };
 
@@ -24,6 +24,14 @@ export default function CursorFollower({
     function updateMousePos(event: MouseEvent) {
         mousePos.current.x = event.pageX;
         mousePos.current.y = event.pageY;
+    }
+
+    let lastScrollY = window.scrollY;
+    function updateMousePosOnScroll() {
+        const scrollDelta = window.scrollY - lastScrollY;
+        lastScrollY = window.scrollY;
+
+        mousePos.current.y += scrollDelta;
     }
 
     const currentPos = useRef<Coordinate>({ x: 0, y: 0 });
@@ -67,6 +75,7 @@ export default function CursorFollower({
     const shape = { height: 0, width: 0 };
     useEffect(() => {
         MouseMoveEvent.subscribe(updateMousePos);
+        ScrollEvent.subscribe(updateMousePosOnScroll);
 
         let frame = 0;
         const animate = () => {
@@ -97,13 +106,14 @@ export default function CursorFollower({
 
         return () => {
             MouseMoveEvent.unsubscribe(updateMousePos);
+            ScrollEvent.unsubscribe(updateMousePosOnScroll);
             cancelAnimationFrame(frame);
             observer.disconnect();
         };
     }, []);
 
     return (
-        <div className="absolute inset-0">
+        <div className="absolute inset-0 overflow-hidden">
             <div
                 ref={parent}
                 className={`absolute ${

@@ -1,5 +1,5 @@
 import { useEffect, useRef, type ReactNode } from "react";
-import { MouseMoveEvent } from "../functions/subscribeEvents";
+import { MouseMoveEvent } from "../../functions/subscribeEvents";
 
 type Coordinate = { x: number; y: number };
 type Vector = { direction: Coordinate; magnitude: number };

@@ -1,6 +1,6 @@
 import { useEffect, useState, type ReactNode } from "react";
 import RevealOn from "./RevealOn";
-import { ScrollEvent } from "../functions/subscribeEvents";
+import { ScrollEvent } from "../../functions/subscribeEvents";
 
 export default function RevealOnScroll({
     scrollTo,

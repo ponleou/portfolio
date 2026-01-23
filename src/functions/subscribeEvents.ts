@@ -1,5 +1,5 @@
 import throttle from "lodash.throttle";
-import type { DebouncedFunc } from 'lodash';
+import type { DebouncedFunc } from "lodash";
 
 class SubscribeEvents<T extends keyof WindowEventMap> {
     private subscribers: Set<(event: WindowEventMap[T]) => void>;
@@ -35,11 +35,11 @@ class SubscribeEvents<T extends keyof WindowEventMap> {
         if (this.subscribers.size === 0 && this.listenerActive) {
             window.removeEventListener(this.event, this.handler);
             this.listenerActive = false;
-            this.handler.cancel()
+            this.handler.cancel();
         }
     }
 }
 
-export const ScrollEvent = new SubscribeEvents("scroll", 50);
+export const ScrollEvent = new SubscribeEvents("scroll", 100);
 export const ResizeEvent = new SubscribeEvents("resize");
-export const MouseMoveEvent = new SubscribeEvents("mousemove", 50);
+export const MouseMoveEvent = new SubscribeEvents("mousemove", 100);

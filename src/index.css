@@ -88,36 +88,67 @@
     }
 }
 
+@utility text-ascii-sm {
+    font-family: "Fira Code Static";
+    font-size: var(--template-text-sm-ad);
+    line-height: var(--template-leading-ascii-sm-ad);
+    white-space: pre;
+    font-variant-ligatures: none;
+    font-weight: normal;
+}
+
+@utility top-fade-* {
+    overflow: hidden;
+    mask-image: linear-gradient(to top, black calc(100% - --value([*])), transparent 100%);
+    -webkit-mask-image: linear-gradient(to top, black calc(100% - --value([*])), transparent 100%);
+}
+
 @layer components {
     /* Ratio: 1.2 */
     /* < 768px uses mob version */
     /* > 768px uses normal version */
+    html::-webkit-scrollbar {
+        display: none;
+    }
+
     html {
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+
         @apply font-mono;
         font-size: 30.2%;
-        --template-text-h1-ad: var(--text-h1-sm-mob);
+        --template-text-h1-ad: var(--text-h1-mob);
         --template-text-h2-ad: var(--text-h2-mob);
         --template-text-h3-ad: var(--text-h3-mob);
         --template-text-h4-ad: var(--text-h4-mob);
         --template-text-base-ad: var(--text-base-mob);
         --template-text-sm-ad: var(--text-sm-mob);
+    }
 
-        --template-leading-ascii-sm-ad: 1.156em;
+    .text-ascii-sm {
+        --template-leading-ascii-sm-ad: 1.096em;
+    }
+
+    @supports (-moz-appearance: none) {
+        .text-ascii-sm {
+            --template-leading-ascii-sm-ad: 1.157em;
+        }
     }
 
     @media screen and (min-width: 480px) {
         html {
             font-size: 36.2%;
-
-            --template-leading-ascii-sm-ad: 1.158em;
         }
     }
 
     @media screen and (min-width: 640px) {
         html {
             font-size: 43.4%;
-
-            --template-leading-ascii-sm-ad: 1.181em;
+        }
+        @supports (-moz-appearance: none) {
+            .text-ascii-sm {
+                --template-leading-ascii-sm-ad: 1.127em;
+            }
         }
     }
 
@@ -130,8 +161,12 @@
             --template-text-h4-ad: var(--text-h4);
             --template-text-base-ad: var(--text-base);
             --template-text-sm-ad: var(--text-sm);
+        }
 
-            --template-leading-ascii-sm-ad: 1.072em;
+        @supports (-moz-appearance: none) {
+            .text-ascii-sm {
+                --template-leading-ascii-sm-ad: 1.073em;
+            }
         }
     }
 
@@ -144,18 +179,8 @@
     @media screen and (min-width: 1280px) {
         html {
             font-size: 62.5%;
-
-            --template-leading-ascii-sm-ad: 1.073em;
         }
     }
-}
-
-@utility text-ascii-sm {
-    font-family: "Fira Code Static";
-    font-size: var(--template-text-sm-ad);
-    line-height: var(--template-leading-ascii-sm-ad);
-    white-space: pre;
-    font-variant-ligatures: none;
 }
 
 .no-ligatures {
