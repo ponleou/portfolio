@@ -1,16 +1,22 @@
 import { useOutletContext } from "react-router";
 import type { HomeContextType } from "../types/home";
+import RevealOn from "../components/movement/RevealOn";
 
 export default function NotFound() {
-    const { relativePath } = useOutletContext<HomeContextType>();
+    const { relativePath, reveal } = useOutletContext<HomeContextType>();
     return (
         <div className="px-24 py-48 h-dvh" id="main">
-            <div className="flex text-primary text-base-ad">
+            <RevealOn
+                className="flex text-primary text-base-ad transition-opacity ease-out duration-500"
+                on={reveal}
+                preRevealClass="opacity-0"
+                postRevealClass="opacity-100"
+            >
                 <p>
                     bash: <span className="">{relativePath !== "" ? `./${relativePath}.sh` : ""}</span>: No such file or
                     directory
                 </p>
-            </div>
+            </RevealOn>
         </div>
     );
 }
