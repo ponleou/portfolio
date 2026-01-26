@@ -21,8 +21,8 @@ export default function NavBar({
             <NavLink className={`${navLinkClassName}`} to="/projects" state={{ hash: "main" }}>
                 <TextSh className={`${navClassName}`}>projects</TextSh>
             </NavLink>
-            <NavLink className={`${navLinkClassName}`} to="/skills" state={{ hash: "main" }}>
-                <TextSh className={`${navClassName}`}>skills</TextSh>
+            <NavLink className={`${navLinkClassName}`} to="/education" state={{ hash: "main" }}>
+                <TextSh className={`${navClassName}`}>education</TextSh>
             </NavLink>
             <NavLink className={`${navLinkClassName}`} to="/contact" state={{ hash: "main" }}>
                 <TextSh className={`${navClassName}`}>contact</TextSh>
