@@ -36,15 +36,12 @@ export default function Particular({
 
         private fadeRate: number;
 
-        private canvasWidth: number;
-        private canvasHeight: number;
-
         private spawnChance: number = 0.25;
 
-        private generate() {
+        private generate(canvasSize: component) {
             this.currentLife = 0;
 
-            this.pos = { x: rng(0, this.canvasWidth), y: rng(0, this.canvasHeight) };
+            this.pos = { x: rng(0, canvasSize.x), y: rng(0, canvasSize.y) };
             this.speed = {
                 x: rng(componentSpeed.min.x, componentSpeed.max.x),
                 y: rng(componentSpeed.min.y, componentSpeed.max.y),
@@ -63,10 +60,7 @@ export default function Particular({
             return Math.random() <= this.spawnChance;
         }
 
-        constructor(canvasWidth: number, canvasHeight: number, primaryColor: string, accentColor: string) {
-            this.canvasWidth = canvasWidth;
-            this.canvasHeight = canvasHeight;
-
+        constructor(primaryColor: string, accentColor: string) {
             this.pos = { x: 0, y: 0 };
             this.speed = { x: 0, y: 0 };
             this.radius = 0;
@@ -99,6 +93,8 @@ export default function Particular({
             ctx.beginPath();
             ctx.arc(this.pos.x, this.pos.y, this.radius, 0, Math.PI * 2);
             ctx.fillStyle = this.color;
+
+            // spamming fill because shadow is too weak
             ctx.fill();
             ctx.fill();
             ctx.fill();
@@ -117,14 +113,20 @@ export default function Particular({
             this.drawFrame(ctx);
         }
 
-        public animateFrame(ctx: CanvasRenderingContext2D) {
+        public animateFrame(ctx: CanvasRenderingContext2D, canvasSize: component, allowRespawn: boolean): boolean {
             if (this.currentLife < this.lifespan) {
                 this.currentLife++;
                 this.drawNextFrame(ctx);
-            } else if (this.respawn()) {
-                this.generate();
+
+                return true;
+            } else if (this.respawn() && allowRespawn) {
+                this.generate(canvasSize);
                 this.drawFrame(ctx);
+
+                return true;
             }
+
+            return false;
         }
     }
 
@@ -157,10 +159,7 @@ export default function Particular({
         const render = () => {
             context.clearRect(0, 0, canvas.current!.width, canvas.current!.height);
 
-            if (circles.length <= particleCount)
-                circles.push(
-                    new CircleFrames(canvas.current!.width, canvas.current!.height, primaryColor, accentColor),
-                );
+            if (circles.length < particleCount) circles.push(new CircleFrames(primaryColor, accentColor));
 
             frameId = requestAnimationFrame(animationLoop);
         };
@@ -173,13 +172,25 @@ export default function Particular({
             }
             lastTime = time;
 
-            if (circles.length <= particleCount)
-                circles.push(
-                    new CircleFrames(canvas.current!.width, canvas.current!.height, primaryColor, accentColor),
-                );
+            if (circles.length < particleCount) circles.push(new CircleFrames(primaryColor, accentColor));
 
             context.clearRect(0, 0, canvas.current!.width, canvas.current!.height);
-            circles.forEach((c) => c.animateFrame(context));
+            circles.forEach((c: CircleFrames, i: number) => {
+                // only allow the number of cirle frames within the particle limit to respawn
+                const allowRespawn = i < particleCount;
+
+                // they are not animated if they have died, and havent respawned (due to respawnRate and allowRespawn)
+                const animated = c.animateFrame(
+                    context,
+                    { x: canvas.current!.width, y: canvas.current!.height },
+                    allowRespawn,
+                );
+
+                // essentially, if the current circle has died, and it is currently outside of the particle count (respawn not allowed), delete it
+                if (!allowRespawn && !animated) {
+                    circles.splice(i, 1);
+                }
+            });
             frameId = requestAnimationFrame(animationLoop);
         };
 
