@@ -6,7 +6,7 @@ on:
             - main
 
 jobs:
-    check:
+    ts-compiler:
         name: TSC
         runs-on: ubuntu-slim
 

@@ -6,8 +6,43 @@ on:
             - main
 
 jobs:
+    ts-compiler:
+        name: TSC
+        runs-on: ubuntu-slim
+
+        steps:
+            - name: Checkout repo
+              uses: actions/checkout@v4
+
+            - name: Setup Node
+              uses: oven-sh/setup-bun@v2
+
+            - name: Install dependencies
+              run: bun install
+
+            - name: Check compiler
+              run: bun run check
+
+    lint:
+        name: Linting
+        runs-on: ubuntu-slim
+
+        steps:
+            - name: Checkout repo
+              uses: actions/checkout@v4
+
+            - name: Setup Node
+              uses: oven-sh/setup-bun@v2
+
+            - name: Install dependencies
+              run: bun install
+
+            - name: Check linting
+              run: bun run lint
+
     build:
         name: Build
+        needs: [ts-compiler, lint]
         runs-on: ubuntu-latest
 
         steps:
