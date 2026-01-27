@@ -20,8 +20,8 @@ import { Outlet, useLocation, useMatch, useNavigate } from "react-router";
 import type { HomeContextType } from "../types/home";
 import { ScrollEvent } from "../functions/subscribeEvents";
 import delay from "../functions/delay";
-import profile from "../constant/profile";
-import contact from "../constant/contact";
+import profile from "../content/profile";
+import contact from "../content/contact";
 import ScrollProgress from "../components/movement/ScrollProgress";
 import Particular from "../components/Particular";
 
