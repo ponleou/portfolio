@@ -1,7 +1,7 @@
 import { useOutletContext } from "react-router";
 import RevealOn from "../components/movement/RevealOn";
 import WindowCard from "../components/WindowCard";
-import profile from "../constant/profile";
+import profile from "../content/profile";
 import type { HomeContextType } from "../types/home";
 
 export default function About() {
