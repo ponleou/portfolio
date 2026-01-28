@@ -15,7 +15,10 @@ async function fetchProjects() {
                 console.error(error.message);
             }
         }
-        fs.writeFileSync(`src/data/projects-${index}.json`, JSON.stringify(projects, null, 4));
+        fs.writeFileSync(
+            `src/data${process.env.ENVIRONMENT === "development" ? "/dev" : ""}/projects-${index}.json`,
+            JSON.stringify(projects, null, 4),
+        );
     }
 }
 
