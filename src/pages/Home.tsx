@@ -467,7 +467,7 @@ export default function Home() {
                                         >
                                             <RevealText
                                                 initialText=""
-                                                text="WELCOME TO THE TERMINAL"
+                                                text={`WELCOME TO ${relativePath === "" ? "THE TERMINAL" : relativePath.toUpperCase()} `}
                                                 revealCallback={typewriter}
                                                 delayPerCallback={30}
                                                 startOn={revealNavbarTitle}
