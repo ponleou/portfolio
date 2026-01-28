@@ -40,6 +40,7 @@ type Project = {
     name: string;
     description: string;
     language: string;
+    stars: number;
     license: {
         name: string;
         url: string;
@@ -52,6 +53,8 @@ type ProjectData = {
     name: string;
     description: string | null;
     language: string;
+    stars_count: number;
+    stargazers_count: number;
     license: {
         name: string;
         url: string;
@@ -75,6 +78,7 @@ function getProjects(): Array<Project> {
             name: "",
             description: "",
             language: "",
+            stars: 0,
             license: {
                 name: "",
                 url: "",
@@ -90,6 +94,10 @@ function getProjects(): Array<Project> {
             if (!project.name) project.name = data.name;
             if (!project.description && data.description) project.description = data.description;
             if (!project.language) project.language = data.language;
+
+            if (data.stars_count && project.stars < data.stars_count) project.stars = data.stars_count;
+            if (data.stargazers_count && project.stars < data.stargazers_count) project.stars = data.stargazers_count;
+
             if (!project.license.name && data.license?.name) project.license.name = data.license.name;
             if (!project.license.url && data.license?.url) project.license.url = data.license.url;
             if (index === 0 && !project.url) project.url = data.clone_url;
