@@ -97,7 +97,7 @@ function getProjects(): Array<Project> {
         }
 
         if (!project.url) project.url = fallbackUrl.main + projectRepo;
-        if (!project.alt_url) project.alt_url = fallbackUrl.alt + projectRepo;
+        // if (!project.alt_url) project.alt_url = fallbackUrl.alt + projectRepo;
 
         projects.push(project);
     }
