@@ -1,11 +1,12 @@
 export const projectList: Array<string> = [
     "ponleou/pipetron",
-    "ponleou/portfolio",
     "ponleou/dotfiles",
     "ponleou/rockscale",
-    "ponleou/EcoRound",
+    "ponleou/portfolio",
     "ponleou/Audio-Visualiser",
+    "ponleou/EcoRound",
     "ponleou/Find-The-Fake-Game",
+    "ponleou/project-penkwin",
     "ponleou/Intrusion-Detection-System",
 ];
 
