@@ -24,8 +24,8 @@ export default function NavBar({
             <NavLink className={`${navLinkClassName}`} to="/education" state={{ hash: "main" }}>
                 <TextSh className={`${navClassName}`}>education</TextSh>
             </NavLink>
-            <NavLink className={`${navLinkClassName}`} to="/contact" state={{ hash: "main" }}>
-                <TextSh className={`${navClassName}`}>contact</TextSh>
+            <NavLink className={`${navLinkClassName}`} to="/contacts" state={{ hash: "main" }}>
+                <TextSh className={`${navClassName}`}>contacts</TextSh>
             </NavLink>
         </div>
     );
