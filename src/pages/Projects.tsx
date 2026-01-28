@@ -10,7 +10,15 @@ export default function Project() {
                     <div key={index} className="max-w-4xl flex grow">
                         <WindowCard sidebar={true} small={true} className="min-w-xl flex grow">
                             <div className="flex flex-col gap-4 grow">
-                                <h4 className="font-bold text-h4-ad">{project.name}</h4>
+                                <div className="flex gap-8 items-center">
+                                    <h4 className="font-bold text-h4-ad">{project.name}</h4>
+                                    {project.stars > 0 && (
+                                        <div className="flex items-center gap-2 rounded-lg border-primary">
+                                            <Icon icon="mdi:star-outline" width="1.5em" height="1.5em" />
+                                            <p>{project.stars}</p>
+                                        </div>
+                                    )}
+                                </div>
                                 <p className="grow line-clamp-2">{project.description}</p>
                                 <div className="flex justify-between mt-4 gap-12 items-end">
                                     <div className="flex gap-8">
@@ -29,7 +37,7 @@ export default function Project() {
                                         </div>
                                         {project.license.name && (
                                             <a
-                                                className="underline hover:no-underline hover:text-accent transition-color ease-out duration-300 flex gap-2 items-center"
+                                                className="underline hover:no-underline transition-color ease-out duration-300 flex gap-2 items-center"
                                                 href={project.license.url}
                                                 target="_blank"
                                             >
