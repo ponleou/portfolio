@@ -1,5 +1,5 @@
-import project_0 from "../data/projects-0.json";
-import project_1 from "../data/projects-1.json";
+import project_0 from "@data/projects-0.json";
+import project_1 from "@data/projects-1.json";
 import { projectList } from "./projects_source";
 
 export const languageColors: Record<string, string> = {
