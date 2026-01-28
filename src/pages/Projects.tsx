@@ -7,8 +7,8 @@ export default function Project() {
         <div className="px-24 py-48 min-h-dvh" id="main">
             <div className="flex flex-wrap gap-12 text-base-ad text-primary justify-center">
                 {projects.map((project, index) => (
-                    <div key={index} className="max-w-4xl flex">
-                        <WindowCard sidebar={true} small={true} className="min-w-xl flex">
+                    <div key={index} className="max-w-4xl flex grow">
+                        <WindowCard sidebar={true} small={true} className="min-w-xl flex grow">
                             <div className="flex flex-col gap-4 grow">
                                 <h4 className="font-bold text-h4-ad">{project.name}</h4>
                                 <p className="grow line-clamp-2">{project.description}</p>
