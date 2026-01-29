@@ -1,6 +1,6 @@
 import fs from "fs";
 import axios from "axios";
-import { projectList, apiList } from "./src/content/projects_source";
+import { projectList, apiList } from "./src/content/projects";
 
 async function fetchProjects() {
     const projects: Record<string, object> = {};
