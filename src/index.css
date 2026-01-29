@@ -43,6 +43,12 @@
     --breakpoint-md: 768px;
     --breakpoint-lg: 1024px;
     --breakpoint-xl: 1280px;
+    --breakpoint-2xl: 1440px;
+    --breakpoint-3xl: 1920px;
+
+    --spacing-md-static: 1280px;
+    --spacing-lg-static: 1440px;
+    --spacing-xl-static: 1920px;
 
     /* Ratio: 1.618 */
     --text-h1: 13.6rem;

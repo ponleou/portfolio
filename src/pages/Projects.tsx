@@ -12,14 +12,14 @@ export default function Project() {
     }, []);
 
     return (
-        <div className="px-24 py-48 min-h-dvh" id="main">
+        <div className="px-24 py-48 min-h-dvh flex" id="main">
             <RevealOn
-                className="transition-all ease-out duration-500"
+                className="transition-all ease-out duration-500 grow flex"
                 preRevealClass="opacity-0 -translate-y-20"
                 postRevealClass="opacity-100 translate-y-0"
                 on={reveal}
             >
-                <div className="flex flex-wrap gap-12 text-base-ad text-primary justify-center">
+                <div className="grow my-auto max-w-xl-static mx-auto flex flex-wrap gap-12 text-base-ad text-primary justify-center">
                     {projects.map((project, index) => (
                         <div key={index} className="max-w-4xl flex grow">
                             <WindowCard sidebar={true} small={true} className="min-w-xl flex grow">
