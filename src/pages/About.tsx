@@ -11,14 +11,14 @@ export default function About() {
     }, []);
 
     return (
-        <div className="px-24 py-48 min-h-dvh" id="main">
+        <div className="px-24 py-48 min-h-dvh flex" id="main">
             <RevealOn
-                className="transition-all ease-out duration-500"
+                className="transition-all ease-out duration-500 grow flex"
                 preRevealClass="opacity-0 -translate-y-20"
                 postRevealClass="opacity-100 -translate-y-0"
                 on={reveal}
             >
-                <div className="max-w-[1280px] mx-auto">
+                <div className="grow my-auto max-w-md-static mx-auto">
                     <WindowCard>
                         <div className="flex flex-col-reverse md:flex-row text-primary gap-24 overflow-hidden">
                             <div className="relative self-center md:self-auto text-ascii-sm w-[111ch]">
