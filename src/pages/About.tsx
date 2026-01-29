@@ -1,18 +1,21 @@
-import { useOutletContext } from "react-router";
 import RevealOn from "../components/movement/RevealOn";
 import WindowCard from "../components/WindowCard";
 import profile from "../content/profile";
-import type { HomeContextType } from "../types/home";
+import { useEffect, useState } from "react";
 
 export default function About() {
-    const { reveal } = useOutletContext<HomeContextType>();
+    const [reveal, setReveal] = useState(false);
+
+    useEffect(() => {
+        setReveal(true);
+    }, []);
 
     return (
         <div className="px-24 py-48 min-h-dvh" id="main">
             <RevealOn
-                className="transition-opacity ease-out duration-500"
-                preRevealClass="opacity-0"
-                postRevealClass="opacity-100"
+                className="transition-all ease-out duration-500"
+                preRevealClass="opacity-0 -translate-y-20"
+                postRevealClass="opacity-100 -translate-y-0"
                 on={reveal}
             >
                 <div className="max-w-[1280px] mx-auto">
