@@ -1,6 +1,11 @@
 import { NavLink } from "react-router";
 import TextSh from "./TextSh";
 
+type Route = {
+    to: string;
+    hash: string;
+};
+
 export default function Navigators({
     className = "",
     routes,
@@ -8,15 +13,15 @@ export default function Navigators({
     navLinkClassName = "",
 }: {
     className?: string;
-    routes: Array<string>;
+    routes: Array<Route>;
     navClassName?: string;
     navLinkClassName?: string;
 }) {
     return (
         <div className={`${className}`}>
             {routes.map((route, index) => (
-                <NavLink key={index} className={`${navLinkClassName}`} to={`/${route}`} state={{ hash: "main" }}>
-                    <TextSh className={`${navClassName}`}>{route}</TextSh>
+                <NavLink key={index} className={`${navLinkClassName}`} to={`/${route.to}`} state={{ hash: route.hash }}>
+                    <TextSh className={`${navClassName}`}>{route.hash}</TextSh>
                 </NavLink>
             ))}
         </div>
