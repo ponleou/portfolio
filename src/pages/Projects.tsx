@@ -2,15 +2,27 @@ import { languageColors, projects } from "../functions/projects";
 import WindowCard from "../components/WindowCard";
 import { Icon } from "@iconify-icon/react";
 import RevealOn from "../components/movement/RevealOn";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
+import { ScrollEvent } from "../functions/subscribeEvents";
 
 export default function Project() {
     const [reveal, setReveal] = useState(false);
+    const parent = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
-        setReveal(true);
-    }, []);
+        if (!parent.current) return;
 
+        const watchReveal = () => {
+            if (parent.current!.getBoundingClientRect().top - window.innerHeight <= 0) setReveal(true);
+            else setReveal(false);
+        };
+
+        ScrollEvent.subscribe(watchReveal);
+
+        return () => {
+            ScrollEvent.unsubscribe(watchReveal);
+        };
+    }, []);
     return (
         <div className="px-24 py-48 min-h-dvh flex" id="projects">
             <RevealOn
@@ -19,7 +31,10 @@ export default function Project() {
                 postRevealClass="opacity-100 translate-y-0"
                 on={reveal}
             >
-                <div className="grow my-auto max-w-xl-static mx-auto flex flex-wrap gap-12 text-base-ad text-primary justify-center">
+                <div
+                    ref={parent}
+                    className="grow my-auto max-w-xl-static mx-auto flex flex-wrap gap-12 text-base-ad text-primary justify-center"
+                >
                     {projects.map((project, index) => (
                         <div key={index} className="max-w-4xl flex grow">
                             <WindowCard sidebar={true} small={true} className="min-w-xl flex grow">
