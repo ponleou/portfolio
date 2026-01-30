@@ -90,6 +90,7 @@ export default function Home() {
 
     /* Top nav bar on pages */
     const [showTopNav, setShowTopNav] = useState(false);
+    const [toggleMobNav, setToggleMobNav] = useState(false);
 
     useEffect(() => {
         const toggleTopNav = () => {
@@ -520,7 +521,7 @@ export default function Home() {
                     >
                         {/* top nav bar */}
                         <div
-                            className={`top-0 left-0 right-0 text-primary text-base-ad m-6 fixed ${showTopNav && "z-2"}`}
+                            className={`top-0 left-0 right-0 text-primary text-base-ad m-6 fixed transition-[max-height] duration-300 ease-out overflow-hidden ${showTopNav && "z-2"}`}
                         >
                             <RevealOnScroll
                                 scrollTo={window.innerHeight * innerHeightRatios.skillsTextAtTop}
@@ -556,7 +557,7 @@ export default function Home() {
                                                         className="transition-opacity ease-out duration-300"
                                                     >
                                                         <Navigators
-                                                            className="flex gap-24 overflow-hidden"
+                                                            className="hidden lg:flex gap-24 overflow-hidden"
                                                             routes={routes
                                                                 .filter((route) => route.hash !== hashPosition)
                                                                 .filter(
@@ -567,7 +568,7 @@ export default function Home() {
                                                         />
                                                     </RevealOn>
                                                 </div>
-                                                <div className="justify-self-center">
+                                                <div className="justify-self-center flex flex-col items-center">
                                                     <Lined
                                                         cssColor="var(--color-primary)"
                                                         lengthRem={10}
@@ -583,8 +584,7 @@ export default function Home() {
                                                             allowReset={true}
                                                         ></RevealText>
                                                     </Lined>
-                                                </div>
-                                                <div className="flex gap-24 justify-end overflow-hidden">
+
                                                     <RevealOn
                                                         on={showTopNav}
                                                         preRevealClass="opacity-0 pointer-events-none"
@@ -592,7 +592,22 @@ export default function Home() {
                                                         className="transition-opacity ease-out duration-300"
                                                     >
                                                         <Navigators
-                                                            className="flex gap-24 justify-end overflow-hidden"
+                                                            routes={routes}
+                                                            navClassName="flex gap-4 hover:gap-0 hover:text-accent transition-all ease-out duration-500 font-bold"
+                                                            navLinkClassName="flex flex-col items-center first:pt-8"
+                                                            className={`transition-[max-height] duration-300 ease-out ${toggleMobNav ? "max-h-96" : "max-h-0"} lg:max-h-0 h-fit overflow-hidden flex-col flex gap-6`}
+                                                        ></Navigators>
+                                                    </RevealOn>
+                                                </div>
+                                                <div className="flex gap-24 justify-end overflow-hidden self-start lg:self-auto">
+                                                    <RevealOn
+                                                        on={showTopNav}
+                                                        preRevealClass="opacity-0 pointer-events-none"
+                                                        postRevealClass="opacity-100"
+                                                        className="transition-opacity ease-out duration-300"
+                                                    >
+                                                        <Navigators
+                                                            className="hidden lg:flex gap-24 justify-end overflow-hidden"
                                                             routes={routes
                                                                 .filter((route) => route.hash !== hashPosition)
                                                                 .filter(
@@ -601,6 +616,23 @@ export default function Home() {
                                                                 )}
                                                             navClassName="inline-flex gap-4 hover:gap-0 hover:text-accent transition-all ease-out duration-500 font-bold"
                                                         />
+                                                        <button
+                                                            className="lg:hidden hover:text-accent transition-color duration-300 ease-out relative"
+                                                            onClick={() => setToggleMobNav(!toggleMobNav)}
+                                                        >
+                                                            <Icon
+                                                                icon="mdi:close"
+                                                                width="2.5em"
+                                                                height="2.5em"
+                                                                className={`absolute transition-opacity duration-300 ease-out ${toggleMobNav ? "opacity-100" : "opacity-0"}`}
+                                                            />
+                                                            <Icon
+                                                                icon="mdi:menu"
+                                                                width="2.5em"
+                                                                height="2.5em"
+                                                                className={`transition-opacity duration-300 ease-out ${!toggleMobNav ? "opacity-100" : "opacity-0"}`}
+                                                            />
+                                                        </button>
                                                     </RevealOn>
                                                 </div>
                                             </div>
