@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import { ScrollEvent } from "../functions/subscribeEvents";
+import { ScrollEventThrottled } from "../functions/subscribeEvents";
 
 type component = { x: number; y: number };
 type range<T> = { min: T; max: T };
@@ -193,7 +193,7 @@ export default function Particular({
             particleCount = particleDensity * (visibleWidth * visibleHeight);
         };
 
-        ScrollEvent.subscribe(calculateParticleCount);
+        ScrollEventThrottled.subscribe(calculateParticleCount);
 
         const render = () => {
             context.clearRect(0, 0, canvas.current!.width, canvas.current!.height);
@@ -242,7 +242,7 @@ export default function Particular({
 
             observer.disconnect();
 
-            ScrollEvent.unsubscribe(calculateParticleCount);
+            ScrollEventThrottled.unsubscribe(calculateParticleCount);
         };
     }, []);
 
