@@ -1,4 +1,5 @@
 import { useEffect, useRef } from "react";
+import { ScrollEvent } from "../functions/subscribeEvents";
 
 type component = { x: number; y: number };
 type range<T> = { min: T; max: T };
@@ -41,7 +42,17 @@ export default function Particular({
         private generate(canvasSize: component) {
             this.currentLife = 0;
 
-            this.pos = { x: rng(0, canvasSize.x), y: rng(0, canvasSize.y) };
+            const canvas_rect = canvas.current!.getBoundingClientRect();
+            const visibleTop = Math.max(0, -canvas_rect.top);
+            const visibleBottom = Math.min(canvasSize.y, window.innerHeight - canvas_rect.top);
+            const visibleLeft = Math.max(0, -canvas_rect.left);
+            const visibleRight = Math.min(canvasSize.x, window.innerWidth - canvas_rect.left);
+
+            this.pos = {
+                x: rng(visibleLeft, visibleRight),
+                y: rng(visibleTop, visibleBottom),
+            };
+
             this.speed = {
                 x: rng(componentSpeed.min.x, componentSpeed.max.x),
                 y: rng(componentSpeed.min.y, componentSpeed.max.y),
@@ -106,20 +117,33 @@ export default function Particular({
             ctx.restore();
         }
 
-        private drawNextFrame(ctx: CanvasRenderingContext2D) {
+        private processNextFrame() {
             this.pos.x += this.speed.x;
             this.pos.y += this.speed.y;
-
-            this.drawFrame(ctx);
         }
 
         public animateFrame(ctx: CanvasRenderingContext2D, canvasSize: component, allowRespawn: boolean): boolean {
             if (this.currentLife < this.lifespan) {
                 this.currentLife++;
-                this.drawNextFrame(ctx);
+                this.processNextFrame();
+
+                const canvas_rect = canvas.current!.getBoundingClientRect();
+
+                // if not in viewport, take away extra life and dont draw
+                if (
+                    this.pos.x + canvas_rect.left < 0 ||
+                    this.pos.x + canvas_rect.left > window.innerWidth ||
+                    this.pos.y + canvas_rect.top < 0 ||
+                    this.pos.y + canvas_rect.top > window.innerHeight
+                ) {
+                    this.currentLife += 2;
+                } else {
+                    this.drawFrame(ctx);
+                }
 
                 return true;
             } else if (this.respawn() && allowRespawn) {
+                // generating is guarenteed to be within viewport, so no need to check
                 this.generate(canvasSize);
                 this.drawFrame(ctx);
 
@@ -151,10 +175,25 @@ export default function Particular({
             canvas.current!.width = canvas.current!.getBoundingClientRect().width;
             canvas.current!.height = canvas.current!.getBoundingClientRect().height;
 
-            particleCount = particleDensity * (canvas.current!.width * canvas.current!.height);
-
             render();
         });
+
+        const calculateParticleCount = () => {
+            const canvas_rect = canvas.current!.getBoundingClientRect();
+
+            const visibleWidth = Math.min(
+                canvas.current!.width,
+                Math.max(0, Math.min(canvas_rect.right, window.innerWidth) - Math.max(canvas_rect.left, 0)),
+            );
+            const visibleHeight = Math.min(
+                canvas.current!.height,
+                Math.max(0, Math.min(canvas_rect.bottom, window.innerHeight) - Math.max(canvas_rect.top, 0)),
+            );
+
+            particleCount = particleDensity * (visibleWidth * visibleHeight);
+        };
+
+        ScrollEvent.subscribe(calculateParticleCount);
 
         const render = () => {
             context.clearRect(0, 0, canvas.current!.width, canvas.current!.height);
@@ -202,6 +241,8 @@ export default function Particular({
             circles.splice(0, circles.length);
 
             observer.disconnect();
+
+            ScrollEvent.unsubscribe(calculateParticleCount);
         };
     }, []);
 
