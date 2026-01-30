@@ -1,13 +1,26 @@
 import RevealOn from "../components/movement/RevealOn";
 import WindowCard from "../components/WindowCard";
 import profile from "../content/profile";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { ScrollEvent } from "../functions/subscribeEvents";
 
 export default function About() {
     const [reveal, setReveal] = useState(false);
+    const parent = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
-        setReveal(true);
+        if (!parent.current) return;
+
+        const watchReveal = () => {
+            if (parent.current!.getBoundingClientRect().top - window.innerHeight <= 0) setReveal(true);
+            else setReveal(false);
+        };
+
+        ScrollEvent.subscribe(watchReveal);
+
+        return () => {
+            ScrollEvent.unsubscribe(watchReveal);
+        };
     }, []);
 
     return (
@@ -18,7 +31,7 @@ export default function About() {
                 postRevealClass="opacity-100 -translate-y-0"
                 on={reveal}
             >
-                <div className="grow my-auto max-w-md-static mx-auto">
+                <div ref={parent} className="grow my-auto max-w-md-static mx-auto">
                     <WindowCard>
                         <div className="flex flex-col-reverse md:flex-row text-primary gap-24 overflow-hidden">
                             <div className="relative self-center md:self-auto text-ascii-sm w-[111ch]">
