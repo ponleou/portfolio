@@ -34,13 +34,13 @@ export default function Experience() {
             >
                 <div
                     ref={parent}
-                    className="grow my-auto flex flex-col max-w-xl-static mx-auto gap-y-24 3xl:flex-row 3xl:justify-between"
+                    className="grow my-auto flex flex-row flex-wrap max-w-lg-static 3xl:max-w-xl-static mx-auto gap-y-24 gap-x-24 3xl:gap-x-32 justify-center"
                 >
-                    <div className="flex flex-col mx-auto 3xl:mx-0">
+                    <div className="flex flex-col">
                         <h3 className="text-h3-ad font-bold text-accent">Work Experience</h3>
                         {works.map((work, index) => (
                             <Timeline key={index} start={index === 0} end={index === works.length - 1}>
-                                <WindowCard sidebar={true} small={true} className="max-w-7xl">
+                                <WindowCard sidebar={true} small={true} className="max-w-5xl">
                                     <div className="flex flex-col gap-4">
                                         <h4 className="text-h4-ad font-bold">{work.position}</h4>
                                         <div className="flex flex-col gap-1 text-base-ad font-bold">
@@ -66,11 +66,11 @@ export default function Experience() {
                             </Timeline>
                         ))}
                     </div>
-                    <div className="flex flex-col mx-auto 3xl:mx-0">
+                    <div className="flex flex-col">
                         <h3 className="text-h3-ad font-bold text-accent">Extracurricular</h3>
                         {extras.map((extra, index) => (
                             <Timeline key={index} start={index === 0} end={index === extras.length - 1}>
-                                <WindowCard sidebar={true} small={true} className="max-w-7xl">
+                                <WindowCard sidebar={true} small={true} className="max-w-5xl">
                                     <div className="flex flex-col gap-4">
                                         <h4 className="text-h4-ad font-bold">{extra.name}</h4>
                                         <div className="flex flex-col gap-1 text-base-ad font-bold">

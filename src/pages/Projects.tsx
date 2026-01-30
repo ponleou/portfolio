@@ -33,7 +33,7 @@ export default function Project() {
             >
                 <div
                     ref={parent}
-                    className="grow my-auto max-w-xl-static mx-auto flex flex-wrap gap-12 text-base-ad text-primary justify-center"
+                    className="grow my-auto max-w-lg-static 3xl:max-w-xl-static mx-auto flex flex-wrap gap-12 text-base-ad text-primary justify-center"
                 >
                     {projects.map((project, index) => (
                         <div key={index} className="max-w-4xl flex grow">
