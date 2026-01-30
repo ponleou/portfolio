@@ -1,3 +1,7 @@
-export type HomeContextType = {
-    relativePath: string;
+export type InnerHeightRatios = {
+    bashCommandAtBottom: number;
+    skillsTextAtTop: number;
+    outletAtBottom: number;
+    lsCommandAtTop: number;
+    bashCommandAtTop: number;
 };
