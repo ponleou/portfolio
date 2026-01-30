@@ -31,7 +31,7 @@ export default function About() {
                 postRevealClass="opacity-100 -translate-y-0"
                 on={reveal}
             >
-                <div ref={parent} className="grow my-auto max-w-md-static mx-auto">
+                <div ref={parent} className="grow my-auto max-w-md-static 3xl:max-w-lg-static mx-auto">
                     <WindowCard>
                         <div className="flex flex-col-reverse md:flex-row text-primary gap-24 overflow-hidden">
                             <div className="relative self-center md:self-auto text-ascii-sm w-[111ch]">
