@@ -1,11 +1,4 @@
-type Work = {
-    position: string;
-    startDate: Date;
-    endDate: Date;
-    company: string;
-    location: string;
-    description: string;
-};
+import type { Extra, Work } from "../types/experience";
 
 export const works: Array<Work> = [
     {
@@ -45,15 +38,6 @@ export const works: Array<Work> = [
             "Managed a project, and also assisted design and development in other projects with Figma and Vue.js.",
     },
 ];
-
-type Extra = {
-    name: string;
-    startDate: Date;
-    endDate?: Date;
-    company: string;
-    location: string;
-    description: string;
-};
 
 export const extras: Array<Extra> = [
     {
