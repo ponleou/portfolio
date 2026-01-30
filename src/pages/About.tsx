@@ -11,7 +11,7 @@ export default function About() {
     }, []);
 
     return (
-        <div className="px-24 py-48 min-h-dvh flex" id="main">
+        <div className="px-24 py-48 min-h-dvh flex" id="about">
             <RevealOn
                 className="transition-all ease-out duration-500 grow flex"
                 preRevealClass="opacity-0 -translate-y-20"
