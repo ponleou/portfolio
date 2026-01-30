@@ -2,8 +2,6 @@ import GoldenHorizontal from "../components/placement/GoldenHorizontal";
 import TextCycle from "../components/TextCycle";
 import { typewriter } from "../functions/revealFunctions";
 import TextCursor from "../components/TextCursor";
-import CursorFollower from "../components/movement/CursorFollower";
-import Navigators from "../components/Navigators";
 import { useEffect, useRef, useState } from "react";
 import AlignTarget from "../components/placement/AlignTarget";
 import RenderAfter from "../components/movement/RenderAfter";
@@ -11,18 +9,17 @@ import RevealText from "../components/movement/RevealText";
 import RevealOn from "../components/movement/RevealOn";
 import TranslateToCursor from "../components/movement/TranslateToCursor";
 import TranslateOnScroll from "../components/movement/TranslateOnScroll";
-import WidthOnScroll from "../components/movement/WidthOnScroll";
-import FontsizeOnScroll from "../components/movement/FontsizeOnScroll";
-import { Icon } from "@iconify-icon/react";
-import Lined from "../components/Lined";
 import RevealOnScroll from "../components/movement/RevealOnScroll";
 import { Outlet, useLocation, useNavigate } from "react-router";
-import type { HomeContextType } from "../types/home";
-import { ScrollEvent, ScrollEventThrottled } from "../functions/subscribeEvents";
+import type { InnerHeightRatios } from "../types/home";
+import { ScrollEvent } from "../functions/subscribeEvents";
 import delay from "../functions/delay";
 import profile from "../content/profile";
-import contact from "../content/contact";
-import Particular from "../components/Particular";
+import TopNavigator from "../components/pages/home/TopNavigator";
+import SideContacts from "../components/pages/home/SideContacts";
+import BottomNavigator from "../components/pages/home/BottomNavigator";
+import Footer from "../components/pages/home/Footer";
+import Background from "../components/pages/home/Background";
 
 export default function Home() {
     /**
@@ -54,7 +51,7 @@ export default function Home() {
 
     const outletDiv = useRef<HTMLDivElement>(null);
 
-    const innerHeightRatios = {
+    const innerHeightRatios: InnerHeightRatios = {
         bashCommandAtBottom: 0.2,
         skillsTextAtTop: 0.45,
         outletAtBottom: 0.6,
@@ -65,105 +62,9 @@ export default function Home() {
     /**
      * Route location management
      */
-    const routes = [
-        {
-            to: "page",
-            hash: "about",
-        },
-        {
-            to: "page",
-            hash: "experience",
-        },
-        {
-            to: "page",
-            hash: "projects",
-        },
-        {
-            to: "page",
-            hash: "education",
-        },
-        {
-            to: "page",
-            hash: "contacts",
-        },
-    ];
-
-    /* Top nav bar on pages */
-    const [showTopNav, setShowTopNav] = useState(false);
-    const [toggleMobNav, setToggleMobNav] = useState(false);
-
-    useEffect(() => {
-        const toggleTopNav = () => {
-            if (window.scrollY >= window.innerHeight * innerHeightRatios.bashCommandAtTop) setShowTopNav(true);
-            else setShowTopNav(false);
-        };
-
-        ScrollEvent.subscribe(toggleTopNav);
-
-        return () => {
-            ScrollEvent.unsubscribe(toggleTopNav);
-        };
-    }, []);
-
-    /* Current scroll hash match */
-
-    const [hashPosition, setHashPosition] = useState("");
-    const [lastNavClicked, setLastNavClicked] = useState("");
-
     const location = useLocation();
-
-    useEffect(() => {
-        const elements = routes.map((route) => {
-            return { hash: route.hash, el: document.getElementById(route.hash) };
-        });
-
-        const updateHashPosition = () => {
-            let hash = "";
-            let maxTop: number | null = null;
-
-            for (const element of elements) {
-                if (!element.el) continue;
-
-                const top = element.el.getBoundingClientRect().top - window.innerHeight * 0.25;
-                if (top <= 0) {
-                    if (maxTop === null) {
-                        maxTop = top;
-                        hash = element.hash;
-                    } else if (top >= maxTop) {
-                        maxTop = top;
-                        hash = element.hash;
-                    }
-                }
-            }
-
-            if (hash === "") {
-                for (const element of elements) {
-                    if (!element.el) continue;
-
-                    const top = element.el.getBoundingClientRect().top - window.innerHeight;
-                    if (top <= 0) {
-                        if (maxTop === null) {
-                            maxTop = top;
-                            hash = element.hash;
-                        } else if (top >= maxTop) {
-                            maxTop = top;
-                            hash = element.hash;
-                        }
-                    }
-                }
-            }
-
-            setHashPosition(hash);
-        };
-
-        ScrollEventThrottled.subscribe(updateHashPosition);
-
-        return () => {
-            ScrollEventThrottled.unsubscribe(updateHashPosition);
-        };
-    }, [location]);
-
     const navigate = useNavigate();
+    const [lastNavClicked, setLastNavClicked] = useState("");
 
     useEffect(() => {
         // return to home
@@ -210,70 +111,12 @@ export default function Home() {
     return (
         <>
             <div className="bg-bg relative">
-                {/* backgrounds with noise */}
-
-                {/* cursor */}
-                <CursorFollower ratePerFrame={0.05} warpDegree={60} distanceFadeRatio={5}>
-                    <RevealOn
-                        on={revealSkillsText}
-                        className="transition-all ease-out duration-500"
-                        preRevealClass="opacity-0"
-                        postRevealClass="opacity-100"
-                    >
-                        <div className="flex justify-center items-center animate-scale-pulse-3">
-                            <div className="w-px m-10 aspect-square rounded-full bg-primary-20 shadow-primary-80 shadow-[0_0_80px_3rem]"></div>
-                        </div>
-                    </RevealOn>
-                </CursorFollower>
-
-                {/* circles */}
-                <TranslateOnScroll direction="vertical" rate={0.15} maxScroll={window.innerHeight}>
-                    <RevealOn
-                        on={revealSkillsText}
-                        className="transition-opacity ease-out duration-1000"
-                        preRevealClass="opacity-0"
-                        postRevealClass="opacity-100"
-                    >
-                        <div className="blur-3xl">
-                            <TranslateOnScroll
-                                direction="horizontal"
-                                rate={-window.innerWidth / window.innerHeight}
-                                maxScroll={window.innerHeight}
-                            >
-                                <div className="-top-[15dvh] right-[3dvw] absolute animate-scale-pulse-4 rounded-full">
-                                    <div className="m-68 w-px opacity-40 aspect-square rounded-full bg-accent shadow-accent-80 shadow-[0_0_200px_17dvh]"></div>
-                                </div>
-                            </TranslateOnScroll>
-                            <TranslateOnScroll
-                                direction="horizontal"
-                                rate={-window.innerWidth / window.innerHeight}
-                                maxScroll={window.innerHeight}
-                            >
-                                <div className="top-0 right-[3dvw] absolute animate-scale-pulse-5 rounded-full">
-                                    <div className="m-100 w-px opacity-40 aspect-square rounded-full bg-primary shadow-primary-80 shadow-[0_0_200px_25dvh]"></div>
-                                </div>
-                            </TranslateOnScroll>
-                        </div>
-                    </RevealOn>
-                </TranslateOnScroll>
-
-                <div className="inset-0 top-[125dvh] absolute top-fade-[25dvh]">
-                    <Particular
-                        componentSpeed={{ min: { x: -0.2, y: -0.2 }, max: { x: 0.2, y: 0.2 } }}
-                        radius={{ min: 1, max: 3 }}
-                        lifespan={{ min: 100, max: 1000 }}
-                        primaryColorVar="--color-primary"
-                        accentColorVar="--color-accent"
-                        particleDensity={0.000015}
-                    ></Particular>
-                </div>
-
-                {/* noise filter */}
-                <div className="bg-[url(assets/noise.svg)] opacity-40 absolute inset-0 mix-blend-color-dodge"></div>
+                <Background revealCircles={revealSkillsText}></Background>
 
                 {/* start page */}
                 <div className={`${revealNavigators ? "h-[150dvh]" : "h-dvh"} relative`}>
                     <div className="opacity-60 text-base-ad">
+                        {/* line numbers */}
                         <div ref={codeLineContainer} className="absolute pl-12 text-primary ">
                             <RenderAfter after={bashText.current}>
                                 <AlignTarget
@@ -383,6 +226,7 @@ export default function Home() {
                                 </AlignTarget>
                             </RenderAfter>
                         </div>
+                        {/* background text */}
                         <TranslateOnScroll direction="vertical" rate={0.5} maxScroll={window.innerHeight}>
                             <div className="absolute pl-32 pt-12 text-nowrap text-primary">
                                 <div ref={bashText}>
@@ -400,6 +244,7 @@ export default function Home() {
                                 </div>
                             </div>
                         </TranslateOnScroll>
+                        {/* background text description */}
                         <TranslateOnScroll direction="vertical" rate={0.15} maxScroll={window.innerHeight}>
                             <div ref={descTextContainer} className="absolute top-[19dvh]">
                                 <RenderAfter after={mainTitle.current}>
@@ -445,6 +290,7 @@ export default function Home() {
                             </div>
                         </TranslateOnScroll>
                     </div>
+                    {/* main page text */}
                     <GoldenHorizontal
                         className="top-0 h-dvh left-0 right-0 absolute"
                         top={
@@ -510,7 +356,8 @@ export default function Home() {
                         }
                     />
 
-                    {/* scroll out of main page to see nav terminal */}
+                    {/* terminal page */}
+                    {/* NOTE: the sidebar and navigation bottom is lower */}
                     <RevealOnScroll
                         scrollTo={window.innerHeight * innerHeightRatios.bashCommandAtBottom}
                         preRevealClass="opacity-0"
@@ -519,131 +366,38 @@ export default function Home() {
                         finishedCallback={(reveal) => setRevealNavigatorsFooter(reveal)}
                         resetCallback={(reveal) => setRevealNavigatorsFooter(reveal)}
                     >
-                        {/* top nav bar */}
-                        <div
-                            className={`top-0 left-0 right-0 text-primary text-base-ad m-6 fixed transition-[max-height] duration-300 ease-out overflow-hidden ${showTopNav && "z-2"}`}
+                        {/* top navigation bar */}
+                        <RevealOnScroll
+                            scrollTo={window.innerHeight * innerHeightRatios.skillsTextAtTop}
+                            preRevealClass="opacity-0"
+                            postRevealClass="opacity-100"
+                            className="transition-opacity ease-out duration-500"
+                            finishedCallback={(reveal) => setRevealNavigatorsTitle(reveal)}
+                            resetCallback={(reveal) => setRevealNavigatorsTitle(reveal)}
                         >
-                            <RevealOnScroll
-                                scrollTo={window.innerHeight * innerHeightRatios.skillsTextAtTop}
+                            <RevealOn
+                                on={revealNavigatorsTitle}
+                                className="transition-all ease-out duration-500"
                                 preRevealClass="opacity-0"
                                 postRevealClass="opacity-100"
-                                className="transition-opacity ease-out duration-500"
-                                finishedCallback={(reveal) => setRevealNavigatorsTitle(reveal)}
-                                resetCallback={(reveal) => setRevealNavigatorsTitle(reveal)}
                             >
-                                <RevealOn
-                                    on={revealNavigatorsTitle}
-                                    className="transition-all ease-out duration-500"
-                                    preRevealClass="opacity-0"
-                                    postRevealClass="opacity-100"
+                                {/* darken welcome text when above the terminal sections */}
+                                <RevealOnScroll
+                                    scrollTo={window.innerHeight * innerHeightRatios.lsCommandAtTop}
+                                    resetAt={window.innerHeight * innerHeightRatios.bashCommandAtTop}
+                                    preRevealClass="opacity-100"
+                                    postRevealClass="opacity-40"
+                                    className="transition-opacity ease-out duration-500"
                                 >
-                                    {/* darken welcome text when above the terminal sections */}
-                                    <RevealOnScroll
-                                        scrollTo={window.innerHeight * innerHeightRatios.lsCommandAtTop}
-                                        resetAt={window.innerHeight * innerHeightRatios.bashCommandAtTop}
-                                        preRevealClass="opacity-100"
-                                        postRevealClass="opacity-40"
-                                        className="transition-opacity ease-out duration-500"
-                                    >
-                                        <div className={`${showTopNav && "backdrop-blur-md bg-bg/10"}`}>
-                                            <div
-                                                className={`p-6 overflow-hidden grid grid-cols-[1fr_auto_1fr] gap-12 items-center transition-colors duration-300 ease-out rounded-xl ${showTopNav && "border-primary-20 border"}`}
-                                            >
-                                                <div className="flex gap-24 overflow-hidden">
-                                                    <RevealOn
-                                                        on={showTopNav}
-                                                        preRevealClass="opacity-0 pointer-events-none"
-                                                        postRevealClass="opacity-100"
-                                                        className="transition-opacity ease-out duration-300"
-                                                    >
-                                                        <Navigators
-                                                            className="hidden lg:flex gap-24 overflow-hidden"
-                                                            routes={routes
-                                                                .filter((route) => route.hash !== hashPosition)
-                                                                .filter(
-                                                                    (_, index, arr) =>
-                                                                        index <= -1 + Math.ceil(arr.length / 2),
-                                                                )}
-                                                            navClassName="inline-flex gap-4 hover:gap-0 hover:text-accent transition-all ease-out duration-500 font-bold"
-                                                        />
-                                                    </RevealOn>
-                                                </div>
-                                                <div className="justify-self-center flex flex-col items-center">
-                                                    <Lined
-                                                        cssColor="var(--color-primary)"
-                                                        lengthRem={10}
-                                                        gapRem={2.5}
-                                                        orientation="horizontal"
-                                                    >
-                                                        <RevealText
-                                                            initialText=""
-                                                            text={`WELCOME TO ${hashPosition === "" ? "THE TERMINAL" : hashPosition.toUpperCase()} `}
-                                                            revealCallback={typewriter}
-                                                            delayPerCallback={30}
-                                                            startOn={revealNavigatorsTitle}
-                                                            allowReset={true}
-                                                        ></RevealText>
-                                                    </Lined>
+                                    <TopNavigator
+                                        innerHeightRatios={innerHeightRatios}
+                                        revealNavigatorsTitle={revealNavigatorsTitle}
+                                    ></TopNavigator>
+                                </RevealOnScroll>
+                            </RevealOn>
+                        </RevealOnScroll>
 
-                                                    <RevealOn
-                                                        on={showTopNav}
-                                                        preRevealClass="opacity-0 pointer-events-none"
-                                                        postRevealClass="opacity-100"
-                                                        className="transition-opacity ease-out duration-300"
-                                                    >
-                                                        <Navigators
-                                                            routes={routes}
-                                                            navClassName="flex gap-4 hover:gap-0 hover:text-accent transition-all ease-out duration-500 font-bold"
-                                                            navLinkClassName="flex flex-col items-center first:pt-8"
-                                                            className={`transition-[max-height] duration-300 ease-out ${toggleMobNav ? "max-h-96" : "max-h-0"} lg:max-h-0 h-fit overflow-hidden flex-col flex gap-6`}
-                                                        ></Navigators>
-                                                    </RevealOn>
-                                                </div>
-                                                <div className="flex gap-24 justify-end overflow-hidden self-start lg:self-auto">
-                                                    <RevealOn
-                                                        on={showTopNav}
-                                                        preRevealClass="opacity-0 pointer-events-none"
-                                                        postRevealClass="opacity-100"
-                                                        className="transition-opacity ease-out duration-300"
-                                                    >
-                                                        <Navigators
-                                                            className="hidden lg:flex gap-24 justify-end overflow-hidden"
-                                                            routes={routes
-                                                                .filter((route) => route.hash !== hashPosition)
-                                                                .filter(
-                                                                    (_, index, arr) =>
-                                                                        index > -1 + Math.ceil(arr.length / 2),
-                                                                )}
-                                                            navClassName="inline-flex gap-4 hover:gap-0 hover:text-accent transition-all ease-out duration-500 font-bold"
-                                                        />
-                                                        <button
-                                                            className="lg:hidden hover:text-accent transition-color duration-300 ease-out relative"
-                                                            onClick={() => setToggleMobNav(!toggleMobNav)}
-                                                        >
-                                                            <Icon
-                                                                icon="mdi:close"
-                                                                width="2.5em"
-                                                                height="2.5em"
-                                                                className={`absolute transition-opacity duration-300 ease-out ${toggleMobNav ? "opacity-100" : "opacity-0"}`}
-                                                            />
-                                                            <Icon
-                                                                icon="mdi:menu"
-                                                                width="2.5em"
-                                                                height="2.5em"
-                                                                className={`transition-opacity duration-300 ease-out ${!toggleMobNav ? "opacity-100" : "opacity-0"}`}
-                                                            />
-                                                        </button>
-                                                    </RevealOn>
-                                                </div>
-                                            </div>
-                                            {showTopNav && (
-                                                <div className="bg-[url(assets/noise.svg)] opacity-30 absolute inset-0 pointer-events-none mix-blend-color"></div>
-                                            )}
-                                        </div>
-                                    </RevealOnScroll>
-                                </RevealOn>
-                            </RevealOnScroll>
-                        </div>
+                        {/* terminal text sections */}
                         <div className="w-full h-full relative">
                             <GoldenHorizontal
                                 className="text-primary text-base-ad absolute inset-0"
@@ -665,6 +419,7 @@ export default function Home() {
                                 }
                             ></GoldenHorizontal>
                         </div>
+                        {/* footer */}
                         <div className="bottom-0 left-0 right-0 text-primary text-base-ad p-12 flex justify-end fixed z-0">
                             <RevealOn
                                 on={revealNavigatorsFooter}
@@ -673,33 +428,19 @@ export default function Home() {
                                 postRevealClass="opacity-100"
                             >
                                 {/* scroll out of nav terminal to darken text */}
-
                                 <RevealOnScroll
                                     scrollTo={window.innerHeight * innerHeightRatios.outletAtBottom}
                                     preRevealClass="opacity-100"
                                     postRevealClass="opacity-40"
                                     className="transition-opacity ease-out duration-500"
                                 >
-                                    <Lined
-                                        cssColor="var(--color-primary)"
-                                        enable={{ start: true }}
-                                        lengthRem={10}
-                                        gapRem={2.5}
-                                        orientation="horizontal"
-                                    >
-                                        <RevealText
-                                            initialText=""
-                                            text="&copy; 2025-2026 KEO PONLEOU SOK. ALL RIGHTS RESERVED."
-                                            revealCallback={typewriter}
-                                            delayPerCallback={30}
-                                            startOn={revealNavigatorsFooter}
-                                            allowReset={true}
-                                        ></RevealText>
-                                    </Lined>
+                                    <Footer revealNavigatorsFooter={revealNavigatorsFooter}></Footer>
                                 </RevealOnScroll>
                             </RevealOn>
                         </div>
                     </RevealOnScroll>
+
+                    {/* side contacts and bottom navigator */}
                     <RevealOn
                         on={revealNavigators}
                         className="transition-all ease-out duration-500"
@@ -710,102 +451,14 @@ export default function Home() {
                         }}
                     >
                         <div className="h-dvh flex flex-col">
-                            <div className="grow relative">
-                                <div className="text-h4-ad text-primary-60 p-12 bottom-0 right-0 absolute">
-                                    <TranslateOnScroll direction="vertical" rate={-1} maxScroll={window.innerHeight}>
-                                        <TranslateToCursor maxTranslate={1} translateMultiplier={0.1}>
-                                            <Lined
-                                                lengthRem={8}
-                                                orientation="vertical"
-                                                gapRem={2}
-                                                cssColor="var(--color-primary-60)"
-                                            >
-                                                <a
-                                                    className="transition-colors duration-500 ease-out hover:text-primary"
-                                                    href={contact.codeberg}
-                                                    target="_blank"
-                                                    title="codeberg!"
-                                                >
-                                                    <Icon icon="simple-icons:codeberg" width="1em" height="1em" />
-                                                </a>
-                                                <Lined
-                                                    lengthRem={1.2}
-                                                    orientation="vertical"
-                                                    lineOrientation="horizontal"
-                                                    gapRem={2}
-                                                    cssColor="var(--color-primary-60)"
-                                                >
-                                                    <a
-                                                        className="transition-colors duration-500 ease-out hover:text-primary"
-                                                        href={contact.github}
-                                                        target="_blank"
-                                                        title="eww github, check out codeberg instead"
-                                                    >
-                                                        <Icon icon="mdi:github" width="1em" height="1em" />
-                                                    </a>
-                                                </Lined>
-                                                <Lined
-                                                    lengthRem={1.2}
-                                                    orientation="vertical"
-                                                    lineOrientation="horizontal"
-                                                    gapRem={2}
-                                                    cssColor="var(--color-primary-60)"
-                                                    enable={{ end: true }}
-                                                >
-                                                    <a
-                                                        className="transition-colors duration-500 ease-out hover:text-primary"
-                                                        href={contact.linkedin}
-                                                        target="_blank"
-                                                        title="LinkedIn"
-                                                    >
-                                                        <Icon icon="mdi:linkedin" width="1em" height="1em" />
-                                                    </a>
-                                                </Lined>
-                                                <a
-                                                    className="transition-colors duration-500 ease-out hover:text-primary"
-                                                    href={`mailto:${contact.email}`}
-                                                    target="_blank"
-                                                    title={contact.email}
-                                                >
-                                                    <Icon icon="mdi:email" width="1em" height="1em" />
-                                                </a>
-                                            </Lined>
-                                        </TranslateToCursor>
-                                    </TranslateOnScroll>
-                                </div>
-                            </div>
-                            <div className="w-full relative">
-                                <TranslateToCursor maxTranslate={1} translateMultiplier={0.1}>
-                                    <RenderAfter after={revealNavigators}>
-                                        <FontsizeOnScroll
-                                            className="transition-all ease-out duration-150 bottom-0 left-0 right-0 z-1 p-12 text-accent font-bold"
-                                            initialRem={1.2}
-                                            finalRem={1.6}
-                                        >
-                                            <WidthOnScroll
-                                                initialPercent={100}
-                                                finalPercent={85}
-                                                className="flex justify-center"
-                                                childClassName="transition-all duration-150 ease-out"
-                                            >
-                                                <Navigators
-                                                    className="transition-all ease-out duration-500 flex justify-between items-center flex-wrap gap-y-8 gap-x-[2.5em]"
-                                                    routes={routes}
-                                                    navLinkClassName=""
-                                                    navClassName="inline-flex gap-4 hover:gap-0 transition-[gap] ease-out duration-500 relative
-                                        before:transition-all before:ease-out before:duration-500  before:bg-primary before:absolute before:inset-0 before:left-full hover:before:left-1/2 before:-z-1"
-                                                ></Navigators>
-                                            </WidthOnScroll>
-                                        </FontsizeOnScroll>
-                                    </RenderAfter>
-                                </TranslateToCursor>
-                            </div>
+                            <SideContacts></SideContacts>
+                            <BottomNavigator revealNavigators={revealNavigators}></BottomNavigator>
                         </div>
                     </RevealOn>
                 </div>
                 <div ref={outletDiv} className="relative z-1">
                     {/* <div className="bg-[url(assets/noise.svg)] opacity-40 absolute inset-0 mix-blend-color-dodge"></div> */}
-                    <Outlet context={{ relativePath: hashPosition } satisfies HomeContextType} />
+                    <Outlet />
                 </div>
             </div>
         </>
