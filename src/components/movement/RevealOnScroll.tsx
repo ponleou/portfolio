@@ -4,6 +4,7 @@ import { ScrollEvent } from "../../functions/subscribeEvents";
 
 export default function RevealOnScroll({
     scrollTo,
+    resetAt = -1,
     className = "",
     preRevealClass = "invisible",
     postRevealClass = "visible",
@@ -12,6 +13,7 @@ export default function RevealOnScroll({
     resetCallback = () => {},
 }: {
     scrollTo: number;
+    resetAt?: number;
     className?: string;
     preRevealClass?: string;
     postRevealClass?: string;
@@ -23,7 +25,7 @@ export default function RevealOnScroll({
 
     useEffect(() => {
         const checkReveal = () => {
-            if (window.scrollY >= scrollTo) {
+            if (window.scrollY >= scrollTo && (resetAt < 0 || window.scrollY < resetAt)) {
                 setReveal(true);
             } else {
                 setReveal(false);

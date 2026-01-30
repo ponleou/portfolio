@@ -62,7 +62,7 @@ export default function Project() {
                                                         icon="mdi:scale-balance"
                                                         width="1.2em"
                                                         height="1.2em"
-                                                        className="pb-1"
+                                                        className="pb-0.5"
                                                     />
                                                     <p className="line-clamp-1">{project.license.name}</p>
                                                 </a>
