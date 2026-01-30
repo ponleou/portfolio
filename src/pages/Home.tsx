@@ -16,13 +16,12 @@ import FontsizeOnScroll from "../components/movement/FontsizeOnScroll";
 import { Icon } from "@iconify-icon/react";
 import Lined from "../components/Lined";
 import RevealOnScroll from "../components/movement/RevealOnScroll";
-import { Outlet, useLocation, useMatch, useNavigate } from "react-router";
+import { Outlet, useLocation, useNavigate } from "react-router";
 import type { HomeContextType } from "../types/home";
-import { ScrollEvent } from "../functions/subscribeEvents";
+import { ScrollEvent, ScrollEventThrottled } from "../functions/subscribeEvents";
 import delay from "../functions/delay";
 import profile from "../content/profile";
 import contact from "../content/contact";
-import ScrollProgress from "../components/movement/ScrollProgress";
 import Particular from "../components/Particular";
 
 export default function Home() {
@@ -64,10 +63,32 @@ export default function Home() {
     };
 
     /**
-     * Route location management (includes redirect to home and hiding elements)
+     * Route location management
      */
-    const routes = ["about", "experience", "projects", "education", "contacts"];
+    const routes = [
+        {
+            to: "page",
+            hash: "about",
+        },
+        {
+            to: "page",
+            hash: "experience",
+        },
+        {
+            to: "page",
+            hash: "projects",
+        },
+        {
+            to: "page",
+            hash: "education",
+        },
+        {
+            to: "page",
+            hash: "contacts",
+        },
+    ];
 
+    /* Top nav bar on pages */
     const [showTopNav, setShowTopNav] = useState(false);
 
     useEffect(() => {
@@ -83,27 +104,73 @@ export default function Home() {
         };
     }, []);
 
-    const match = useMatch("/*") || null;
-    const relativePath = (match !== null ? match.params["*"] || "" : "").replace(/\/$/, "");
+    /* Current scroll hash match */
+
+    const [hashPosition, setHashPosition] = useState("");
 
     const location = useLocation();
+
+    useEffect(() => {
+        const elements = routes.map((route) => {
+            return { hash: route.hash, el: document.getElementById(route.hash) };
+        });
+
+        const updateHashPosition = () => {
+            let hash = "";
+            let maxTop: number | null = null;
+
+            for (const element of elements) {
+                if (!element.el) continue;
+
+                const top = element.el.getBoundingClientRect().top;
+                if (top <= 0) {
+                    if (maxTop === null) {
+                        maxTop = top;
+                        hash = element.hash;
+                    } else if (top >= maxTop) {
+                        maxTop = top;
+                        hash = element.hash;
+                    }
+                }
+            }
+
+            if (hash === "") {
+                for (const element of elements) {
+                    if (!element.el) continue;
+
+                    const top = element.el.getBoundingClientRect().top - window.innerHeight;
+                    if (top <= 0) {
+                        if (maxTop === null) {
+                            maxTop = top;
+                            hash = element.hash;
+                        } else if (top >= maxTop) {
+                            maxTop = top;
+                            hash = element.hash;
+                        }
+                    }
+                }
+            }
+
+            setHashPosition(hash);
+        };
+
+        ScrollEventThrottled.subscribe(updateHashPosition);
+
+        return () => {
+            ScrollEventThrottled.unsubscribe(updateHashPosition);
+        };
+    }, [location]);
+
     const navigate = useNavigate();
 
-    const [showOutletProgress, setShowOutletProgress] = useState(false);
-    const [renderOutletProgress, setRenderOutletProgress] = useState(false);
-
     useEffect(() => {
-        if (showOutletProgress) setRenderOutletProgress(true);
-    }, [showOutletProgress]);
-
-    useEffect(() => {
+        // return to home
         const returnNavHome = () => {
             if (location.pathname === "/") return;
 
             if (window.scrollY <= window.innerHeight * (innerHeightRatios.outletAtBottom - 0.1)) {
                 // -0.1 because i want the renavigate to happen a bit later when scrolling up
                 navigate("//");
-                setShowOutletProgress(false);
 
                 ScrollEvent.unsubscribe(returnNavHome);
             }
@@ -114,13 +181,10 @@ export default function Home() {
         const effect = async () => {
             const hash = location.state?.hash || "";
             if (hash) {
-                setRenderOutletProgress(false);
                 // this delay should NOT be solving ref or sth, this delay is there for styling purposes only
                 // there is an animation that users should see before it scrolls into view
                 await delay(150);
                 if (cancelEffect) return;
-                setShowOutletProgress(true);
-                setRenderOutletProgress(true);
 
                 const element = outletDiv.current!.querySelector(`#${hash}`);
                 if (element) element.scrollIntoView({ behavior: "smooth" });
@@ -451,97 +515,98 @@ export default function Home() {
                         finishedCallback={(reveal) => setRevealNavigatorsFooter(reveal)}
                         resetCallback={(reveal) => setRevealNavigatorsFooter(reveal)}
                     >
-                        <RevealOnScroll
-                            scrollTo={window.innerHeight * innerHeightRatios.skillsTextAtTop}
-                            preRevealClass="opacity-0"
-                            postRevealClass="opacity-100"
-                            className="transition-opacity ease-out duration-500"
-                            finishedCallback={(reveal) => setRevealNavigatorsTitle(reveal)}
-                            resetCallback={(reveal) => setRevealNavigatorsTitle(reveal)}
-                        >
-                            <RevealOn
-                                on={revealNavigatorsTitle}
-                                className="transition-all ease-out duration-500"
+                        {/* top nav bar */}
+                        <div className="top-0 left-0 right-0 text-primary text-base-ad m-6 z-2 fixed">
+                            <RevealOnScroll
+                                scrollTo={window.innerHeight * innerHeightRatios.skillsTextAtTop}
                                 preRevealClass="opacity-0"
                                 postRevealClass="opacity-100"
+                                className="transition-opacity ease-out duration-500"
+                                finishedCallback={(reveal) => setRevealNavigatorsTitle(reveal)}
+                                resetCallback={(reveal) => setRevealNavigatorsTitle(reveal)}
                             >
-                                {/* darken welcome text when above the terminal sections */}
-                                <RevealOnScroll
-                                    scrollTo={window.innerHeight * innerHeightRatios.lsCommandAtTop}
-                                    resetAt={window.innerHeight * innerHeightRatios.bashCommandAtTop}
-                                    preRevealClass="opacity-100"
-                                    postRevealClass="opacity-40"
-                                    className="transition-opacity ease-out duration-500"
+                                <RevealOn
+                                    on={revealNavigatorsTitle}
+                                    className="transition-all ease-out duration-500"
+                                    preRevealClass="opacity-0"
+                                    postRevealClass="opacity-100"
                                 >
-                                    <div
-                                        className={`top-0 left-0 right-0 text-primary text-base-ad m-6 z-2 fixed ${showTopNav && "backdrop-blur-md bg-bg/10"}`}
+                                    {/* darken welcome text when above the terminal sections */}
+                                    <RevealOnScroll
+                                        scrollTo={window.innerHeight * innerHeightRatios.lsCommandAtTop}
+                                        resetAt={window.innerHeight * innerHeightRatios.bashCommandAtTop}
+                                        preRevealClass="opacity-100"
+                                        postRevealClass="opacity-40"
+                                        className="transition-opacity ease-out duration-500"
                                     >
-                                        <div
-                                            className={`p-6 overflow-hidden grid grid-cols-[1fr_auto_1fr] gap-12 items-center transition-colors duration-300 ease-out rounded-xl ${showTopNav && "border-primary-20 border"}`}
-                                        >
-                                            <div className="flex gap-24 overflow-hidden">
-                                                <RevealOn
-                                                    on={showTopNav}
-                                                    preRevealClass="opacity-0 pointer-events-none"
-                                                    postRevealClass="opacity-100"
-                                                    className="transition-opacity ease-out duration-300"
-                                                >
-                                                    <Navigators
-                                                        className="flex gap-24 overflow-hidden"
-                                                        routes={routes
-                                                            .filter((route) => route !== relativePath)
-                                                            .filter(
-                                                                (_, index, arr) =>
-                                                                    index <= -1 + Math.ceil(arr.length / 2),
-                                                            )}
-                                                        navClassName="inline-flex gap-4 hover:gap-0 hover:text-accent transition-all ease-out duration-500 font-bold"
-                                                    />
-                                                </RevealOn>
+                                        <div className={`${showTopNav && "backdrop-blur-md bg-bg/10"}`}>
+                                            <div
+                                                className={`p-6 overflow-hidden grid grid-cols-[1fr_auto_1fr] gap-12 items-center transition-colors duration-300 ease-out rounded-xl ${showTopNav && "border-primary-20 border"}`}
+                                            >
+                                                <div className="flex gap-24 overflow-hidden">
+                                                    <RevealOn
+                                                        on={showTopNav}
+                                                        preRevealClass="opacity-0 pointer-events-none"
+                                                        postRevealClass="opacity-100"
+                                                        className="transition-opacity ease-out duration-300"
+                                                    >
+                                                        <Navigators
+                                                            className="flex gap-24 overflow-hidden"
+                                                            routes={routes
+                                                                .filter((route) => route.hash !== hashPosition)
+                                                                .filter(
+                                                                    (_, index, arr) =>
+                                                                        index <= -1 + Math.ceil(arr.length / 2),
+                                                                )}
+                                                            navClassName="inline-flex gap-4 hover:gap-0 hover:text-accent transition-all ease-out duration-500 font-bold"
+                                                        />
+                                                    </RevealOn>
+                                                </div>
+                                                <div className="justify-self-center">
+                                                    <Lined
+                                                        cssColor="var(--color-primary)"
+                                                        lengthRem={10}
+                                                        gapRem={2.5}
+                                                        orientation="horizontal"
+                                                    >
+                                                        <RevealText
+                                                            initialText=""
+                                                            text={`WELCOME TO ${hashPosition === "" ? "THE TERMINAL" : hashPosition.toUpperCase()} `}
+                                                            revealCallback={typewriter}
+                                                            delayPerCallback={30}
+                                                            startOn={revealNavigatorsTitle}
+                                                            allowReset={true}
+                                                        ></RevealText>
+                                                    </Lined>
+                                                </div>
+                                                <div className="flex gap-24 justify-end overflow-hidden">
+                                                    <RevealOn
+                                                        on={showTopNav}
+                                                        preRevealClass="opacity-0 pointer-events-none"
+                                                        postRevealClass="opacity-100"
+                                                        className="transition-opacity ease-out duration-300"
+                                                    >
+                                                        <Navigators
+                                                            className="flex gap-24 justify-end overflow-hidden"
+                                                            routes={routes
+                                                                .filter((route) => route.hash !== hashPosition)
+                                                                .filter(
+                                                                    (_, index, arr) =>
+                                                                        index > -1 + Math.ceil(arr.length / 2),
+                                                                )}
+                                                            navClassName="inline-flex gap-4 hover:gap-0 hover:text-accent transition-all ease-out duration-500 font-bold"
+                                                        />
+                                                    </RevealOn>
+                                                </div>
                                             </div>
-                                            <div className="justify-self-center">
-                                                <Lined
-                                                    cssColor="var(--color-primary)"
-                                                    lengthRem={10}
-                                                    gapRem={2.5}
-                                                    orientation="horizontal"
-                                                >
-                                                    <RevealText
-                                                        initialText=""
-                                                        text={`WELCOME TO ${relativePath === "" ? "THE TERMINAL" : relativePath.toUpperCase()} `}
-                                                        revealCallback={typewriter}
-                                                        delayPerCallback={30}
-                                                        startOn={revealNavigatorsTitle}
-                                                        allowReset={true}
-                                                    ></RevealText>
-                                                </Lined>
-                                            </div>
-                                            <div className="flex gap-24 justify-end overflow-hidden">
-                                                <RevealOn
-                                                    on={showTopNav}
-                                                    preRevealClass="opacity-0 pointer-events-none"
-                                                    postRevealClass="opacity-100"
-                                                    className="transition-opacity ease-out duration-300"
-                                                >
-                                                    <Navigators
-                                                        className="flex gap-24 justify-end overflow-hidden"
-                                                        routes={routes
-                                                            .filter((route) => route !== relativePath)
-                                                            .filter(
-                                                                (_, index, arr) =>
-                                                                    index > -1 + Math.ceil(arr.length / 2),
-                                                            )}
-                                                        navClassName="inline-flex gap-4 hover:gap-0 hover:text-accent transition-all ease-out duration-500 font-bold"
-                                                    />
-                                                </RevealOn>
-                                            </div>
+                                            {showTopNav && (
+                                                <div className="bg-[url(assets/noise.svg)] opacity-30 absolute inset-0 pointer-events-none mix-blend-color"></div>
+                                            )}
                                         </div>
-                                        {showTopNav && (
-                                            <div className="bg-[url(assets/noise.svg)] opacity-30 absolute inset-0 pointer-events-none mix-blend-color"></div>
-                                        )}
-                                    </div>
-                                </RevealOnScroll>
-                            </RevealOn>
-                        </RevealOnScroll>
+                                    </RevealOnScroll>
+                                </RevealOn>
+                            </RevealOnScroll>
+                        </div>
                         <div className="w-full h-full relative">
                             <GoldenHorizontal
                                 className="text-primary text-base-ad absolute inset-0"
@@ -553,7 +618,7 @@ export default function Home() {
                                             <span className="text-accent">
                                                 <RevealText
                                                     initialText=""
-                                                    text={relativePath !== "" ? `./${relativePath}.sh` : ""}
+                                                    text={hashPosition !== "" ? `./${hashPosition}.sh` : ""}
                                                     revealCallback={typewriter}
                                                     delayPerCallback={15}
                                                 />
@@ -562,30 +627,6 @@ export default function Home() {
                                     </div>
                                 }
                             ></GoldenHorizontal>
-                            <div className="absolute bottom-0 right-0 left-0">
-                                <div className="text-primary text-h4-ad opacity-60 font-light no-ligatures">
-                                    <RenderAfter after={renderOutletProgress} allowUnrender={true}>
-                                        <RevealOn
-                                            on={showOutletProgress}
-                                            className="transition-opacity ease-out duration-500"
-                                            preRevealClass="opacity-0"
-                                            postRevealClass="opacity-100"
-                                            resetCallback={(fin) => {
-                                                setRenderOutletProgress(fin);
-                                            }}
-                                        >
-                                            <TranslateOnScroll
-                                                direction="vertical-reverse"
-                                                rate={0.17}
-                                                maxScroll={window.innerHeight}
-                                                start={2.5 * window.innerHeight}
-                                            >
-                                                <ScrollProgress targetElementId="main" />
-                                            </TranslateOnScroll>
-                                        </RevealOn>
-                                    </RenderAfter>
-                                </div>
-                            </div>
                         </div>
                         <div className="bottom-0 left-0 right-0 text-primary text-base-ad p-12 flex justify-end fixed z-0">
                             <RevealOn
@@ -727,7 +768,7 @@ export default function Home() {
                 </div>
                 <div ref={outletDiv} className="relative z-1">
                     {/* <div className="bg-[url(assets/noise.svg)] opacity-40 absolute inset-0 mix-blend-color-dodge"></div> */}
-                    <Outlet context={{ relativePath } satisfies HomeContextType} />
+                    <Outlet context={{ relativePath: hashPosition } satisfies HomeContextType} />
                 </div>
             </div>
         </>
