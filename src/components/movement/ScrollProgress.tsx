@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { ResizeEvent, ScrollEvent } from "../../functions/subscribeEvents";
+import { ResizeEvent, ScrollEventThrottled } from "../../functions/subscribeEvents";
 
 export default function ScrollProgress({ targetElementId }: { targetElementId: string }) {
     const parent = useRef<HTMLDivElement>(null);
@@ -51,7 +51,7 @@ export default function ScrollProgress({ targetElementId }: { targetElementId: s
             const progress = ((viewportBottom - elTop) / targetEl.offsetHeight) * 100;
             setProgress(progress >= 0 && targetEl.offsetHeight ? progress : 0);
         };
-        ScrollEvent.subscribe(updateProgress);
+        ScrollEventThrottled.subscribe(updateProgress);
 
         /**
          * generating "=" spans
@@ -69,7 +69,7 @@ export default function ScrollProgress({ targetElementId }: { targetElementId: s
         return () => {
             observer.disconnect();
             ResizeEvent.unsubscribe(resizeCall);
-            ScrollEvent.unsubscribe(updateProgress);
+            ScrollEventThrottled.unsubscribe(updateProgress);
             setReady(false);
         };
     }, []);
