@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import { MouseMoveEvent, ScrollEvent } from "../../functions/subscribeEvents";
+import delay from "../../functions/delay";
 
 type Coordinate = { x: number; y: number };
 
@@ -16,6 +17,9 @@ export default function CursorFollower({
     children: ReactNode;
     filter?: ReactNode;
 }) {
+    const FPS = 10;
+    const targetFps = 60;
+
     const [visible, setVisisble] = useState<boolean>(false);
     const parent = useRef<HTMLDivElement>(null);
 
@@ -35,7 +39,7 @@ export default function CursorFollower({
     }
 
     const currentPos = useRef<Coordinate>({ x: 0, y: 0 });
-    function updatePos(coordinate: Coordinate) {
+    function updatePos(coordinate: Coordinate, ratePerFrame: number) {
         currentPos.current.x += (coordinate.x - currentPos.current.x) * ratePerFrame;
         currentPos.current.y += (coordinate.y - currentPos.current.y) * ratePerFrame;
     }
@@ -67,7 +71,7 @@ export default function CursorFollower({
     }
 
     function moveElement(element: HTMLDivElement, coordinate: Coordinate) {
-        updatePos(coordinate);
+        updatePos(coordinate, ratePerFrame * (targetFps / FPS));
         element.style.left = currentPos.current.x + "px";
         element.style.top = currentPos.current.y + "px";
     }
@@ -77,14 +81,15 @@ export default function CursorFollower({
         MouseMoveEvent.subscribe(updateMousePos);
         ScrollEvent.subscribe(updateMousePosOnScroll);
 
-        const FPS = 60;
         const interval = 1000 / FPS;
 
         let frame = 0;
 
         let lastTime = 0;
-        const animate = (time: DOMHighResTimeStamp) => {
-            if (time - lastTime < interval) {
+        const animate = async (time: DOMHighResTimeStamp) => {
+            const timeLeft = interval - (time - lastTime);
+            if (timeLeft > 0) {
+                await delay(timeLeft);
                 frame = requestAnimationFrame(animate);
                 return;
             }
