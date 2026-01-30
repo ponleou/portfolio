@@ -1,21 +1,37 @@
-import { useOutletContext } from "react-router";
 import RevealOn from "../components/movement/RevealOn";
 import WindowCard from "../components/WindowCard";
 import profile from "../content/profile";
-import type { HomeContextType } from "../types/home";
+import { useEffect, useRef, useState } from "react";
+import { ScrollEvent } from "../functions/subscribeEvents";
 
 export default function About() {
-    const { reveal } = useOutletContext<HomeContextType>();
+    const [reveal, setReveal] = useState(false);
+    const parent = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        if (!parent.current) return;
+
+        const watchReveal = () => {
+            if (parent.current!.getBoundingClientRect().top - window.innerHeight <= 0) setReveal(true);
+            else setReveal(false);
+        };
+
+        ScrollEvent.subscribe(watchReveal);
+
+        return () => {
+            ScrollEvent.unsubscribe(watchReveal);
+        };
+    }, []);
 
     return (
-        <div className="px-24 py-48 min-h-dvh" id="main">
+        <div className="px-24 py-48 min-h-dvh flex" id="about">
             <RevealOn
-                className="transition-opacity ease-out duration-500"
-                preRevealClass="opacity-0"
-                postRevealClass="opacity-100"
+                className="transition-all ease-out duration-500 grow flex"
+                preRevealClass="opacity-0 -translate-y-20"
+                postRevealClass="opacity-100 -translate-y-0"
                 on={reveal}
             >
-                <div className="max-w-[1280px] mx-auto">
+                <div ref={parent} className="grow my-auto max-w-md-static mx-auto">
                     <WindowCard>
                         <div className="flex flex-col-reverse md:flex-row text-primary gap-24 overflow-hidden">
                             <div className="relative self-center md:self-auto text-ascii-sm w-[111ch]">

@@ -41,5 +41,6 @@ class SubscribeEvents<T extends keyof WindowEventMap> {
 }
 
 export const ScrollEvent = new SubscribeEvents("scroll", 100);
+export const ScrollEventThrottled = new SubscribeEvents("scroll", 500);
 export const ResizeEvent = new SubscribeEvents("resize");
 export const MouseMoveEvent = new SubscribeEvents("mousemove", 100);

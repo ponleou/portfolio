@@ -1,108 +1,13 @@
-import project_0 from "@data/projects-0.json";
-import project_1 from "@data/projects-1.json";
-import { projectList } from "./projects_source";
+export const projectList: Array<string> = [
+    "ponleou/pipetron",
+    "ponleou/dotfiles",
+    "ponleou/rockscale",
+    "ponleou/portfolio",
+    "ponleou/Audio-Visualiser",
+    "ponleou/EcoRound",
+    "ponleou/Find-The-Fake-Game",
+    "ponleou/project-penkwin",
+    "ponleou/Intrusion-Detection-System",
+];
 
-export const languageColors: Record<string, string> = {
-    JavaScript: "#f1e05a",
-    TypeScript: "#3178c6",
-    Python: "#3572A5",
-    Java: "#b07219",
-    C: "#555555",
-    "C++": "#f34b7d",
-    "C#": "#178600",
-    PHP: "#4F5D95",
-    Ruby: "#701516",
-    Go: "#00ADD8",
-    Rust: "#dea584",
-    Swift: "#F05138",
-    Kotlin: "#A97BFF",
-    Dart: "#00B4AB",
-    HTML: "#e34c26",
-    CSS: "#563d7c",
-    Shell: "#89e051",
-    PowerShell: "#012456",
-    "Objective-C": "#438eff",
-    Scala: "#c22d40",
-    Perl: "#0298c3",
-    Haskell: "#5e5086",
-    Lua: "#000080",
-    R: "#198CE7",
-    Vue: "#41b883",
-    MATLAB: "#e16737",
-    Assembly: "#6E4C13",
-    "Vim Script": "#199f4b",
-    Elixir: "#6e4a7e",
-    Clojure: "#db5855",
-    Erlang: "#B83998",
-};
-
-type Project = {
-    name: string;
-    description: string;
-    language: string;
-    license: {
-        name: string;
-        url: string;
-    };
-    url: string;
-    alt_url: string;
-};
-
-type ProjectData = {
-    name: string;
-    description: string | null;
-    language: string;
-    license: {
-        name: string;
-        url: string;
-    } | null;
-    clone_url: string;
-};
-
-export type ProjectRepo = (typeof projectList)[number];
-
-const fileList = [project_0, project_1];
-const fallbackUrl = {
-    main: "https://codeberg.org/",
-    alt: "https://github.com/",
-};
-
-function getProjects(): Array<Project> {
-    const projects: Array<Project> = [];
-
-    for (const projectRepo of projectList) {
-        const project: Project = {
-            name: "",
-            description: "",
-            language: "",
-            license: {
-                name: "",
-                url: "",
-            },
-            url: "",
-            alt_url: "",
-        };
-
-        for (const [index, file] of fileList.entries()) {
-            if (!(projectRepo in file)) continue;
-            const data = (file as Record<ProjectRepo, ProjectData>)[projectRepo];
-
-            if (!project.name) project.name = data.name;
-            if (!project.description && data.description) project.description = data.description;
-            if (!project.language) project.language = data.language;
-            if (!project.license.name && data.license?.name) project.license.name = data.license.name;
-            if (!project.license.url && data.license?.url) project.license.url = data.license.url;
-            if (index === 0 && !project.url) project.url = data.clone_url;
-            if (index !== 0 && !project.alt_url) project.alt_url = data.clone_url;
-        }
-
-        if (!project.url) project.url = fallbackUrl.main + projectRepo;
-        // if (!project.alt_url) project.alt_url = fallbackUrl.alt + projectRepo;
-
-        projects.push(project);
-    }
-
-    return projects;
-}
-
-export const projects: Array<Project> = getProjects();
+export const apiList = ["https://codeberg.org/api/v1/repos/", "https://api.github.com/repos/"];
