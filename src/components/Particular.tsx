@@ -1,5 +1,6 @@
 import { useEffect, useRef } from "react";
 import { ScrollEventThrottled } from "../functions/subscribeEvents";
+import delay from "../functions/delay";
 
 type component = { x: number; y: number };
 type range<T> = { min: T; max: T };
@@ -117,15 +118,21 @@ export default function Particular({
             ctx.restore();
         }
 
-        private processNextFrame() {
-            this.pos.x += this.speed.x;
-            this.pos.y += this.speed.y;
+        private processNextFrame(animationFps: number, targetFps: number) {
+            this.pos.x += this.speed.x * (targetFps / animationFps);
+            this.pos.y += this.speed.y * (targetFps / animationFps);
         }
 
-        public animateFrame(ctx: CanvasRenderingContext2D, canvasSize: component, allowRespawn: boolean): boolean {
+        public animateFrame(
+            ctx: CanvasRenderingContext2D,
+            canvasSize: component,
+            allowRespawn: boolean,
+            animationFps: number,
+            targetFps: number,
+        ): boolean {
             if (this.currentLife < this.lifespan) {
-                this.currentLife++;
-                this.processNextFrame();
+                this.currentLife += 1 * (targetFps / animationFps);
+                this.processNextFrame(animationFps, targetFps);
 
                 const canvas_rect = canvas.current!.getBoundingClientRect();
 
@@ -136,7 +143,7 @@ export default function Particular({
                     this.pos.y + canvas_rect.top < 0 ||
                     this.pos.y + canvas_rect.top > window.innerHeight
                 ) {
-                    this.currentLife += 2;
+                    this.currentLife += 2 * (targetFps / animationFps);
                 } else {
                     this.drawFrame(ctx);
                 }
@@ -160,7 +167,7 @@ export default function Particular({
         const primaryColor = getComputedStyle(document.documentElement).getPropertyValue(primaryColorVar);
         const accentColor = getComputedStyle(document.documentElement).getPropertyValue(accentColorVar);
 
-        const FPS = 60;
+        const FPS = 15;
         const interval = 1000 / FPS;
 
         let frameId = -1;
@@ -170,7 +177,9 @@ export default function Particular({
         const circles: Array<CircleFrames> = [];
 
         const observer = new ResizeObserver(() => {
-            if (frameId >= 0) cancelAnimationFrame(frameId);
+            if (frameId >= 0) {
+                cancelAnimationFrame(frameId);
+            }
 
             canvas.current!.width = canvas.current!.getBoundingClientRect().width;
             canvas.current!.height = canvas.current!.getBoundingClientRect().height;
@@ -204,8 +213,10 @@ export default function Particular({
         };
 
         let lastTime = 0;
-        const animationLoop = (time: DOMHighResTimeStamp) => {
-            if (time - lastTime < interval) {
+        const animationLoop = async (time: DOMHighResTimeStamp) => {
+            const timeLeft = interval - (time - lastTime);
+            if (timeLeft > 0) {
+                await delay(timeLeft);
                 frameId = requestAnimationFrame(animationLoop);
                 return;
             }
@@ -223,6 +234,8 @@ export default function Particular({
                     context,
                     { x: canvas.current!.width, y: canvas.current!.height },
                     allowRespawn,
+                    FPS,
+                    60,
                 );
 
                 // essentially, if the current circle has died, and it is currently outside of the particle count (respawn not allowed), delete it
