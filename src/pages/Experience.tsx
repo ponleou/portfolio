@@ -2,13 +2,26 @@ import RevealOn from "../components/movement/RevealOn";
 import WindowCard from "../components/WindowCard";
 import Timeline from "../components/Timeline";
 import { works, extras } from "../content/experience";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
+import { ScrollEvent } from "../functions/subscribeEvents";
 
 export default function Experience() {
     const [reveal, setReveal] = useState(false);
+    const parent = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
-        setReveal(true);
+        if (!parent.current) return;
+
+        const watchReveal = () => {
+            if (parent.current!.getBoundingClientRect().top - window.innerHeight <= 0) setReveal(true);
+            else setReveal(false);
+        };
+
+        ScrollEvent.subscribe(watchReveal);
+
+        return () => {
+            ScrollEvent.unsubscribe(watchReveal);
+        };
     }, []);
 
     return (
@@ -19,7 +32,10 @@ export default function Experience() {
                 postRevealClass="opacity-100 -translate-y-0"
                 on={reveal}
             >
-                <div className="grow my-auto flex flex-col max-w-xl-static mx-auto gap-y-24 3xl:flex-row 3xl:justify-between">
+                <div
+                    ref={parent}
+                    className="grow my-auto flex flex-col max-w-xl-static mx-auto gap-y-24 3xl:flex-row 3xl:justify-between"
+                >
                     <div className="flex flex-col mx-auto 3xl:mx-0">
                         <h3 className="text-h3-ad font-bold text-accent">Work Experience</h3>
                         {works.map((work, index) => (
