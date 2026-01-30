@@ -107,6 +107,7 @@ export default function Home() {
     /* Current scroll hash match */
 
     const [hashPosition, setHashPosition] = useState("");
+    const [lastNavClicked, setLastNavClicked] = useState("");
 
     const location = useLocation();
 
@@ -122,7 +123,7 @@ export default function Home() {
             for (const element of elements) {
                 if (!element.el) continue;
 
-                const top = element.el.getBoundingClientRect().top;
+                const top = element.el.getBoundingClientRect().top - window.innerHeight * 0.25;
                 if (top <= 0) {
                     if (maxTop === null) {
                         maxTop = top;
@@ -171,6 +172,7 @@ export default function Home() {
             if (window.scrollY <= window.innerHeight * (innerHeightRatios.outletAtBottom - 0.1)) {
                 // -0.1 because i want the renavigate to happen a bit later when scrolling up
                 navigate("//");
+                setLastNavClicked("");
 
                 ScrollEvent.unsubscribe(returnNavHome);
             }
@@ -181,6 +183,7 @@ export default function Home() {
         const effect = async () => {
             const hash = location.state?.hash || "";
             if (hash) {
+                setLastNavClicked(hash);
                 // this delay should NOT be solving ref or sth, this delay is there for styling purposes only
                 // there is an animation that users should see before it scrolls into view
                 await delay(150);
@@ -516,7 +519,9 @@ export default function Home() {
                         resetCallback={(reveal) => setRevealNavigatorsFooter(reveal)}
                     >
                         {/* top nav bar */}
-                        <div className="top-0 left-0 right-0 text-primary text-base-ad m-6 z-2 fixed">
+                        <div
+                            className={`top-0 left-0 right-0 text-primary text-base-ad m-6 fixed ${showTopNav && "z-2"}`}
+                        >
                             <RevealOnScroll
                                 scrollTo={window.innerHeight * innerHeightRatios.skillsTextAtTop}
                                 preRevealClass="opacity-0"
@@ -618,7 +623,7 @@ export default function Home() {
                                             <span className="text-accent">
                                                 <RevealText
                                                     initialText=""
-                                                    text={hashPosition !== "" ? `./${hashPosition}.sh` : ""}
+                                                    text={lastNavClicked !== "" ? `./${lastNavClicked}.sh` : ""}
                                                     revealCallback={typewriter}
                                                     delayPerCallback={15}
                                                 />
