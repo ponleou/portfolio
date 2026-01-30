@@ -15,7 +15,7 @@ export const works: Array<Work> = [
         company: "Pronto Software",
         location: "Forest Hill, VIC",
         description:
-            "I completed requested features and tickets from customers and users, which involves developing search filters and privacy features on a Ruby on Rails and Vue.js stack. I was also involved in bugfixes, and site changes according to user requests and needs.",
+            "Completed requested features and tickets from customers and users, which involves developing search filters, privacy features, and required bugfixes on a Ruby on Rails and Vue.js stack.",
     },
     {
         position: "Developer Intern",
@@ -24,7 +24,7 @@ export const works: Array<Work> = [
         company: "Trackday",
         location: "South Yarra, VIC",
         description:
-            "I worked on a WordPress site where I built an admin dashboard for a membership management system. The work consisted of developing customer-requested features, fixed bugs in the legacy codebase, and created a custom event-management plugin using PHP and MySQL.",
+            "Built an admin dashboard for a membership management platform, including a custom event-management plugin and bugfixes on legacy code in a Wordpress site with PHP and MySQL.",
     },
     {
         position: "SEBE HelpHub Tutor (SIT102)",
@@ -33,7 +33,7 @@ export const works: Array<Work> = [
         company: "Deakin University",
         location: "Burwood, VIC",
         description:
-            "I assisted students in a HelpHub session for SIT102—Introduction to Programming unit, where I provided one-on-one help, answered questions regarding unit concerns, technical troubleshooting, and assignments.",
+            "Assisted students in a HelpHub session for SIT102—Introduction to Programming unit, providing one-on-one help, technical troubleshooting, and assignments or unit concerns.",
     },
     {
         position: "Web Developer Intern",
@@ -42,7 +42,7 @@ export const works: Array<Work> = [
         company: "ACMCert Indochina (Cambodia) Co., Ltd.",
         location: "Phnom Penh, Cambodia",
         description:
-            "I worked as a front-end Vue.js web developer and designer, completing designs and implementations as requested by stakeholders. I managed a website project, which included origanising tasks, workflow, and deadlines, and also assisted in other web projects.",
+            "Managed a project, and also assisted design and development in other projects with Figma and Vue.js.",
     },
 ];
 
@@ -62,7 +62,7 @@ export const extras: Array<Extra> = [
         company: "Heidi Health",
         location: "Collingwood, VIC",
         description:
-            "The team built a Chatbot wrapper optimised for doctor's appointment notes enquiries within a 7-hour time limit, focused on AI integration in healthcare. The web app was built with Next.js, GROQ, and used Heidi's API and dataset. A vibecoded, proof-of-concept project with Cursor.",
+            "Built a Chatbot wrapper optimised for doctor's appointment notes enquiries within a 7-hour time limit, with Next.js, GROQ, and Heidi's API and dataset. A vibecoded, proof-of-concept project with Cursor.",
     },
     {
         name: "Climate Hack 2024",
@@ -71,7 +71,7 @@ export const extras: Array<Extra> = [
         company: "ActSEA",
         location: "Singapore",
         description:
-            "The team worked towards proposing a mobile application that advocates for cleaner transportation means and usages. We worked on iterative solution planning with our mentor, conducted scientific research and surveys, and prepared a pitch to judges. I was the developer for the team, building the EcoRound app with React.js/Ionic Capacitor and the backend with Flask/Python.",
+            "Developed a mobile application for a project proposal that advocates for cleaner transportation means and usages. Built with React.js/Ionic Capacitor and Flask/Python.",
     },
     {
         name: "DigiLABS Programme",
@@ -80,7 +80,7 @@ export const extras: Array<Extra> = [
         company: "Singapore International Foundation",
         location: "Singapore",
         description:
-            "I participated in an international program focused on solving global issues aligned with UN SDGs using technology and AI. Projects are team-based, where I led a team to develop an AI mental health tracking app using Python, TensorFlow, computer vision technology. Other projects include collaboration with Sustainable Living Labs, and developing an intrusion detection system with Python and Scapy.",
+            "Participated in team-based projects, focused on solving global issues using technology and AI. Worked with TensorFlow for a mental health tracking app, and Scapy to develop an intrusion detection system.",
     },
     {
         name: "Virtual Global Hackathon 2023",
@@ -89,6 +89,6 @@ export const extras: Array<Extra> = [
         company: "Uber",
         location: "International",
         description:
-            "I was the team leader for the hackathon. We achieved top 30 in the hackathon coding category the development of One-Tap using Vue.js, Google Maps API, and Python, and presented the project to judges for 74% score.",
+            "Placed top 30 as the team leader, and developed a transportation app using Vue.js, and Google Maps API.",
     },
 ];
