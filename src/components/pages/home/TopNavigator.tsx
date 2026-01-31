@@ -96,7 +96,7 @@ export default function TopNavigator({
         >
             <div className={`${showTopNav && "backdrop-blur-md bg-bg/10"}`}>
                 <div
-                    className={`p-6 overflow-hidden grid grid-cols-[1fr_auto_1fr] gap-12 items-center transition-colors duration-300 ease-out rounded-xl ${showTopNav && "border-primary-20 border"}`}
+                    className={`p-6 overflow-hidden grid grid-cols-[1fr_auto_1fr] gap-12 items-center transition-colors duration-300 ease-out rounded-xl ${showTopNav && "border-primary/20 border"}`}
                 >
                     <div className="flex gap-24 overflow-hidden">
                         <RevealOn
@@ -133,9 +133,16 @@ export default function TopNavigator({
                             className="transition-opacity ease-out duration-300"
                         >
                             <Navigators
+                                onClick={() => {
+                                    setToggleMobNav(false);
+                                }}
+                                active={{
+                                    matchHash: hashPosition,
+                                    navClass: "text-accent gap-0!",
+                                }}
                                 routes={routes}
-                                navClassName="flex gap-4 hover:gap-0 hover:text-accent transition-all ease-out duration-500 font-bold"
-                                navLinkClassName="flex flex-col items-center first:pt-8"
+                                navClassName="flex gap-4 grow group-hover:gap-0 group-hover:text-accent transition-all ease-out duration-500 font-bold"
+                                navLinkClassName="flex flex-col items-center first:pt-8 group"
                                 className={`transition-[max-height] duration-300 ease-out ${toggleMobNav ? "max-h-96" : "max-h-0"} lg:max-h-0 h-fit overflow-hidden flex-col flex gap-6`}
                             ></Navigators>
                         </RevealOn>
