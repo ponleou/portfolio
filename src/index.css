@@ -22,10 +22,6 @@
     --font-mono: "Fira Code", "monospace";
 
     --color-bg: rgb(0, 0, 0);
-    --color-bg-20: rgba(0, 0, 0, 0.2);
-    --color-bg-40: rgba(0, 0, 0, 0.4);
-    --color-bg-60: rgba(0, 0, 0, 0.6);
-    --color-bg-80: rgba(0, 0, 0, 0.8);
     --color-primary: rgb(255, 254, 226);
     --color-primary-20: rgba(255, 254, 226, 0.2);
     --color-primary-40: rgba(255, 254, 226, 0.4);

@@ -172,11 +172,11 @@ export default function About() {
                                 </p>
                                 <br />
                                 <div className="flex">
-                                    <span className="w-[3ch] h-[2em] bg-accent-40"></span>
-                                    <span className="w-[3ch] h-[2em] bg-accent-60"></span>
+                                    <span className="w-[3ch] h-[2em] bg-accent/40"></span>
+                                    <span className="w-[3ch] h-[2em] bg-accent/60"></span>
                                     <span className="w-[3ch] h-[2em] bg-accent"></span>
-                                    <span className="w-[3ch] h-[2em] bg-primary-40"></span>
-                                    <span className="w-[3ch] h-[2em] bg-primary-60"></span>
+                                    <span className="w-[3ch] h-[2em] bg-primary/40"></span>
+                                    <span className="w-[3ch] h-[2em] bg-primary/60"></span>
                                     <span className="w-[3ch] h-[2em] bg-primary"></span>
                                 </div>
                             </div>
