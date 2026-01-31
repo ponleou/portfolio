@@ -40,7 +40,7 @@ export default function Project() {
                             <WindowCard sidebar={true} small={true} className="min-w-xl flex grow">
                                 <div className="flex flex-col gap-4 grow">
                                     <h4 className="font-bold text-h4-ad">{project.name}</h4>
-                                    <p className="grow line-clamp-2">{project.description}</p>
+                                    <p className="grow line-clamp-2 text-primary/80">{project.description}</p>
                                     <div className="flex justify-between mt-4 gap-12 items-end">
                                         <div className="flex gap-8">
                                             <div className="flex gap-2 items-center">

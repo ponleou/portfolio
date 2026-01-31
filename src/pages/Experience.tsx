@@ -36,11 +36,11 @@ export default function Experience() {
                     className="grow my-auto flex flex-row flex-wrap max-w-lg-static 3xl:max-w-xl-static mx-auto gap-y-24 gap-x-24 3xl:gap-x-32 justify-center"
                 >
                     <div className="flex flex-col">
-                        <h3 className="text-h3-ad font-bold text-accent">Work Experience</h3>
+                        <h3 className="text-h3-ad font-bold text-accent/80">Work Experience</h3>
                         <ContentTemplate contents={works} />
                     </div>
                     <div className="flex flex-col">
-                        <h3 className="text-h3-ad font-bold text-accent">Extracurricular</h3>
+                        <h3 className="text-h3-ad font-bold text-accent/80">Extracurricular</h3>
                         <ContentTemplate contents={extras} />
                     </div>
                 </div>
