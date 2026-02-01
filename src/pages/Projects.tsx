@@ -37,7 +37,7 @@ export default function Project() {
                 >
                     {projects.map((project, index) => (
                         <div key={index} className="max-w-4xl flex grow">
-                            <WindowCard sidebar={true} small={true} className="min-w-xl flex grow">
+                            <WindowCard sidebar={"left"} small={true} className="min-w-xl flex grow">
                                 <div className="flex flex-col gap-4 grow">
                                     <h4 className="font-bold text-h4-ad">{project.name}</h4>
                                     <p className="grow line-clamp-2 text-primary/80">{project.description}</p>

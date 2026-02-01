@@ -68,7 +68,7 @@ export default function ContentTemplate({ contents }: { contents: Work[] | Extra
             {contents.map((content: Work | Extra, index: number) => (
                 <Timeline key={index} start={index === 0} end={index === contents.length - 1}>
                     <WindowCard
-                        sidebar={true}
+                        sidebar={"left"}
                         small={true}
                         className="max-w-5xl group"
                         onClick={() => toggleActive(index)}

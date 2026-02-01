@@ -1,3 +1,5 @@
+import { educations } from "./education";
+
 const profile = {
     first_name: "Keo Ponleou",
     preferred_name: "Ponleou",
@@ -23,11 +25,11 @@ const profile = {
         "Wordpress",
     ],
     experience_start: new Date(2021, 0),
-    uni: "Deakin University",
-    degree: "Bachelors of Computer Science",
-    major: "Internet of Things",
-    wam: 89,
-    grad_date: new Date(2027, 5), // june 2027
+    uni: educations[0].institution,
+    degree: educations[0].name,
+    major: educations[0].subname || "N/A",
+    wam: educations[0].grade || -1,
+    grad_date: educations[0].endDate,
     location_state: "Melbourne",
     location_country: "Australia",
     os: "Arch Linux",
