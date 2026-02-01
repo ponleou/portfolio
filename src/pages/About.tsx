@@ -138,7 +138,8 @@ export default function About() {
                                     {profile.wam >= 70 && profile.wam < 80 && "D"}
                                     {profile.wam >= 60 && profile.wam < 70 && "C"}
                                     {profile.wam >= 50 && profile.wam < 60 && "P"}
-                                    {profile.wam < 50 && "N"})
+                                    {profile.wam >= 0 && profile.wam < 50 && "N"}
+                                    {profile.wam < 0 && "N/A"})
                                 </p>
                                 <p>
                                     <span className="font-bold text-accent">Graduate</span>:{" "}
