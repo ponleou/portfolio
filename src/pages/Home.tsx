@@ -386,7 +386,7 @@ export default function Home() {
                                     scrollTo={window.innerHeight * innerHeightRatios.lsCommandAtTop}
                                     resetAt={window.innerHeight * innerHeightRatios.bashCommandAtTop}
                                     preRevealClass="opacity-100"
-                                    postRevealClass="opacity-40"
+                                    postRevealClass="opacity-60"
                                     className="transition-opacity ease-out duration-500"
                                 >
                                     <TopNavigator
@@ -431,7 +431,7 @@ export default function Home() {
                                 <RevealOnScroll
                                     scrollTo={window.innerHeight * innerHeightRatios.outletAtBottom}
                                     preRevealClass="opacity-100"
-                                    postRevealClass="opacity-40"
+                                    postRevealClass="opacity-60"
                                     className="transition-opacity ease-out duration-500"
                                 >
                                     <Footer revealNavigatorsFooter={revealNavigatorsFooter}></Footer>
