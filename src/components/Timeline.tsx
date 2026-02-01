@@ -14,7 +14,7 @@ export default function Timeline({
             <div className="flex flex-col items-center gap-6">
                 {start && <div className={`bg-accent/80 w-px h-8 -mt-4 -mb-12 top-fade-[75%]`}></div>}
                 <div className="bg-accent/80 text-base-ad rounded-full w-4 h-4 mt-6"></div>
-                <div className={`bg-accent/80 w-px grow ${!end ? "-mb-6" : "bottom-fade-[50%]"}`}></div>
+                <div className={`bg-accent/80 w-px grow ${!end ? "-mb-6 top-fade-[15%]" : "bottom-fade-[75%]"}`}></div>
             </div>
             <div className={`grow ${!end && "mb-10"}`}>{children}</div>
         </div>
