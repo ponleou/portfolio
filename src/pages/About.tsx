@@ -31,7 +31,7 @@ export default function About() {
                 postRevealClass="opacity-100 -translate-y-0"
                 on={reveal}
             >
-                <div ref={parent} className="grow my-auto max-w-md-static mx-auto">
+                <div ref={parent} className="grow my-auto max-w-md-static 3xl:max-w-lg-static mx-auto">
                     <WindowCard>
                         <div className="flex flex-col-reverse md:flex-row text-primary gap-24 overflow-hidden">
                             <div className="relative self-center md:self-auto text-ascii-sm w-[111ch]">
@@ -138,7 +138,8 @@ export default function About() {
                                     {profile.wam >= 70 && profile.wam < 80 && "D"}
                                     {profile.wam >= 60 && profile.wam < 70 && "C"}
                                     {profile.wam >= 50 && profile.wam < 60 && "P"}
-                                    {profile.wam < 50 && "N"})
+                                    {profile.wam >= 0 && profile.wam < 50 && "N"}
+                                    {profile.wam < 0 && "N/A"})
                                 </p>
                                 <p>
                                     <span className="font-bold text-accent">Graduate</span>:{" "}
@@ -172,11 +173,11 @@ export default function About() {
                                 </p>
                                 <br />
                                 <div className="flex">
-                                    <span className="w-[3ch] h-[2em] bg-accent-40"></span>
-                                    <span className="w-[3ch] h-[2em] bg-accent-60"></span>
+                                    <span className="w-[3ch] h-[2em] bg-accent/40"></span>
+                                    <span className="w-[3ch] h-[2em] bg-accent/60"></span>
                                     <span className="w-[3ch] h-[2em] bg-accent"></span>
-                                    <span className="w-[3ch] h-[2em] bg-primary-40"></span>
-                                    <span className="w-[3ch] h-[2em] bg-primary-60"></span>
+                                    <span className="w-[3ch] h-[2em] bg-primary/40"></span>
+                                    <span className="w-[3ch] h-[2em] bg-primary/60"></span>
                                     <span className="w-[3ch] h-[2em] bg-primary"></span>
                                 </div>
                             </div>

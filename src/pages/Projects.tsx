@@ -33,14 +33,14 @@ export default function Project() {
             >
                 <div
                     ref={parent}
-                    className="grow my-auto max-w-xl-static mx-auto flex flex-wrap gap-12 text-base-ad text-primary justify-center"
+                    className="grow my-auto max-w-lg-static 3xl:max-w-xl-static mx-auto flex flex-wrap gap-12 text-base-ad text-primary justify-center"
                 >
                     {projects.map((project, index) => (
                         <div key={index} className="max-w-4xl flex grow">
-                            <WindowCard sidebar={true} small={true} className="min-w-xl flex grow">
+                            <WindowCard sidebar={"left"} small={true} className="min-w-xl flex grow">
                                 <div className="flex flex-col gap-4 grow">
                                     <h4 className="font-bold text-h4-ad">{project.name}</h4>
-                                    <p className="grow line-clamp-2">{project.description}</p>
+                                    <p className="grow line-clamp-2 text-primary/80">{project.description}</p>
                                     <div className="flex justify-between mt-4 gap-12 items-end">
                                         <div className="flex gap-8">
                                             <div className="flex gap-2 items-center">

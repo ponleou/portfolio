@@ -22,10 +22,6 @@
     --font-mono: "Fira Code", "monospace";
 
     --color-bg: rgb(0, 0, 0);
-    --color-bg-20: rgba(0, 0, 0, 0.2);
-    --color-bg-40: rgba(0, 0, 0, 0.4);
-    --color-bg-60: rgba(0, 0, 0, 0.6);
-    --color-bg-80: rgba(0, 0, 0, 0.8);
     --color-primary: rgb(255, 254, 226);
     --color-primary-20: rgba(255, 254, 226, 0.2);
     --color-primary-40: rgba(255, 254, 226, 0.4);
@@ -112,6 +108,12 @@
     -webkit-mask-image: linear-gradient(to top, black calc(100% - --value([*])), transparent 100%);
 }
 
+@utility bottom-fade-* {
+    overflow: hidden;
+    mask-image: linear-gradient(to bottom, black calc(100% - --value([*])), transparent 100%);
+    -webkit-mask-image: linear-gradient(to bottom, black calc(100% - --value([*])), transparent 100%);
+}
+
 @layer components {
     /* Ratio: 1.2 */
     /* < 768px uses mob version */
@@ -193,6 +195,18 @@
         @supports (-moz-appearance: none) {
             .text-ascii-sm {
                 --template-leading-ascii-sm-ad: 1.138em;
+            }
+        }
+    }
+
+    @media screen and (min-width: 1920px) {
+        html {
+            font-size: 75%;
+        }
+
+        @supports (-moz-appearance: none) {
+            .text-ascii-sm {
+                --template-leading-ascii-sm-ad: 1.084em;
             }
         }
     }
