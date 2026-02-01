@@ -96,9 +96,9 @@ export default function TopNavigator({
         >
             <div className={`${showTopNav && "backdrop-blur-md bg-bg/10"}`}>
                 <div
-                    className={`p-6 overflow-hidden grid grid-cols-[1fr_auto_1fr] gap-12 items-center transition-colors duration-300 ease-out rounded-xl ${showTopNav && "border-primary/20 border"}`}
+                    className={`p-6 overflow-hidden grid grid-cols-[1fr_auto_1fr] lg:gap-12 items-center transition-colors duration-300 ease-out rounded-xl ${showTopNav && "border-primary/20 border"}`}
                 >
-                    <div className="flex gap-24 overflow-hidden">
+                    <div className="flex lg:gap-24 overflow-hidden">
                         <RevealOn
                             on={showTopNav}
                             preRevealClass="opacity-0 pointer-events-none"
@@ -147,7 +147,7 @@ export default function TopNavigator({
                             ></Navigators>
                         </RevealOn>
                     </div>
-                    <div className="flex gap-24 justify-end overflow-hidden self-start lg:self-auto">
+                    <div className="flex lg:gap-24 justify-end overflow-hidden self-start lg:self-auto">
                         <RevealOn
                             on={showTopNav}
                             preRevealClass="opacity-0 pointer-events-none"

@@ -26,15 +26,15 @@ export default function About() {
     return (
         <div className="px-24 py-48 min-h-dvh flex" id="about">
             <RevealOn
-                className="transition-all ease-out duration-500 grow flex"
+                className="transition-all ease-out duration-500 grow flex min-w-0"
                 preRevealClass="opacity-0 -translate-y-20"
                 postRevealClass="opacity-100 -translate-y-0"
                 on={reveal}
             >
-                <div ref={parent} className="grow my-auto max-w-md-static 3xl:max-w-lg-static mx-auto">
-                    <WindowCard>
-                        <div className="flex flex-col-reverse md:flex-row text-primary gap-24 overflow-hidden">
-                            <div className="relative self-center md:self-auto text-ascii-sm w-[111ch]">
+                <div ref={parent} className="grow my-auto max-w-md-static 3xl:max-w-lg-static mx-auto min-w-0">
+                    <WindowCard className="overflow-hidden min-w-0">
+                        <div className="flex flex-col-reverse md:flex-row text-primary gap-24 overflow-hidden min-w-0">
+                            <div className="relative self-center md:self-auto text-ascii-sm max-w-[111ch] min-w-0">
                                 {`                                             +++=++ +++++
                                         -:-.::.::--:-: . ..::
                                       ..::..... ::.....: .... .:.
