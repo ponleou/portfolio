@@ -30,17 +30,20 @@ export default function Education() {
                 postRevealClass="opacity-100 translate-y-0"
                 on={reveal}
             >
-                <div ref={parent} className="flex flex-col grow text-primary text-base-ad relative gap-y-12">
+                <div ref={parent} className="flex flex-col text-primary text-base-ad relative gap-y-12">
                     <div className="absolute inset-0 pointer-events-none">
-                        <div className="h-1/2 w-px mx-auto bg-accent top-fade-[2.5rem]"></div>
-                        <div className="h-1/2 w-px mx-auto bg-accent bottom-fade-[75%]"></div>
+                        <div className="h-1/2 w-px ml-2 -translate-x-1/2 md:translate-x-0 md:mx-auto bg-accent top-fade-[2.5rem]"></div>
+                        <div className="h-1/2 w-px ml-2 -translate-x-1/2 md:translate-x-0 md:mx-auto bg-accent bottom-fade-[75%]"></div>
                     </div>
                     {educations.map((education, index) => (
-                        <div key={index} className="grid grid-cols-[1fr_auto_1fr] gap-x-12">
-                            {index % 2 === 1 && <div></div>}
+                        <div key={index} className="grid grid-cols-[auto_1fr] md:grid-cols-[1fr_auto_1fr] gap-x-12">
+                            {index % 2 === 1 && <div className="hidden md:block"></div>}
                             {index % 2 === 1 && <div className="mt-10 w-4 h-4 rounded-full bg-accent"></div>}
+                            {index % 2 === 0 && (
+                                <div className="block md:hidden mt-10 w-4 h-4 rounded-full bg-accent"></div>
+                            )}
                             <WindowCard
-                                className={`${index % 2 === 1 ? "justify-self-start" : "justify-self-end"}  max-w-3xl flex gap-4 flex-col w-full`}
+                                className={`${index % 2 === 1 ? "" : "md:justify-self-end"} md:max-w-3xl flex gap-4 flex-col md:w-full`}
                                 small={true}
                                 sidebar={index % 2 === 1 ? "left" : "right"}
                             >
@@ -93,8 +96,10 @@ export default function Education() {
                                     ))}
                                 </ul>
                             </WindowCard>
-                            {index % 2 === 0 && <div className="mt-10 w-4 h-4 rounded-full bg-accent"></div>}
-                            {index % 2 === 0 && <div></div>}
+                            {index % 2 === 0 && (
+                                <div className="hidden md:block mt-10 w-4 h-4 rounded-full bg-accent"></div>
+                            )}
+                            {index % 2 === 0 && <div className="hidden md:block"></div>}
                         </div>
                     ))}
                 </div>
