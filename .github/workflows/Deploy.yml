@@ -82,3 +82,20 @@ jobs:
               with:
                   github_token: ${{ secrets.GITHUB_TOKEN }}
                   publish_dir: ./dist
+
+    mirror:
+        name: Mirror gh-pages
+        needs: deploy
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v4
+              with:
+                  ref: gh-pages
+                  fetch-depth: 0
+
+            - name: Push to CodeBerg
+              run: |
+                  git remote add codeberg https://${{ secrets.CODEBERG_USERNAME }}:${{ secrets.CODEBERG_PAT }}@codeberg.org/ponleou/portfolio.git
+                  git push codeberg gh-pages --force
