@@ -8,6 +8,47 @@ export default function About() {
     const [reveal, setReveal] = useState(false);
     const parent = useRef<HTMLDivElement>(null);
 
+    const [now, setNow] = useState(new Date());
+
+    useEffect(() => {
+    const interval = setInterval(() => setNow(new Date()), 1000);
+    return () => clearInterval(interval);
+    }, []);
+
+    function utcOffset(tz: string): number {
+        const now = new Date();
+        const tzDate = new Date(now.toLocaleString("en-US", { timeZone: tz }));
+        const utcDate = new Date(now.toLocaleString("en-US", { timeZone: "UTC" }));
+        return (tzDate.getTime() - utcDate.getTime()) / 3600000;
+    }
+
+    function timeDiffString(): string {
+        const utcDiff = utcOffset(profile.timezone)
+        const utcHourDiff = Math.abs(Math.floor(utcDiff));
+        const utcMinDiff = Math.abs((utcDiff % 1) * 60);
+
+
+        const timeDiff = utcOffset(profile.timezone) - utcOffset(Intl.DateTimeFormat().resolvedOptions().timeZone);
+        const hourDiff = Math.abs(Math.floor(timeDiff));
+        const minDiff = Math.abs((timeDiff % 1) * 60);
+
+        let text = "";
+
+        if (timeDiff === 0) text = "same time ";
+        else {
+            if (hourDiff !== 0) text += hourDiff + "h ";
+
+            if (minDiff !== 0) text += minDiff + "min ";
+
+            if (timeDiff > 0) text += "ahead ";
+            else text += "behind ";
+        }
+
+        text += `/ UTC ${utcDiff >= 0 ? "+" : "-"}${utcHourDiff}:${String(utcMinDiff).padStart(2, '0')}`
+
+        return text;
+    }
+
     useEffect(() => {
         if (!parent.current) return;
 
@@ -124,6 +165,21 @@ export default function About() {
                                 </p>
                                 <br />
                                 <p>
+                                    <span className="font-bold text-accent">Location</span>: {profile.location_state},{" "}
+                                    {profile.location_country}
+                                </p>
+                                <p>
+                                    <span className="font-bold text-accent">Time</span>:{" "}
+                                    {now.toLocaleTimeString("en-AU", {
+                                        timeZone: profile.timezone,
+                                        hour: "2-digit",
+                                        minute: "2-digit",
+                                        second: "2-digit"
+                                    })}{" "}
+                                    ({timeDiffString()})
+                                </p>
+                                <br />
+                                <p>
                                     <span className="font-bold text-accent">Institution</span>: {profile.uni}
                                 </p>
                                 <p>
@@ -145,10 +201,6 @@ export default function About() {
                                     <span className="font-bold text-accent">Graduate</span>:{" "}
                                     {profile.grad_date.toLocaleDateString("en-AU", { month: "long", year: "numeric" })}
                                     {new Date() < profile.grad_date && " (expected)"}
-                                </p>
-                                <p>
-                                    <span className="font-bold text-accent">Location</span>: {profile.location_state},{" "}
-                                    {profile.location_country}
                                 </p>
                                 <br />
                                 <p>

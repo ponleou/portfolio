@@ -32,6 +32,7 @@ const profile = {
     grad_date: educations[0].endDate,
     location_state: "Melbourne",
     location_country: "Australia",
+    timezone: "Australia/Melbourne",
     os: "Arch Linux",
     os_arch: "x86_64",
     wm: "SwayFX",
