@@ -1,4 +1,4 @@
-export const projectList: Array<string> = [
+export const ownProjectList: Array<string> = [
     "ponleou/pipetron",
     "ponleou/dotfiles",
     "ponleou/rockscale",
@@ -9,5 +9,15 @@ export const projectList: Array<string> = [
     "ponleou/project-penkwin",
     "ponleou/Intrusion-Detection-System",
 ];
+
+export const contributeProjectList: Array<string> = [
+    "m-obeid/Mixtapes",
+    "s-adi-dev/nmgui",
+]
+
+export const projectList: Array<string> = [
+    ...ownProjectList,
+    ...contributeProjectList,
+]
 
 export const apiList = ["https://codeberg.org/api/v1/repos/", "https://api.github.com/repos/"];

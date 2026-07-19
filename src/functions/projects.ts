@@ -1,6 +1,7 @@
 import project_0 from "@data/projects-0.json";
 import project_1 from "@data/projects-1.json";
-import { projectList } from "../content/projects";
+import { contributeProjectList, ownProjectList } from "../content/projects";
+import type { Project, ProjectData } from "../types/projects";
 
 export const languageColors: Record<string, string> = {
     JavaScript: "#f1e05a",
@@ -36,77 +37,67 @@ export const languageColors: Record<string, string> = {
     Erlang: "#B83998",
 };
 
-type Project = {
-    name: string;
-    description: string;
-    language: string;
-    stars: number;
-    license: {
-        name: string;
-        url: string;
-    };
-    url: string;
-    alt_url: string;
-};
-
-type ProjectData = {
-    name: string;
-    description: string | null;
-    language: string;
-    stars_count: number;
-    stargazers_count: number;
-    license: {
-        name: string;
-        url: string;
-    } | null;
-    clone_url: string;
-};
-
-export type ProjectRepo = (typeof projectList)[number];
+type ProjectRepo = (typeof ownProjectList)[number];
 
 const fileList = [project_0, project_1];
-const fallbackUrl = {
-    main: "https://codeberg.org/",
-    alt: "https://github.com/",
-};
+// const fallbackUrl = {
+//     main: "https://codeberg.org/",
+//     alt: "https://github.com/",
+// };
+
+function fetchAndParseProject(projectRepo: string): Project {
+    const project: Project = {
+        name: "",
+        description: "",
+        language: "",
+        stars: 0,
+        license: {
+            name: "",
+            url: "",
+        },
+        url: "",
+        alt_url: "",
+    };
+
+    for (const [index, file] of fileList.entries()) {
+        if (!(projectRepo in file)) continue;
+        const data = (file as Record<ProjectRepo, ProjectData>)[projectRepo];
+
+        if (!project.name) project.name = data.name;
+        if (!project.description && data.description) project.description = data.description;
+        if (!project.language) project.language = data.language;
+
+        if (data.stars_count && project.stars < data.stars_count) project.stars = data.stars_count;
+        if (data.stargazers_count && project.stars < data.stargazers_count) project.stars = data.stargazers_count;
+
+        if (!project.license.name && data.license?.name) project.license.name = data.license.name;
+        if (!project.license.url && data.license?.url) project.license.url = data.license.url;
+        if (index === 0 && !project.url) project.url = data.clone_url;
+        if (index !== 0 && !project.alt_url) project.alt_url = data.clone_url;
+    }
+
+    // if (!project.url) project.url = fallbackUrl.main + projectRepo;
+    // if (!project.alt_url) project.alt_url = fallbackUrl.alt + projectRepo;
+
+    return project;
+}
 
 function getProjects(): Array<Project> {
     const projects: Array<Project> = [];
 
-    for (const projectRepo of projectList) {
-        const project: Project = {
-            name: "",
-            description: "",
-            language: "",
-            stars: 0,
-            license: {
-                name: "",
-                url: "",
-            },
-            url: "",
-            alt_url: "",
-        };
+    for (const projectRepo of ownProjectList) {
+        const project = fetchAndParseProject(projectRepo)
+        projects.push(project);
+    }
 
-        for (const [index, file] of fileList.entries()) {
-            if (!(projectRepo in file)) continue;
-            const data = (file as Record<ProjectRepo, ProjectData>)[projectRepo];
+    return projects;
+}
 
-            if (!project.name) project.name = data.name;
-            if (!project.description && data.description) project.description = data.description;
-            if (!project.language) project.language = data.language;
+function getContributeProjects(): Array<Project> {
+    const projects: Array<Project> = [];
 
-            if (data.stars_count && project.stars < data.stars_count) project.stars = data.stars_count;
-            if (data.stargazers_count && project.stars < data.stargazers_count) project.stars = data.stargazers_count;
-
-            if (!project.license.name && data.license?.name) project.license.name = data.license.name;
-            if (!project.license.url && data.license?.url) project.license.url = data.license.url;
-            if (index === 0 && !project.url) project.url = data.clone_url;
-            if (index !== 0 && !project.alt_url) project.alt_url = data.clone_url;
-        }
-
-        if (!project.url) project.url = fallbackUrl.main + projectRepo;
-        // if (!project.alt_url) project.alt_url = fallbackUrl.alt + projectRepo;
-
+    for (const projectRepo of contributeProjectList) {
+        const project = fetchAndParseProject(projectRepo)
         projects.push(project);
     }
 
@@ -114,3 +105,4 @@ function getProjects(): Array<Project> {
 }
 
 export const projects: Array<Project> = getProjects();
+export const contributeProjects: Array<Project> = getContributeProjects();
