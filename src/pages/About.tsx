@@ -44,7 +44,7 @@ export default function About() {
             else text += "behind ";
         }
 
-        text += `/ UTC ${utcDiff >= 0 ? "+" : "-"}${utcHourDiff}:${String(utcMinDiff).padStart(2, '0')}`
+        text += `/ UTC${utcDiff >= 0 ? "+" : "-"}${utcHourDiff}:${String(utcMinDiff).padStart(2, '0')}`
 
         return text;
     }

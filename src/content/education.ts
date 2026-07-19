@@ -21,7 +21,7 @@ export const educations: Array<Education> = [
         locationSpecific: "Burwood",
         locationArea: "VIC",
         points: ["IT Student Academy Member"],
-        grade: 90,
+        grade: 89,
         gradeLabel: "WAM",
     },
     {
