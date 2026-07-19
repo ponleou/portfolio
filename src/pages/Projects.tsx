@@ -25,7 +25,7 @@ export default function Project() {
     return (
         <div className="px-24 py-48 min-h-dvh flex" id="projects">
             <RevealOn
-                className="transition-all ease-out duration-500 grow flex flex-col gap-24"
+                className="transition-all ease-out duration-500 grow flex flex-col gap-36"
                 preRevealClass="opacity-0 -translate-y-20"
                 postRevealClass="opacity-100 translate-y-0"
                 on={reveal}
