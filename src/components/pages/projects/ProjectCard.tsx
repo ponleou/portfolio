@@ -36,8 +36,9 @@ export default function ProjectCard({ project, showOwner = false }: { project: P
                             </div>
                         )}
                         {project.license.name && (
+                            
                             <a
-                                className="underline hover:no-underline transition-color ease-out duration-300 flex gap-2 items-center"
+                                className={`transition-color ease-out duration-300 flex gap-2 items-center ${project.license.url ? "underline hover:no-underline" : "pointer-events-none"}`}
                                 href={project.license.url}
                                 target="_blank"
                             >
