@@ -48,6 +48,7 @@ const fileList = [project_0, project_1];
 function fetchAndParseProject(projectRepo: string): Project {
     const project: Project = {
         name: "",
+        owner: "",
         description: "",
         language: "",
         stars: 0,
@@ -64,6 +65,7 @@ function fetchAndParseProject(projectRepo: string): Project {
         const data = (file as Record<ProjectRepo, ProjectData>)[projectRepo];
 
         if (!project.name) project.name = data.name;
+        if (!project.owner) project.owner = data.owner.login;
         if (!project.description && data.description) project.description = data.description;
         if (!project.language) project.language = data.language;
 

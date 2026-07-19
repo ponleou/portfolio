@@ -44,7 +44,7 @@ export default function Project() {
                         className="flex flex-wrap grow gap-12 justify-center"
                     >
                         {contributeProjects.map((project, index) => (
-                            <ProjectCard project={project} key={index}></ProjectCard>
+                            <ProjectCard project={project} showOwner={true} key={index}></ProjectCard>
                         ))}
                     </div>
                 </div>
