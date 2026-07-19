@@ -1,5 +1,6 @@
 export type Project = {
     name: string;
+    owner: string;
     description: string;
     language: string;
     stars: number;
@@ -13,6 +14,9 @@ export type Project = {
 
 export type ProjectData = {
     name: string;
+    owner: {
+        login: string;
+    };
     description: string | null;
     language: string;
     stars_count: number;

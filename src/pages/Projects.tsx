@@ -25,26 +25,26 @@ export default function Project() {
     return (
         <div className="px-24 py-48 min-h-dvh flex" id="projects">
             <RevealOn
-                className="transition-all ease-out duration-500 grow flex flex-col gap-24"
+                className="transition-all ease-out duration-500 grow flex flex-col gap-36"
                 preRevealClass="opacity-0 -translate-y-20"
                 postRevealClass="opacity-100 translate-y-0"
                 on={reveal}
             >
                 <div
                     ref={parent}
-                    className="grow my-auto max-w-lg-static 3xl:max-w-xl-static mx-auto flex flex-wrap gap-12 text-base-ad text-primary justify-center"
+                    className="grow my-auto max-w-lg-static 3xl:max-w-xl-static flex flex-wrap gap-12 justify-center"
                 >
                     {projects.map((project, index) => (
                         <ProjectCard project={project} key={index}></ProjectCard>
                     ))}
                 </div>
-                <div className="flex flex-col items-center gap-12">
-                    <h3 className="text-h3-ad text-accent/80 font-bold">Contributions</h3>
+                <div className="grow my-auto max-w-lg-static 3xl:max-w-xl-static flex flex-col gap-12">
+                    <h3 className="text-h3-ad text-accent/80 font-bold self-center">Contributions</h3>
                     <div
-                        className="grow my-auto max-w-lg-static 3xl:max-w-xl-static mx-auto flex flex-wrap gap-12 text-base-ad text-primary justify-center"
+                        className="flex flex-wrap grow gap-12 justify-center"
                     >
                         {contributeProjects.map((project, index) => (
-                            <ProjectCard project={project} key={index}></ProjectCard>
+                            <ProjectCard project={project} showOwner={true} key={index}></ProjectCard>
                         ))}
                     </div>
                 </div>
