@@ -1,23 +1,27 @@
 export const ownProjectList: Array<string> = [
-    "ponleou/pipetron",
-    "ponleou/dotfiles",
-    "ponleou/rockscale",
-    "ponleou/portfolio",
-    "ponleou/Audio-Visualiser",
-    "ponleou/EcoRound",
-    "ponleou/Find-The-Fake-Game",
-    "ponleou/project-penkwin",
-    "ponleou/Intrusion-Detection-System",
+  "ponleou/pipetron",
+  "ponleou/dotfiles",
+  "ponleou/rockscale",
+  "ponleou/portfolio",
+  "ponleou/sleeper-agent",
+  "ponleou/EcoRound",
+  "ponleou/Audio-Visualiser",
+  "ponleou/Find-The-Fake-Game",
+  "ponleou/project-penkwin",
+  "ponleou/Intrusion-Detection-System",
 ];
 
 export const contributeProjectList: Array<string> = [
-    "m-obeid/Mixtapes",
-    "s-adi-dev/nmgui",
-]
+  "m-obeid/Mixtapes",
+  "s-adi-dev/nmgui",
+];
 
 export const projectList: Array<string> = [
-    ...ownProjectList,
-    ...contributeProjectList,
-]
+  ...ownProjectList,
+  ...contributeProjectList,
+];
 
-export const apiList = ["https://codeberg.org/api/v1/repos/", "https://api.github.com/repos/"];
+export const apiList = [
+  "https://codeberg.org/api/v1/repos/",
+  "https://api.github.com/repos/",
+];
