@@ -32,13 +32,13 @@ export default function Project() {
             >
                 <div
                     ref={parent}
-                    className="grow my-auto max-w-lg-static 3xl:max-w-xl-static flex flex-wrap gap-12 justify-center"
+                    className="grow my-auto mx-auto max-w-lg-static 3xl:max-w-xl-static flex flex-wrap gap-12 justify-center"
                 >
                     {projects.map((project, index) => (
                         <ProjectCard project={project} key={index}></ProjectCard>
                     ))}
                 </div>
-                <div className="grow my-auto max-w-lg-static 3xl:max-w-xl-static flex flex-col gap-12">
+                <div className="grow my-auto mx-auto max-w-lg-static 3xl:max-w-xl-static flex flex-col gap-12">
                     <h3 className="text-h3-ad text-accent/80 font-bold self-center">Contributions</h3>
                     <div
                         className="flex flex-wrap grow gap-12 justify-center"
