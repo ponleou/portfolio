@@ -5,7 +5,7 @@ import Pages from "./pages/Pages";
 
 function Router() {
     return (
-        <BrowserRouter basename="/portfolio">
+        <BrowserRouter>
             <Routes>
                 <Route path="/" element={<Home />}>
                     <Route path="page" element={<Pages />} />
