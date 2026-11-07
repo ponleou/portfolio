@@ -24,9 +24,6 @@ export default function TranslateToCursor({
         mousePos.current.y = event.pageY;
     }
 
-    const shape = { height: 0, width: 0 };
-    const parentPos: Coordinate = { x: 0, y: 0 };
-
     function calculateVector(coord1: Coordinate, coord2: Coordinate): Vector {
         const dx = coord2.x - coord1.x;
         const dy = coord2.y - coord1.y;
@@ -87,7 +84,8 @@ export default function TranslateToCursor({
 
             lastTime = time;
 
-            const parentMiddle: Coordinate = { x: parentPos.x + shape.width / 2, y: parentPos.y + shape.height / 2 };
+            const rect = parent.current!.getBoundingClientRect();
+            const parentMiddle: Coordinate = { x: rect.left + rect.width / 2, y: rect.top + rect.height / 2 };
             const vector = calculateVector(parentMiddle, mousePos.current);
             const { x, y }: Coordinate = calculateTranslate(
                 vector,
@@ -98,26 +96,14 @@ export default function TranslateToCursor({
             parent.current!.style.transform = `translate3d(${x}px, ${y}px, 0)`;
             frame = requestAnimationFrame(animate);
         };
-        frame = requestAnimationFrame(animate);
-
-        const observer = new ResizeObserver(([entry]) => {
-            const { height, width } = entry.contentRect;
-            shape.height = height;
-            shape.width = width;
-
-            const rect = entry.target.getBoundingClientRect();
-            parentPos.x = rect.left;
-            parentPos.y = rect.top;
-        });
-
+        
         if (parent.current) {
-            observer.observe(parent.current);
+            frame = requestAnimationFrame(animate);
         }
 
         return () => {
             MouseMoveEvent.unsubscribe(updateMousePos);
             cancelAnimationFrame(frame);
-            observer.disconnect();
         };
     }, []);
     return (
