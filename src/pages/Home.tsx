@@ -302,7 +302,7 @@ export default function Home() {
                                         preRevealClass="opacity-0 -translate-y-8"
                                         postRevealClass="opacity-100 translate-y-0"
                                     >
-                                        <TranslateToCursor maxTranslate={1} translateMultiplier={0.1}>
+                                        <TranslateToCursor maxTranslate={2.5} translateMultiplier={0.003}>
                                             <h1
                                                 ref={mainTitle}
                                                 className="text-primary text-h1-ad font-bold leading-[1em]"
