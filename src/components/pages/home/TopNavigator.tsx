@@ -64,22 +64,24 @@ export default function TopNavigator({
                 }
             }
 
-            if (hash === "") {
-                for (const element of elements) {
-                    if (!element.el) continue;
+            // calculation is more lenient when hash wasnt set to anything yet (wihtout x0.25 to innerHeight)
+            // if (hash === "") {
+            //     for (const element of elements) {
+            //         if (!element.el) continue;
 
-                    const top = element.el.getBoundingClientRect().top - window.innerHeight;
-                    if (top <= 0) {
-                        if (maxTop === null) {
-                            maxTop = top;
-                            hash = element.hash;
-                        } else if (top >= maxTop) {
-                            maxTop = top;
-                            hash = element.hash;
-                        }
-                    }
-                }
-            }
+            //         const top = element.el.getBoundingClientRect().top - window.innerHeight;
+            //         if (top <= 0) {
+            //             if (maxTop === null) {
+            //                 maxTop = top;
+            //                 hash = element.hash;
+            //             } else if (top >= maxTop) {
+            //                 maxTop = top;
+            //                 hash = element.hash;
+            //             }
+            //         }
+            //     }
+            // }
+            // NOTE: this was used when <Pages/> was separated into /page route
 
             setHashPosition(hash);
         };

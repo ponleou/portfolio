@@ -76,6 +76,14 @@ export default function Contacts() {
                             </a>
                             <a
                                 className="transition-colors duration-500 ease-out hover:text-accent flex"
+                                href={contact.forgejo}
+                                target="_blank"
+                                title="my local forgejo!"
+                            >
+                                <Icon icon="simple-icons:forgejo" height="2.3em" />
+                            </a>
+                            <a
+                                className="transition-colors duration-500 ease-out hover:text-accent flex"
                                 href={contact.linkedin}
                                 target="_blank"
                                 title="LinkedIn"
