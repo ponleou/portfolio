@@ -326,7 +326,7 @@ export default function Home() {
                                         >
                                             <TranslateToCursor maxTranslate={1} translateMultiplier={0.1}>
                                                 <p className="text-h3-ad font-semibold leading-[1em]">
-                                                    {profile.role.toUpperCase()}
+                                                    {profile.hobby.toUpperCase()}
                                                 </p>
                                             </TranslateToCursor>
                                         </RevealOn>
