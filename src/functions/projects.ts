@@ -35,6 +35,8 @@ export const languageColors: Record<string, string> = {
     Elixir: "#6e4a7e",
     Clojure: "#db5855",
     Erlang: "#B83998",
+    Nix: "#7e7eff",
+    SCSS: "#c6538c",
 };
 
 type ProjectRepo = (typeof ownProjectList)[number];
