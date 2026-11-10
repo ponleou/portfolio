@@ -1,6 +1,7 @@
 export const ownProjectList: Array<string> = [
-  "ponleou/pipetron",
   "ponleou/dotfiles",
+  "ponleou/flakes",
+  "ponleou/pipetron",
   "ponleou/rockscale",
   "ponleou/portfolio",
   "ponleou/sleeper-agent",
@@ -14,6 +15,7 @@ export const ownProjectList: Array<string> = [
 export const contributeProjectList: Array<string> = [
   "m-obeid/Mixtapes",
   "s-adi-dev/nmgui",
+  "wrymt/darkly-gtk",
 ];
 
 export const projectList: Array<string> = [
