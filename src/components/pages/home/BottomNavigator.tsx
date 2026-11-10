@@ -14,10 +14,12 @@ export default function BottomNavigator({ revealNavigators }: { revealNavigators
                         className="transition-all ease-out duration-150 bottom-0 left-0 right-0 z-1 p-12 text-accent font-bold"
                         initialRem={1.2}
                         finalRem={1.6}
+                        maxScroll={window.innerHeight * 0.5} // navbar should be max when viewport is at 1.5 of view height, that means the scroll length is 0.5 of view height
                     >
                         <WidthOnScroll
                             initialPercent={100}
                             finalPercent={85}
+                            maxScroll={window.innerHeight * 0.5} // navbar should be max when viewport is at 1.5 of view height, that means the scroll length is 0.5 of view height
                             className="flex justify-center"
                             childClassName="transition-all duration-150 ease-out"
                         >

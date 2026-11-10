@@ -1,22 +1,22 @@
 export const routes = [
     {
-        to: "page",
+        to: "",
         hash: "about",
     },
     {
-        to: "page",
+        to: "",
         hash: "experience",
     },
     {
-        to: "page",
+        to: "",
         hash: "projects",
     },
     {
-        to: "page",
+        to: "",
         hash: "education",
     },
     {
-        to: "page",
+        to: "",
         hash: "contacts",
     },
 ];

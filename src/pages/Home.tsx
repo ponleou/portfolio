@@ -10,9 +10,8 @@ import RevealOn from "../components/movement/RevealOn";
 import TranslateToCursor from "../components/movement/TranslateToCursor";
 import TranslateOnScroll from "../components/movement/TranslateOnScroll";
 import RevealOnScroll from "../components/movement/RevealOnScroll";
-import { Outlet, useLocation, useNavigate } from "react-router";
+import { useLocation } from "react-router";
 import type { InnerHeightRatios } from "../types/home";
-import { ScrollEvent } from "../functions/subscribeEvents";
 import delay from "../functions/delay";
 import profile from "../content/profile";
 import TopNavigator from "../components/pages/home/TopNavigator";
@@ -20,6 +19,7 @@ import SideContacts from "../components/pages/home/SideContacts";
 import BottomNavigator from "../components/pages/home/BottomNavigator";
 import Footer from "../components/pages/home/Footer";
 import Background from "../components/pages/home/Background";
+import Pages from "./Pages";
 
 export default function Home() {
     /**
@@ -63,22 +63,24 @@ export default function Home() {
      * Route location management
      */
     const location = useLocation();
-    const navigate = useNavigate();
+    // const navigate = useNavigate();
     const [lastNavClicked, setLastNavClicked] = useState("");
 
     useEffect(() => {
         // return to home
-        const returnNavHome = () => {
-            if (location.pathname === "/") return;
 
-            if (window.scrollY <= window.innerHeight * (innerHeightRatios.outletAtBottom - 0.1)) {
-                // -0.1 because i want the renavigate to happen a bit later when scrolling up
-                navigate("//");
-                setLastNavClicked("");
+        // this was used when <Pages /> was only rendered in /page route, so scrolling back up will hide the <Pages /> component by renavigating out of /page
+        // const returnNavHome = () => {
+        //     if (location.pathname === "/") return;
 
-                ScrollEvent.unsubscribe(returnNavHome);
-            }
-        };
+        //     if (window.scrollY <= window.innerHeight * (innerHeightRatios.outletAtBottom - 0.1)) {
+        //         // -0.1 because i want the renavigate to happen a bit later when scrolling up
+        //         navigate("//");
+        //         setLastNavClicked("");
+
+        //         ScrollEvent.unsubscribe(returnNavHome);
+        //     }
+        // };
 
         let cancelEffect = false;
 
@@ -97,14 +99,14 @@ export default function Home() {
             await delay(1000);
 
             if (cancelEffect) return;
-            ScrollEvent.subscribe(returnNavHome);
+            // ScrollEvent.subscribe(returnNavHome);
         };
 
         effect();
 
         return () => {
             cancelEffect = true;
-            ScrollEvent.unsubscribe(returnNavHome);
+            // ScrollEvent.unsubscribe(returnNavHome);
         };
     }, [location]);
 
@@ -302,7 +304,7 @@ export default function Home() {
                                         preRevealClass="opacity-0 -translate-y-8"
                                         postRevealClass="opacity-100 translate-y-0"
                                     >
-                                        <TranslateToCursor maxTranslate={1} translateMultiplier={0.1}>
+                                        <TranslateToCursor maxTranslate={2.5} translateMultiplier={0.003}>
                                             <h1
                                                 ref={mainTitle}
                                                 className="text-primary text-h1-ad font-bold leading-[1em]"
@@ -458,7 +460,8 @@ export default function Home() {
                 </div>
                 <div ref={outletDiv} className="relative z-1">
                     {/* <div className="bg-[url(assets/noise.svg)] opacity-40 absolute inset-0 mix-blend-color-dodge"></div> */}
-                    <Outlet />
+                    {/* <Outlet /> */}
+                    <Pages/>
                 </div>
             </div>
         </>
