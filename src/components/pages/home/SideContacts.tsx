@@ -45,11 +45,11 @@ export default function SideContacts() {
                             >
                                 <a
                                     className="transition-colors duration-500 ease-out hover:text-primary"
-                                    href={contact.linkedin}
+                                    href={contact.forgejo}
                                     target="_blank"
-                                    title="LinkedIn"
+                                    title="my local forgejo!"
                                 >
-                                    <Icon icon="mdi:linkedin" width="1em" height="1em" />
+                                    <Icon icon="simple-icons:forgejo" width="1em" height="1em" />
                                 </a>
                             </Lined>
                             <a
